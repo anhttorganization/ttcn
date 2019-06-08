@@ -22,7 +22,7 @@
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<label class="mt-4" for="studentId">Mã sinh viên/ giảng viên:</label>
 									<form:input path="studentId" id="studentId" class="form-control"
-										title="Mã GV/SV có 5/6 kí tự" type="text" pattern=".{5,6}" />
+										title="Mã GV/SV có 5/6 kí tự" type="text" pattern=".{5,6}" required="required"/>
 									<form:errors path="studentId" />
 								</div>
 							</spring:bind>

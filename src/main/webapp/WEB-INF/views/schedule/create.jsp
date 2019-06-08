@@ -31,7 +31,7 @@
 										viên:</label>
 									<form:input path="studentId" id="studentId"
 										class="form-control" title="Mã GV/SV có 5/6 kí tự" type="text"
-										pattern=".{5,6}" />
+										pattern=".{5,6}" required="required"/>
 									<form:errors path="studentId" />
 								</div>
 							</spring:bind>

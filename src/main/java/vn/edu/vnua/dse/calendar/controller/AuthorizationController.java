@@ -92,6 +92,6 @@ public class AuthorizationController {
 			model.addAttribute("authError", true);
 		}
 		
-		return "redirect:index";
+		return "redirect:home";
 	}
 }

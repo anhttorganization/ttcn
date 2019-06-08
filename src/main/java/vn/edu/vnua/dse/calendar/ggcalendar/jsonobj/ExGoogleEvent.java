@@ -10,23 +10,23 @@ public class ExGoogleEvent extends GoogleEvent{
 					+ "\"dateTime\":\"%s\","
 					+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
 					+ "\"sequence\":0,"
-					+ "\"recurrence\":[\"%s\"],"
+//					+ "\"recurrence\":[%s],"
 					+ "\"description\":\"%s\","
-					+ "\"location\":\"%s\""
-					+ " \"visibility\": %s,\r\n" + 
+					+ "\"location\":\"%s\","
+					+ " \"visibility\": \"%s\"" + 
 					"}";
 	
 	public static final String allDayEvent = //start, end, description, location, visibility
 			"{\"summary\":\"%s\","
 			+ "\"start\":{"
-			+ "\"date\":\"%s\","
-			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
-			+ "\"end\":{\"date\":\"%s\","
-			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
+			+ "\"date\":\"%s\"},"
+//			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
+			+ "\"end\":{\"date\":\"%s\"},"
+//			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
 			+ "\"sequence\":0,"
-			+ "\"recurrence\":[\"%s\"],"
+//			+ "\"recurrence\":[%s],"
 			+ "\"description\":\"%s\","
-			+ "\"location\":\"%s\""
-			+ " \"visibility\": %s,\r\n" + 
+			+ "\"location\":\"%s\","
+			+ " \"visibility\": \"%s\"" + 
 			"}";
 }

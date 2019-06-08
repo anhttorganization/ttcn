@@ -25,6 +25,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
@@ -48,25 +49,24 @@ public final class SubjectEventDetails {
 		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semesId);
 
 		ArrayList<String> scheduleJson = scheduleResult.getResult();
-		if (scheduleJson.size() > 0 && scheduleJson != null) {
+		if (scheduleJson.size() > 0) {
 			// return toGoogleEvent(scheduleJson);
 			return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMassage());
 		}
 
-		return new BaseResult<List<GoogleEvent>>(false, null, scheduleResult.getMassage());
+		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>() , scheduleResult.getMassage());
 	}
 
 	private static final ScheduleResult<ArrayList<String>> getSchedule(String studentId, String semesId)
 			throws IOException, NoSuchAlgorithmException, ParseException {
 		// Mo trinh duyet
 		WebDriver driver = ScheduleUtils.openChrome();
-		driver.manage().window().setPosition(new Point(-1000, -1000));
+		//driver.manage().window().setPosition(new Point(-1000, -1000));
 		driver.get(String.format(ScheduleConstant.SCHEDULE_URL, studentId));
 
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 5);
 
-		ScheduleUtils.injectResourceJQuery(driver, "js/MyJQuery.js");
-		JavascriptExecutor jse = ((JavascriptExecutor) driver);
+		
 
 		// check update
 		if (AppUtils.isAlertPresent(driver)) {
@@ -85,13 +85,25 @@ public final class SubjectEventDetails {
 			driver.quit();
 			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), message, null);
 		} else {
+			ScheduleUtils.injectResourceJQuery(driver, "js/MyJQuery.js");
+			JavascriptExecutor jse = ((JavascriptExecutor) driver);
 			String passCap = ScheduleUtils.readResourceFile("js/capcha.js");
 			jse.executeScript(passCap);
-
+			driver.navigate().to(String.format(ScheduleConstant.SCHEDULE_URL, studentId));
 			// chon hoc ky
 			wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
 			Select dropdown = new Select(driver.findElement(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
-			dropdown.selectByValue(semesId);
+			try {
+				dropdown.selectByValue(semesId);
+			}catch (Exception e) {
+				// TODO: handle exception
+				driver.close();
+				driver.quit();
+
+				scheduleHash = null;
+				return new ScheduleResult<ArrayList<String>>(false,  new ArrayList<String>(), "error", scheduleHash);
+			}
+			
 
 			// chon che do xem theo thu tiet
 			WebElement radio = wait
@@ -125,7 +137,7 @@ public final class SubjectEventDetails {
 			driver.quit();
 
 			scheduleHash = null;
-			return new ScheduleResult<ArrayList<String>>(false, null, "error", scheduleHash);
+			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", scheduleHash);
 		}
 
 	}

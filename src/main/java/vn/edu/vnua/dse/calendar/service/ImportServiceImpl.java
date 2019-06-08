@@ -24,19 +24,17 @@ import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.APIWrapper;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.CalendarConstant;
 
-
 @Service("importService")
 public class ImportServiceImpl {
 	@Autowired
-	static
-	APIWrapper aPIWrapper;
-	
-	public static boolean insert(String calendarId, String path) throws IOException {
+	static APIWrapper aPIWrapper;
+
+	public static boolean insert(String calendarId, File file) throws IOException {
 		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 		try {
-			List<String> eventJsons = getEventsFromExcelFile2(path);
-			
-			if(eventJsons.size() > 0) {
+			List<String> eventJsons = getEventsFromExcelFile2(file);
+
+			if (eventJsons.size() > 0) {
 				for (String eventJson : eventJsons) {
 					aPIWrapper.insertEvent(calendarId, eventJson);
 				}
@@ -48,8 +46,7 @@ public class ImportServiceImpl {
 			return false;
 		}
 	}
-	
-	
+
 	@SuppressWarnings("resource")
 	public List<GoogleEvent> getEventsFromExcelFile(String path) {
 		// Đọc một file XSLS.
@@ -58,7 +55,7 @@ public class ImportServiceImpl {
 			inputStream = new FileInputStream(new File(path));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println("Có lỗi khi đọc file");
 			return null;
 		}
@@ -83,7 +80,7 @@ public class ImportServiceImpl {
 		List<GoogleEvent> events = new ArrayList<>();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
-			if(row.getCell(1) != null && row.getCell(2) != null && row.getCell(3) != null && row.getCell(4) != null) {
+			if (row.getCell(1) != null && row.getCell(2) != null && row.getCell(3) != null && row.getCell(4) != null) {
 				try {
 					String summary = row.getCell(0).getStringCellValue();
 					String description = row.getCell(6).getStringCellValue();
@@ -118,7 +115,7 @@ public class ImportServiceImpl {
 					events.add(event);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					// e.printStackTrace();
 					System.out.println("Lỗi khi đọc file excel");
 				}
 			}
@@ -126,97 +123,105 @@ public class ImportServiceImpl {
 		return events;
 	}
 
-	@SuppressWarnings("resource")
-	private static List<String> getEventsFromExcelFile2(String path) throws FileNotFoundException, IOException, ParseException {
+	@SuppressWarnings({ "resource", "unused" })
+	private static List<String> getEventsFromExcelFile2(File file)
+			throws FileNotFoundException, IOException, ParseException {
 		// Đọc một file XSLS.
-				FileInputStream inputStream;
-				try {
-					inputStream = new FileInputStream(new File(path));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-					System.out.println("Có lỗi khi đọc file");
-					return null;
-				}
+		List<String> events = new ArrayList<>();
+		FileInputStream inputStream;
+		try {
+			inputStream = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			System.out.println("Có lỗi khi đọc file");
+			return null;
+		}
 
-				// Đối tượng workbook cho file XSLS.
-				XSSFWorkbook workbook;
-				try {
-					workbook = new XSSFWorkbook(inputStream);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+		// Đối tượng workbook cho file XSLS.
+		XSSFWorkbook workbook;
+		try {
+			workbook = new XSSFWorkbook(inputStream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 //					e.printStackTrace();
-					System.out.println("Có lỗi khi tạo workbook");
-					return null;
+			System.out.println("Có lỗi khi tạo workbook");
+			return null;
+		}
+
+		// Lấy ra sheet đầu tiên từ workbook
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		// Lấy ra Iterator cho tất cả các dòng của sheet hiện tại.
+		Iterator<Row> rowIterator = sheet.iterator();
+		Row fisrt = rowIterator.next();
+
+		while (rowIterator.hasNext()) {
+			Row row = rowIterator.next();
+			try {
+				boolean allday = row.getCell(5).getBooleanCellValue();
+				if (!allday && row.getCell(1) != null && row.getCell(2) != null && row.getCell(3) != null
+						&& row.getCell(4) != null) {
+
+					String summary = row.getCell(0).getStringCellValue();
+					String description = row.getCell(6).getStringCellValue();
+					String location = row.getCell(7).getStringCellValue();
+					// boolean allday = row.getCell(5).getBooleanCellValue();
+					String startDateStr = row.getCell(1).getStringCellValue();
+					String startTimeStr = row.getCell(2).getStringCellValue();
+					String endDateStr = row.getCell(3).getStringCellValue();
+					String endTimeStr = row.getCell(4).getStringCellValue();
+					boolean _private = row.getCell(8).getBooleanCellValue();
+					String visibility = "default";
+					if (_private) {
+						visibility = "private";
+					}
+
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
+					Date start;
+					start = formatter.parse(startDateStr + startTimeStr);
+					Date end = formatter.parse(endDateStr + endTimeStr);
+					// start, end, description, location, visibility "yyyy-MM-dd'T'HH:mm:ssZ"
+					formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+					String startStr = formatter.format(start);
+					String endStr = formatter.format(end);
+					String event = String.format(ExGoogleEvent.event, summary, startStr, endStr, description,
+							location, visibility);
+
+					events.add(event);
 				}
-
-				// Lấy ra sheet đầu tiên từ workbook
-				XSSFSheet sheet = workbook.getSheetAt(0);
-				// Lấy ra Iterator cho tất cả các dòng của sheet hiện tại.
-				Iterator<Row> rowIterator = sheet.iterator();
-				Row fisrt = rowIterator.next();
-
-				List<String> events = new ArrayList<>();
-				while (rowIterator.hasNext()) {
-					Row row = rowIterator.next();
-					try {
-					boolean allday = row.getCell(5).getBooleanCellValue();
-					if(!allday && row.getCell(1) != null && row.getCell(2) != null && row.getCell(3) != null && row.getCell(4) != null) {
-						
-							String summary = row.getCell(0).getStringCellValue();
-							String description = row.getCell(6).getStringCellValue();
-							String location = row.getCell(7).getStringCellValue();
-							//boolean allday = row.getCell(5).getBooleanCellValue();
-							String startDateStr = row.getCell(1).getStringCellValue();
-							String startTimeStr = row.getCell(2).getStringCellValue();
-							String endDateStr = row.getCell(3).getStringCellValue();
-							String endTimeStr = row.getCell(4).getStringCellValue();
-							boolean _private = row.getCell(8).getBooleanCellValue();
-							String visibility = "default";
-							if(_private) {
-								visibility = "private";
-							}
-							
-							
-							SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
-							Date start;
-							start = formatter.parse(startDateStr + startTimeStr);
-							Date end = formatter.parse(endDateStr + endTimeStr);
-							//start, end, description, location, visibility
-							String event = String.format(ExGoogleEvent.event, start, end, description, location, visibility);
-							
-							events.add(event);
+				if (allday && row.getCell(1) != null && row.getCell(3) != null) {
+					String summary = row.getCell(0).getStringCellValue();
+					String description = row.getCell(6).getStringCellValue();
+					String location = row.getCell(7).getStringCellValue();
+					// boolean allday = row.getCell(5).getBooleanCellValue();
+					String startDateStr = row.getCell(1).getStringCellValue();
+					String startTimeStr = row.getCell(2).getStringCellValue();
+					String endDateStr = row.getCell(3).getStringCellValue();
+					String endTimeStr = row.getCell(4).getStringCellValue();
+					boolean _private = row.getCell(8).getBooleanCellValue();
+					String visibility = "default";
+					if (_private) {
+						visibility = "private";
 					}
-					if(allday && row.getCell(1) != null && row.getCell(3) != null) {
-						String summary = row.getCell(0).getStringCellValue();
-						String description = row.getCell(6).getStringCellValue();
-						String location = row.getCell(7).getStringCellValue();
-						//boolean allday = row.getCell(5).getBooleanCellValue();
-						String startDateStr = row.getCell(1).getStringCellValue();
-						String startTimeStr = row.getCell(2).getStringCellValue();
-						String endDateStr = row.getCell(3).getStringCellValue();
-						String endTimeStr = row.getCell(4).getStringCellValue();
-						boolean _private = row.getCell(8).getBooleanCellValue();
-						String visibility = "default";
-						if(_private) {
-							visibility = "private";
-						}
-						
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						Date start;
-						start = formatter.parse(startDateStr);
-						Date end = formatter.parse(endDateStr);
-						
-						String event = String.format(ExGoogleEvent.allDayEvent, start, end, description, location, visibility);
-						
-						events.add(event);
-					}
+
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+					Date start;
+					start = formatter.parse(startDateStr);
+					Date end = formatter.parse(endDateStr);
+
+					formatter = new SimpleDateFormat("yyyy-MM-dd");
+					String startStr = formatter.format(start);
+					String endStr = formatter.format(end);
+					String event = String.format(ExGoogleEvent.allDayEvent, summary, startStr, endStr, description,	location, visibility);
+
+					events.add(event);
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				// e.printStackTrace();
 				System.out.println("Lỗi khi đọc file excel");
 			}
-				}
-				return new ArrayList();
+		}
+		return events;
 	}
 }

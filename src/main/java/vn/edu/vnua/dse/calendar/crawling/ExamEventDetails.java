@@ -95,16 +95,14 @@ public class ExamEventDetails {
 	private static ScheduleResult<ArrayList<String>> getExamSchedule(String studentId) throws IOException {
 		// Open browser
 		WebDriver driver = ScheduleUtils.openChrome();
-		driver.manage().window().setPosition(new Point(-1000, -1000));
+		//driver.manage().window().setPosition(new Point(-1000, -1000));
 		String url = String.format(ScheduleConstant.EXAM_SCHEDULE_URL, studentId);
 		driver.get(url);
 
 		// Get schedule
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 
-		// ScheduleUtils.injectJQuery(driver, ScheduleConstant.JQUERY_FILE);
-		ScheduleUtils.injectResourceJQuery(driver, "js/MyJQuery.js");
-		JavascriptExecutor jse = ((JavascriptExecutor) driver);
+		
 		// check update
 		if (AppUtils.isAlertPresent(driver)) {
 			Alert alert = driver.switchTo().alert();
@@ -120,9 +118,12 @@ public class ExamEventDetails {
 			driver.quit();
 			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), message, null);
 		} else {
+			// ScheduleUtils.injectJQuery(driver, ScheduleConstant.JQUERY_FILE);
+			ScheduleUtils.injectResourceJQuery(driver, "js/MyJQuery.js");
+			JavascriptExecutor jse = ((JavascriptExecutor) driver);
 			String passCap = ScheduleUtils.readResourceFile("js/capcha.js");
 			jse.executeScript(passCap);
-
+			driver.navigate().to(String.format(ScheduleConstant.EXAM_SCHEDULE_URL, studentId));
 			// Lay lich thi
 			String code = ScheduleUtils.readResourceFile("js/getExamSchedule.js");
 			@SuppressWarnings("unchecked")
@@ -130,7 +131,10 @@ public class ExamEventDetails {
 
 			driver.close();
 			driver.quit();
-
+			if(examScheduleJson.size() == 0) {
+				examScheduleHash = AppUtils.getMD5(examScheduleJson.toString());
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", examScheduleHash);
+			}
 			examScheduleHash = AppUtils.getMD5(examScheduleJson.toString());
 			return new ScheduleResult<ArrayList<String>>(true, examScheduleJson, "success", examScheduleHash);
 		}

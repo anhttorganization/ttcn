@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
+import vn.edu.vnua.dse.calendar.co.ScheduleResult;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
+import vn.edu.vnua.dse.calendar.crawling.ExamEventDetails;
 import vn.edu.vnua.dse.calendar.crawling.SubjectEventDetails;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleCalendar;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
@@ -72,8 +74,8 @@ public class ScheduleController {
 		for (Semester semester : lstSemester) {
 			semesters.put(semester.getId(), semester.getName());
 		}
-		
-		if(AuthorizationService.isauthorized() != null) {
+
+		if (AuthorizationService.isauthorized() != null) {
 			return "redirect:" + AuthorizationService.isauthorized();
 		}
 		model.addAttribute("scheduleCreate", new ScheduleCreate());
@@ -110,6 +112,7 @@ public class ScheduleController {
 					CalendarDetail calendarDetail = calenDetailOptional.get();
 					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId,
 							semester);
+					model.addAttribute(newEvents.getMassage(),newEvents.getMassage());
 					if (newEvents.isStatus()) {
 						String newHash = SubjectEventDetails.scheduleHash;
 						String oldHash = calendarDetail.getScheduleHash();
@@ -144,12 +147,13 @@ public class ScheduleController {
 			String message = addCalendar(scheduleCreate);
 			model.addAttribute(message, AppUtils.getScheduleMessage(message));
 		}
+		
 		Map<String, String> semesters = new HashMap<String, String>();
 		List<Semester> lstSemester = semesterRepository.findAll();
 		for (Semester semester1 : lstSemester) {
 			semesters.put(semester1.getId(), semester1.getName());
 		}
-
+	
 		model.addAttribute("scheduleCreate", new ScheduleCreate());
 		model.addAttribute("semesters", semesters);
 		return "schedule/create";
@@ -160,33 +164,34 @@ public class ScheduleController {
 		String studentId = scheduleCreate.getStudentId();
 		String semesId = scheduleCreate.getSemester();
 
-		String summary = AppConstant.SCHEDULE_SUMMARY + studentId;
+		BaseResult<List<GoogleEvent>> result = SubjectEventDetails.getEventsFromSchedule(studentId, semesId);
+		if (result.isStatus()) {
+			String summary = AppConstant.SCHEDULE_SUMMARY + studentId;
 
-		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
+			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 
-		GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary);
-		User user = UserDetailsServiceImpl.getUser();
-		// lấy tkb
-		HashSet<String> eventIds = new HashSet<>();
+			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary);
+			User user = UserDetailsServiceImpl.getUser();
+			// lấy tkb
+			List<GoogleEvent> ggEvents = result.getResult();
+			if (ggEvents.size() > 0) {
+				Set<String> eventIds = scheduleService.insert(ggcalen.getId(), ggEvents);
+				if (eventIds.size() > 0) {
+					HashSet<Event> events = new HashSet<>();
+					for (String eventId : eventIds) {
+						Event e = new Event(eventId);
+						events.add(e);
+					}
+					Semester semester = semesterRepository.findById(semesId);
+					String scheduleHash = SubjectEventDetails.scheduleHash;//
 
-		BaseResult<Set<String>> result = scheduleService.insert(ggcalen.getId(), scheduleCreate);
+					CalendarDetail calendarDetail = new CalendarDetail(semester, scheduleHash, events);
 
-		// insert list event, calendardetail, calendar
-		if (eventIds.size() > 0) {
-			HashSet<Event> events = new HashSet<>();
-			for (String eventId : eventIds) {
-				Event e = new Event(eventId);
-				events.add(e);
+					Calendar calendar = new Calendar(user, studentId, ggcalen.getId(), false, calendarDetail);
+
+					calendarRepository.save(calendar);
+				}
 			}
-
-			Semester semester = semesterRepository.findById(semesId);
-			String scheduleHash = SubjectEventDetails.scheduleHash;//
-
-			CalendarDetail calendarDetail = new CalendarDetail(semester, scheduleHash, events);
-
-			Calendar calendar = new Calendar(user, studentId, ggcalen.getId(), false, calendarDetail);
-
-			calendarRepository.save(calendar);
 		}
 		// thong bao loi
 		return result.getMassage();

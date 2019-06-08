@@ -23,11 +23,12 @@
 </head>
 
 <body>
+	<c:if test="${not empty confirmationMessage}">
+		<h3>${confirmationMessage}</h3>
+	</c:if>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
-			<c:if test="${not empty confirmationMessage}">
-				<h3>${confirmationMessage}</h3>
-			</c:if>
+			
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">

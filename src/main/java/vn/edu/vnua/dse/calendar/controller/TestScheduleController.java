@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
@@ -30,7 +28,6 @@ import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.APIWrapper;
 import vn.edu.vnua.dse.calendar.model.Calendar;
 import vn.edu.vnua.dse.calendar.model.CalendarDetail;
 import vn.edu.vnua.dse.calendar.model.Event;
-import vn.edu.vnua.dse.calendar.model.Semester;
 import vn.edu.vnua.dse.calendar.model.User;
 import vn.edu.vnua.dse.calendar.repository.CalendarDetailRepository;
 import vn.edu.vnua.dse.calendar.repository.CalendarRepository;
@@ -125,43 +122,46 @@ public class TestScheduleController {
 			model.addAttribute(message, AppUtils.getScheduleMessage(message));
 		}
 		//
+		model.addAttribute("scheduleCreate", new ScheduleCreate());
+		
 		return "testschedule/create";
 	}
 
 	private String addCalendar(String studentId) throws IOException, NoSuchAlgorithmException, ParseException {
 		//lay thoi khoa bieu
 		ScheduleResult<List<GoogleEvent>> result = ExamEventDetails.getEventsFromSchedule(studentId);
-		// tao calendar
-		String summary = AppConstant.TEST_SCHEDULE_SUMMARY + studentId;
-		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
-		GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary);
-		
-		User user = UserDetailsServiceImpl.getUser();
-		List<GoogleEvent> ggEvents = result.getResult();
-		if(ggEvents.size() > 0) {
-			// lấy lịch thi
-			Set<String> eventIds = testScheduleService.insert(ggcalen.getId(), ggEvents);
-
-			// tao list event
-			if (eventIds.size() > 0) {
-				HashSet<Event> events = new HashSet<>();
-				for (String eventId : eventIds) {
-					Event e = new Event(eventId);
-					events.add(e);
+		if(result.isStatus()) {
+			// tao calendar
+			String summary = AppConstant.TEST_SCHEDULE_SUMMARY + studentId;
+			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
+			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary);
+			
+			User user = UserDetailsServiceImpl.getUser();
+			List<GoogleEvent> ggEvents = result.getResult();
+			if(ggEvents.size() > 0) {
+				// lấy lịch thi
+				Set<String> eventIds = testScheduleService.insert(ggcalen.getId(), ggEvents);
+				
+				// tao list event
+				if (eventIds.size() > 0) {
+					HashSet<Event> events = new HashSet<>();
+					for (String eventId : eventIds) {
+						Event e = new Event(eventId);
+						events.add(e);
+					}
+					// tao calendarDetail
+					String scheduleHash = result.getScheduleHash();
+					CalendarDetail calendarDetail = new CalendarDetail(scheduleHash, events);
+					
+					// tao calendar
+					Calendar calendar = new Calendar(user, studentId, ggcalen.getId(), true, calendarDetail);
+					
+					// save
+					calendarRepository.save(calendar);
 				}
-
-				// tao calendarDetail
-				String scheduleHash = result.getScheduleHash();
-				CalendarDetail calendarDetail = new CalendarDetail(scheduleHash, events);
-
-				// tao calendar
-				Calendar calendar = new Calendar(user, studentId, ggcalen.getId(), true, calendarDetail);
-
-				// save
-				calendarRepository.save(calendar);
 			}
+			
 		}
-	
 		// tra ve message
 		return result.getMassage();
 	}

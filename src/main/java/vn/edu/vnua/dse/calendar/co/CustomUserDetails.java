@@ -43,6 +43,14 @@ public class CustomUserDetails implements UserDetails {
 	public void setRefreshToken(String refreshToken) {
 		this.user.setRefreshToken(refreshToken);
 	}
+	public String getFirstName() {
+		return user.getFirstName();
+	}
+	
+	public String getLastName() {
+		return user.getLastName();
+	}
+	
 	
 	public String getFullName() {
 		return user.getLastName() + " " + user.getLastName();
@@ -65,6 +73,8 @@ public class CustomUserDetails implements UserDetails {
 		
 		return grantedAuthorities;
 	}
+	
+
 
 	@Override
 	public String getPassword() {

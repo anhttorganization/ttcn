@@ -45,13 +45,13 @@ public String Create(Model model, ImportCreate importCreate, HttpServletRequest 
     try {
       MultipartFile multipartFile = importCreate.getMultipartFile();
 //      String fileName = multipartFile.getOriginalFilename();
-      File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + "event.xlsx");
+      File file = new File(uploadRootDir.getAbsolutePath() + File.separator + "event.xlsx");
 
-      multipartFile.transferTo(serverFile);
+      multipartFile.transferTo(file);
       //code
+      ImportServiceImpl.insert(calendarId, file);
       
-      
-      serverFile.delete();
+      file.delete();
       
     } catch (Exception e) {
       e.printStackTrace();
