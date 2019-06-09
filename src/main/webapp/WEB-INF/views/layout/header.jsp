@@ -10,8 +10,7 @@
 <a class="navbar-brand" href="${contextPath}/home">Trang chủ</a>
 <div class="navbar-collapse" id="navbarSupportedContent">
 	<ul class="left_menu_calendar">
-		<li class="nav-item"><a class="nav-link"
-			href="${contextPath}/admin/quan-ly-nguoi-dung">Người dùng</a></li>
+		<%-- <li class="nav-item"><a class="nav-link" href="${contextPath}/admin/quan-ly-nguoi-dung">Người dùng</a></li> --%>
 	</ul>
 	<ul class="navbar-nav">
 		<li class="nav-item dropdown"><a

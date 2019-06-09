@@ -81,7 +81,7 @@ public class ScheduleController {
 		model.addAttribute("scheduleCreate", new ScheduleCreate());
 		model.addAttribute("semesters", semesters);
 		return "schedule/create";
-	}
+	}	
 
 	@RequestMapping(value = "/schedule/create", method = RequestMethod.POST)
 	public String Create(@ModelAttribute("scheduleCreate") ScheduleCreate scheduleCreate, Model model)
