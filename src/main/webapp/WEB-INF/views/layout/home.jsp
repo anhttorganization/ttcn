@@ -18,7 +18,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thêm thời khóa biểu</h5>
-					<p class="card-text">Đang phát triển.</p>
+					<p class="card-text">Thêm thời khóa biểu, lịch giảng dạy của sinh viên theo từng học kỳ vào Google Calendar.</p>
 					<a class="link-function" href="schedule/create"></a>
 				</div>
 			</div>
@@ -27,8 +27,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thêm lịch thi</h5>
-					<p class="card-text">With supporting text below as a natural
-						lead-in to additional content.</p>
+					<p class="card-text">Thêm lịch thi kỳ hiện tại của sinh viên vào Google Calendar.</p>
 					<a class="link-function" href="testschedule/create"></a>
 				</div>
 			</div>
@@ -46,8 +45,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thêm lịch từ excel</h5>
-					<p class="card-text">With supporting text below as a natural
-						lead-in to additional content.</p>
+					<p class="card-text">Thêm các sự kiện(event) vào trong lịch đã tạo trên Google Calendar</p>
 					<a class="link-function" href="import/create"></a>
 				</div>
 			</div>

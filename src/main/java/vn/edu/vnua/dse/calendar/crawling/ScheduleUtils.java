@@ -1,7 +1,6 @@
 package vn.edu.vnua.dse.calendar.crawling;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.core.io.ClassPathResource;
@@ -29,12 +29,6 @@ import vn.edu.vnua.dse.calendar.common.AppUtils;
 
 @Service
 public class ScheduleUtils {
-
-//	public static WebDriver openChrome() {
-//		System.setProperty("webdriver.chrome.driver", "D:\\SeleniumWebdriver\\chromedriver.exe");
-//		return new ChromeDriver();
-//	}
-
 	public static WebDriver openChrome() throws IOException {
 		Properties prop = AppUtils.MyProperties(AppConstant.CALENDAR_APP_PRO);
 		String driverName = prop.getProperty("crawling.driverName");
@@ -44,13 +38,24 @@ public class ScheduleUtils {
 		if(os.contains("Windows")) {
 			driverPath = prop.getProperty("crawling.driverPath", null);				//chay tren window			
 		}else {
-			driverPath = prop.getProperty("crawling.crawling.driverPathLinux", null);//chay tren linux			
+			driverPath = prop.getProperty("crawling.driverPathLinux", null);//chay tren linux			
 		}
 		System.setProperty(driverName, driverPath);
 		
-		DesiredCapabilities chrome=DesiredCapabilities.chrome();
-		chrome.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		return new ChromeDriver(chrome);
+//		DesiredCapabilities chrome=DesiredCapabilities.chrome();
+//		chrome.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//		return new ChromeDriver(chrome);
+		
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
+		options.addArguments("--no-sandbox");
+		String chromePath = prop.getProperty("crawling.chromePath", null);
+		options.setBinary(chromePath);
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		ChromeDriver driver = new ChromeDriver(capabilities);
+		return driver;
 	}
 
 	public static String readFile(String file) throws IOException {

@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-
+<link rel="shortcut icon" type="image/png" href="${contextPath}/resources/images/Logo.png" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/dashboard.css">

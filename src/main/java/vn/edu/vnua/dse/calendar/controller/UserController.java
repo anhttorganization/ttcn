@@ -1,8 +1,10 @@
 package vn.edu.vnua.dse.calendar.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.edu.vnua.dse.calendar.common.AppConstant;
+import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.model.User;
 import vn.edu.vnua.dse.calendar.service.EmailService;
 import vn.edu.vnua.dse.calendar.service.SecurityService;
@@ -47,7 +50,7 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws IOException {
 
 		userValidator.validate(user, bindingResult);
 
@@ -62,9 +65,10 @@ public class UserController {
 		// Generate random 36-character string token for confirmation link
 		user.setConfirmToken(UUID.randomUUID().toString());
 
-		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
-				+ "/ScheduleAndCalendar";
-
+//		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
+//				+ "/ScheduleAndCalendar";
+		Properties prop = AppUtils.MyProperties(AppConstant.APLICATION_PRO);
+		String appUrl = prop.getProperty("app.appURL");
 		SimpleMailMessage registrationEmail = new SimpleMailMessage();
 		registrationEmail.setTo(user.getEmail());// get mail
 		registrationEmail.setSubject("Registration Confirmation");

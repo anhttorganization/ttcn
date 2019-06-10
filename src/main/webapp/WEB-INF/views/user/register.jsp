@@ -10,6 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="shortcut icon" type="image/png" href="${contextPath}/resources/images/Logo.png" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/dashboard.css">
@@ -86,6 +87,7 @@
 						</div>
 					</form:form>
 				</div>
+
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2">Đăng nhập</a>

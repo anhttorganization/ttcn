@@ -13,19 +13,13 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
@@ -61,6 +55,7 @@ public final class SubjectEventDetails {
 			throws IOException, NoSuchAlgorithmException, ParseException {
 		// Mo trinh duyet
 		WebDriver driver = ScheduleUtils.openChrome();
+
 		//driver.manage().window().setPosition(new Point(-1000, -1000));
 		driver.get(String.format(ScheduleConstant.SCHEDULE_URL, studentId));
 
