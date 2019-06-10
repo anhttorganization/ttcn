@@ -229,23 +229,46 @@ public final class SubjectEventDetails {
 
 	private static ArrayList<String> getWeekOfSemesEvent(Date startSemester) {
 		ArrayList<String> events = new ArrayList<>();
-		for (int i = 0; i < 20; i++) {
-			
-			// set date
-			Calendar calen = Calendar.getInstance();
-			calen.setTime(startSemester);
-			// compute
-			calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
-			Date start = calen.getTime();
-			calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + 1);
-			Date end = calen.getTime();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			String startStr = formatter.format(start);
-			String endStr = formatter.format(end);
-			
-			String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
-			events.add(event);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(startSemester);
+		int monthStart = calendar.get(Calendar.MONTH);
+		if(monthStart >= 4 && monthStart < 6) {
+			for (int i = 0; i < 12; i++) {
+				// set date
+				Calendar calen = Calendar.getInstance();
+				calen.setTime(startSemester);
+				// compute
+				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
+				Date start = calen.getTime();
+				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + 1);
+				Date end = calen.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String startStr = formatter.format(start);
+				String endStr = formatter.format(end);
+				
+				String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
+				events.add(event);
+			}
+		}else {
+			for (int i = 0; i < 19; i++) {
+				
+				// set date
+				Calendar calen = Calendar.getInstance();
+				calen.setTime(startSemester);
+				// compute
+				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
+				Date start = calen.getTime();
+				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + 1);
+				Date end = calen.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String startStr = formatter.format(start);
+				String endStr = formatter.format(end);
+				
+				String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
+				events.add(event);
+			}
 		}
+		
 		
 		return events;
 	}

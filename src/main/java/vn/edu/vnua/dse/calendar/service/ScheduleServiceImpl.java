@@ -43,7 +43,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 					eventIds.add(aPIWrapper.insertEvent(calenId, event).getId());
 				}
 				
-				return new BaseResult<Set<String>>(true, eventIds, events.getMassage());
+				return new BaseResult<Set<String>>(true, eventIds, events.getMassage(), events.getWeekEvents());
 			}
 			
 			return new BaseResult<Set<String>>(false, eventIds, events.getMassage());
