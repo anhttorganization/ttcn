@@ -50,7 +50,7 @@ public class APIWrapper {
 
 		clientID = prop.getProperty("calenProject.clientID", null);
 		clientSecret = prop.getProperty("calenProject.clientSecret");
-		Redirect_Uri = prop.getProperty("calenProject.authorizedRedirectURIs");
+		Redirect_Uri = prop.getProperty("calenProject.authorizedRedirectURIs").trim();
 		Scope = prop.getProperty("calenProject.scope");
 		System.out.println(prop.getProperty("calenProject.clientID"));
 		gson = new Gson();
