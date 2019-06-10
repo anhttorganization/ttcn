@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +25,7 @@ import com.google.gson.Gson;
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
+import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.ExGoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleDateTime;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.CalendarConstant;
@@ -43,12 +45,13 @@ public final class SubjectEventDetails {
 		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semesId);
 
 		ArrayList<String> scheduleJson = scheduleResult.getResult();
+		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semesterStart);
 		if (scheduleJson.size() > 0) {
 			// return toGoogleEvent(scheduleJson);
-			return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMassage());
+			return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMassage(), weekEventJson);	
 		}
 
-		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>() , scheduleResult.getMassage());
+		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>(), scheduleResult.getMassage(), new ArrayList<String>());
 	}
 
 	private static final ScheduleResult<ArrayList<String>> getSchedule(String studentId, String semesId)
@@ -56,12 +59,10 @@ public final class SubjectEventDetails {
 		// Mo trinh duyet
 		WebDriver driver = ScheduleUtils.openChrome();
 
-		//driver.manage().window().setPosition(new Point(-1000, -1000));
+		// driver.manage().window().setPosition(new Point(-1000, -1000));
 		driver.get(String.format(ScheduleConstant.SCHEDULE_URL, studentId));
 
 		WebDriverWait wait = new WebDriverWait(driver, 5);
-
-		
 
 		// check update
 		if (AppUtils.isAlertPresent(driver)) {
@@ -90,15 +91,14 @@ public final class SubjectEventDetails {
 			Select dropdown = new Select(driver.findElement(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
 			try {
 				dropdown.selectByValue(semesId);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				// TODO: handle exception
 				driver.close();
 				driver.quit();
 
 				scheduleHash = null;
-				return new ScheduleResult<ArrayList<String>>(false,  new ArrayList<String>(), "error", scheduleHash);
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", scheduleHash);
 			}
-			
 
 			// chon che do xem theo thu tiet
 			WebElement radio = wait
@@ -138,6 +138,7 @@ public final class SubjectEventDetails {
 	}
 
 	private static final List<GoogleEvent> toGoogleEvent(ArrayList<String> scheduleJson) throws ParseException {
+		
 		List<GoogleEvent> events = new ArrayList<>();
 		Gson gson = new Gson();
 		for (String json : scheduleJson) {
@@ -179,6 +180,7 @@ public final class SubjectEventDetails {
 				System.out.println("-----------------------------");
 				System.out.println(gson.toJson(event));
 			}
+
 		}
 
 		return events;
@@ -223,6 +225,29 @@ public final class SubjectEventDetails {
 		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		date = dateTimeFormat.parse(dateStr + " " + timeStr);
 		return date;
+	}
+
+	private static ArrayList<String> getWeekOfSemesEvent(Date startSemester) {
+		ArrayList<String> events = new ArrayList<>();
+		for (int i = 0; i < 20; i++) {
+			
+			// set date
+			Calendar calen = Calendar.getInstance();
+			calen.setTime(startSemester);
+			// compute
+			calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
+			Date start = calen.getTime();
+			calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + 1);
+			Date end = calen.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String startStr = formatter.format(start);
+			String endStr = formatter.format(end);
+			
+			String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
+			events.add(event);
+		}
+		
+		return events;
 	}
 
 	private static String getRDATE(ArrayList<Integer> weekStudy, int day, int slot) throws ParseException {

@@ -20,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
-import vn.edu.vnua.dse.calendar.co.ScheduleResult;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
-import vn.edu.vnua.dse.calendar.crawling.ExamEventDetails;
 import vn.edu.vnua.dse.calendar.crawling.SubjectEventDetails;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleCalendar;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
@@ -94,7 +92,7 @@ public class ScheduleController {
 		// 1. Kiểm tra xem thời với mã sinh viên nhập vào đã được thêm chưa find
 		// calendar by student id
 		Optional<Calendar> calenOptional = calendarRepository.findByStudentIdAndType(studentId, false);
-		if (calenOptional.isPresent()) {
+		if (calenOptional.isPresent()) { //hoc ky da duoc them
 			Calendar calendar = calenOptional.get();
 			// kiểm tra xem calendar còn trên calendar list cua nguoi dung khong
 			String calendarId = calendar.getCalendarId();
@@ -135,14 +133,14 @@ public class ScheduleController {
 							model.addAttribute("exist", "Thời khóa biểu đã tồn tại!");
 						}
 					}
-				} else {
+				} else {//ma sinh viên da duoc them, hoc ky chua duoc them
 					String mesage = updateCalendar(calendar, scheduleCreate);
 					model.addAttribute(mesage, AppUtils.getScheduleMessage(mesage));
 					// them thoi khoa bieu thanh cong
 
 				}
 			}
-		} else {
+		} else { //ma sinh vien chua duoc tao lich
 			// Nếu chưa thêm thì insert vào ggcalen và thêm calendar vào db
 			String message = addCalendar(scheduleCreate);
 			model.addAttribute(message, AppUtils.getScheduleMessage(message));
@@ -182,6 +180,9 @@ public class ScheduleController {
 						Event e = new Event(eventId);
 						events.add(e);
 					}
+					//Thêm tuần của học kỳ
+					scheduleService.insert1(ggcalen.getId(), result.getWeekEvents());
+					
 					Semester semester = semesterRepository.findById(semesId);
 					String scheduleHash = SubjectEventDetails.scheduleHash;//
 
@@ -197,7 +198,7 @@ public class ScheduleController {
 		return result.getMassage();
 	}
 
-	private String updateCalendar(Calendar calendar, ScheduleCreate scheduleCreate)
+	private String updateCalendar(Calendar calendar, ScheduleCreate scheduleCreate)//lich cua hoc ky chu duoc them
 			throws NoSuchAlgorithmException, IOException, ParseException {
 		HashSet<String> eventIds;
 		BaseResult<Set<String>> result = scheduleService.insert(calendar.getCalendarId(), scheduleCreate);
@@ -210,7 +211,9 @@ public class ScheduleController {
 					Event e = new Event(eventId);
 					events.add(e);
 				}
-
+				//Thêm tuần của học kỳ
+				scheduleService.insert1(calendar.getCalendarId(), result.getWeekEvents());
+				
 				CalendarDetail calendarDetail = new CalendarDetail(
 						semesterRepository.findById(scheduleCreate.getSemester()), SubjectEventDetails.scheduleHash,
 						events);

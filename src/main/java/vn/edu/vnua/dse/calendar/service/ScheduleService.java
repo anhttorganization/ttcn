@@ -16,4 +16,6 @@ public interface ScheduleService {
 	public BaseResult<Set<String>> insert(String calenId, ScheduleCreate scheduleCreate) throws IOException, ParseException, NoSuchAlgorithmException;
 	
 	public Set<String> insert(String calenId, List<GoogleEvent> events) throws IOException;
+	
+	public void insert1(String calenId, List<String> events);
 }

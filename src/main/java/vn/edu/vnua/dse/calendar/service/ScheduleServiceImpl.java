@@ -75,4 +75,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return eventIds;
 	}
 
+	@Override
+	public void insert1(String calenId, List<String> events) {
+		try {
+			if (events.size() > 0) {
+				for (String eventJson : events) {
+					aPIWrapper.insertEvent(calenId, eventJson);
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("thêm tuần không thành công!");
+		}
+	}
+
 }
