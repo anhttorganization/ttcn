@@ -15,6 +15,8 @@ import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
 import vn.edu.vnua.dse.calendar.crawling.SubjectEventDetails;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.APIWrapper;
+import vn.edu.vnua.dse.calendar.model.Semester;
+import vn.edu.vnua.dse.calendar.repository.SemesterRepository;
 
 @Service("scheduleService")
 public class ScheduleServiceImpl implements ScheduleService {
@@ -22,6 +24,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	APIWrapper aPIWrapper;
 
+	@Autowired
+	SemesterRepository semesterRepository;
+	
 	@Override
 	public boolean isExist(ScheduleCreate scheduleCreate) {
 		// TODO Auto-generated method stub
@@ -32,11 +37,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public BaseResult<Set<String>> insert(String calenId, ScheduleCreate scheduleCreate) {
 		Set<String> eventIds = new HashSet<>();
-
+		Semester semester = semesterRepository.findById(scheduleCreate.getSemester());
 		try {
 			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
-			BaseResult<List<GoogleEvent>> events = SubjectEventDetails.getEventsFromSchedule(scheduleCreate.getStudentId(),
-					scheduleCreate.getSemester());
+			BaseResult<List<GoogleEvent>> events = SubjectEventDetails.getEventsFromSchedule(scheduleCreate.getStudentId(), semester);
 			
 			if(events.isStatus()) {
 				for (GoogleEvent event : events.getResult()) {

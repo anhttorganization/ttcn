@@ -41,13 +41,13 @@
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
 								
-								<input name="email" type="text" class="form-control input_user" placeholder="Tài khoản" autofocus="true"/>
+								<input name="email" type="text" class="form-control input_user" placeholder="Tài khoản" autofocus="true" required="required"/>
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input id="password" name="password" type="password" class="form-control input_pass" placeholder="Mật khẩu"/>
+								<input id="password" name="password" type="password" class="form-control input_pass" placeholder="Mật khẩu" required="required"/>
 
 							</div>
 							<div>

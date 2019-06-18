@@ -19,6 +19,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
@@ -29,23 +30,26 @@ import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.ExGoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleDateTime;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.CalendarConstant;
+import vn.edu.vnua.dse.calendar.model.Semester;
 
+@Service
 public final class SubjectEventDetails {
+	
 	private static final String DESCRIPTION = "Mã học phần: %s" + "\nMã lớp: %s" + "\nNhóm: %s" + "\nTuần học: %s"
 			+ "\nTiết học: %s";
 	private static final String DESCRIPTION_HAVE_PRACTICE = "Mã học phần: %s" + "\nMã lớp: %s" + "\nNhóm: %s"
 			+ "\nNhóm thực hành: %s" + "\nTuần học: %s" + "\nTiết học: %s";
-
+	
 	public static String scheduleHash;
 
 	public static Date semesterStart;
 
-	public static final BaseResult<List<GoogleEvent>> getEventsFromSchedule(String studentId, String semesId)
+	public static final BaseResult<List<GoogleEvent>> getEventsFromSchedule(String studentId, Semester semester)
 			throws IOException, ParseException, NoSuchAlgorithmException {
-		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semesId);
+		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semester.getId());
 
 		ArrayList<String> scheduleJson = scheduleResult.getResult();
-		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semesterStart);
+		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semesterStart, semester);
 		if (scheduleJson.size() > 0) {
 			// return toGoogleEvent(scheduleJson);
 			return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMassage(), weekEventJson);	
@@ -156,7 +160,7 @@ public final class SubjectEventDetails {
 				int endSlot = startSlot + Integer.parseInt(item.get(10).toString().trim()) - 1;
 				String weekStr = item.get(13).toString().trim();
 				ArrayList<Integer> weekStudy = ScheduleUtils.getWeek(weekStr);
-				String summary = item.get(1).toString().trim();
+				String subjectName = item.get(1).toString().trim();
 				String location = item.get(11).toString();
 
 				String description = getDescription(subjectCode, classCode, group, practiceGroup, weekStudy, startSlot,
@@ -168,6 +172,7 @@ public final class SubjectEventDetails {
 				ArrayList<String> recurrence = new ArrayList<>();
 				recurrence.add(RDATE);
 
+				String summary = getSummary(subjectName, subjectCode, group, practiceGroup);
 				GoogleEvent event = new GoogleEvent();
 				event.setSummary(summary);
 				event.setLocation(location);
@@ -189,7 +194,7 @@ public final class SubjectEventDetails {
 	private static String getDescription(String subjectCode, String classCode, String group, String practiceGroup,
 			ArrayList<Integer> weekStudy, int startSlot, int endSlot) {
 		String weekDes = ScheduleUtils.joinIntArray(", ", weekStudy);
-		String slotDes = startSlot + " - " + endSlot;
+		String slotDes = startSlot + "-" + endSlot;
 
 		String descpription = "";
 		if (practiceGroup.equals("")) {
@@ -199,6 +204,17 @@ public final class SubjectEventDetails {
 					weekDes, slotDes);
 		}
 		return descpription;
+	}
+	
+	private static String getSummary(String subjectName, String subjectCode, String group, String practiceGroup) {
+		String summary = "";
+		if (practiceGroup.equals("")) {
+			summary = subjectName + ", " + subjectCode + "_" + group;
+		} else {
+			summary = "TH " + subjectName + ", " + subjectCode + "_" + group + "_" + practiceGroup;
+		}
+		
+		return summary;
 	}
 
 	private static Date getStartTime(int week, int day, int slot) throws ParseException {
@@ -227,7 +243,9 @@ public final class SubjectEventDetails {
 		return date;
 	}
 
-	private static ArrayList<String> getWeekOfSemesEvent(Date startSemester) {
+	private static ArrayList<String> getWeekOfSemesEvent(Date startSemester, Semester semester) {
+		String semeseterName = semester.getName();
+		
 		ArrayList<String> events = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(startSemester);
@@ -245,8 +263,8 @@ public final class SubjectEventDetails {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				String startStr = formatter.format(start);
 				String endStr = formatter.format(end);
-				
-				String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
+				//start, end, description, visibility
+				String event = String.format(ExGoogleEvent.weekStudyEvent, "Tuần " + (i + 1), startStr, endStr, semeseterName, "default");
 				events.add(event);
 			}
 		}else {

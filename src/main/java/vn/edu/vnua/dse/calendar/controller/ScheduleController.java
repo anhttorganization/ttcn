@@ -86,7 +86,7 @@ public class ScheduleController {
 			throws IOException, ParseException, NoSuchAlgorithmException {
 		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 
-		String semester = scheduleCreate.getSemester();
+		String semesterId = scheduleCreate.getSemester();
 		String studentId = scheduleCreate.getStudentId();
 
 		// 1. Kiểm tra xem thời với mã sinh viên nhập vào đã được thêm chưa find
@@ -102,14 +102,14 @@ public class ScheduleController {
 				String message = addCalendar(scheduleCreate);
 				model.addAttribute(message, AppUtils.getScheduleMessage(message));
 			} else {
+				Semester semester = semesterRepository.findById(semesterId);
 				// kiem tra xem calendar voi hoc ky nhap vao da co chua
 				Optional<CalendarDetail> calenDetailOptional = calendarDetailRepository
-						.findByCalendarAndSemester(calendar, semesterRepository.findById(semester));
+						.findByCalendarAndSemester(calendar, semester);
 
 				if (calenDetailOptional.isPresent()) {
 					CalendarDetail calendarDetail = calenDetailOptional.get();
-					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId,
-							semester);
+					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId, semester);
 					model.addAttribute(newEvents.getMassage(),newEvents.getMassage());
 					if (newEvents.isStatus()) {
 						String newHash = SubjectEventDetails.scheduleHash;
@@ -123,7 +123,7 @@ public class ScheduleController {
 								eventRepository.delete(oldEvent);
 							}
 
-							updateCalendar(calendar, newEvents.getResult(), semester, newHash);
+							updateCalendar(calendar, newEvents.getResult(), semesterId, newHash);
 							calendarDetailRepository.delete(calendarDetail.getId());
 							// thong bao cap nhat thoi khoa bieu thanh cong
 							// model.addAttribute("message", newEvents.getMassage());//
@@ -160,10 +160,13 @@ public class ScheduleController {
 	private String addCalendar(ScheduleCreate scheduleCreate)
 			throws IOException, NoSuchAlgorithmException, ParseException {
 		String studentId = scheduleCreate.getStudentId();
-		String semesId = scheduleCreate.getSemester();
+		String semesterId = scheduleCreate.getSemester();
 
-		BaseResult<List<GoogleEvent>> result = SubjectEventDetails.getEventsFromSchedule(studentId, semesId);
+		Semester semester = semesterRepository.findById(semesterId);
+		BaseResult<List<GoogleEvent>> result = SubjectEventDetails.getEventsFromSchedule(studentId, semester);
 		if (result.isStatus()) {
+			
+			
 			String summary = AppConstant.SCHEDULE_SUMMARY + studentId;
 
 			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
@@ -183,7 +186,6 @@ public class ScheduleController {
 					//Thêm tuần của học kỳ
 					scheduleService.insert1(ggcalen.getId(), result.getWeekEvents());
 					
-					Semester semester = semesterRepository.findById(semesId);
 					String scheduleHash = SubjectEventDetails.scheduleHash;//
 
 					CalendarDetail calendarDetail = new CalendarDetail(semester, scheduleHash, events);

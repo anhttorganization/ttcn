@@ -53,4 +53,16 @@
 	<definition name="login"
 		template="/WEB-INF/views/user/login.jsp">
 	</definition>
+	
+	
+	<definition name="privacy"
+		template="/WEB-INF/views/privacy.jsp">
+	</definition>
+	
+	<definition name="terms"
+		template="/WEB-INF/views/terms.jsp">
+	</definition>
+	
+	
+	
 </tiles-definitions>

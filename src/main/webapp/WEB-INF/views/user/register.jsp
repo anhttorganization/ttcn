@@ -44,7 +44,9 @@
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input type="text" id="email" path="email" class="form-control input_pass"
 										placeholder="Địa chỉ Email" autofocus="true"></form:input>
-									<form:errors path="email"></form:errors>
+									<div hidden = "">
+										<form:errors path="email"></form:errors>
+									</div>
 								</div>
 							</spring:bind>
 						</div>
@@ -52,7 +54,7 @@
 							<spring:bind path="firstName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="firstname" type="text" path="firstName" class="form-control input_user" placeholder="Tên"></form:input>
-									<form:errors path="firstName"></form:errors>
+									<div hidden = ""><form:errors path="firstName"></form:errors></div>
 								</div>
 							</spring:bind>
 						</div>
@@ -61,7 +63,7 @@
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="lastname" type="text" path="lastName" class="form-control input_pass"
 										placeholder="Họ đệm"></form:input>
-									<form:errors path="lastName"></form:errors>
+									<div hidden = ""><form:errors path="lastName"></form:errors></div>
 								</div>
 							</spring:bind>
 						</div>
@@ -69,25 +71,24 @@
 							<spring:bind path="password">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="password" type="password" path="password" class="form-control input_pass" placeholder="Mật khẩu"></form:input>
-									<form:errors path="password"></form:errors>
+									<div hidden = ""><form:errors path="password"></form:errors></div>
 								</div>
 							</spring:bind>
 						</div>
 						<div class="input-group mb-2">
 							<spring:bind path="passwordConfirm">
-								<div id="repassword" class="form-group ${status.error ? 'has-error' : ''}">
-									<form:input type="password" path="passwordConfirm"
-										class="form-control input_pass" placeholder="Nhập lại mật khẩu"></form:input>
-									<form:errors path="passwordConfirm"></form:errors>
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input id="passwordConfirm" type="password" path="passwordConfirm" class="form-control input_pass" placeholder="Nhập lại mật khẩu"></form:input>
+									<div hidden = ""><form:errors path="passwordConfirm"></form:errors></div>
 								</div>
 							</spring:bind>
 						</div>
-						<div class="d-flex justify-content-center mt-3 login_container">
-							<button id="btn_submit_register" type="submit" name="button" class="btn login_btn">Đăng ký</button>
-						</div>
+						
 					</form:form>
 				</div>
-
+				<div class="d-flex justify-content-center mt-3 login_container">
+					<button id="btn_submit_register" type="button" name="button" class="btn login_btn">Đăng ký</button>
+				</div>
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2">Đăng nhập</a>
@@ -99,6 +100,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/dangky.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/dangky.js"></script>
 </body>
 </html>

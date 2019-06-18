@@ -42,10 +42,6 @@ public class APIWrapper {
 	private Gson gson;
 
 	public APIWrapper() throws FileNotFoundException, IOException {
-//		Resource resource = new ClassPathResource(AppConstant.CALENDAR_APP_PRO);
-//		InputStream resourceInputStream = resource.getInputStream();
-//		Properties prop = new Properties();
-//		prop.load(resourceInputStream);
 		Properties prop = AppUtils.MyProperties(AppConstant.CALENDAR_APP_PRO);
 
 		clientID = prop.getProperty("calenProject.clientID", null);

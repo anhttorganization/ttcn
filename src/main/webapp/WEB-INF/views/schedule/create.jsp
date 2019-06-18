@@ -17,9 +17,9 @@
 							<spring:bind path="semester">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<label for="semester">Chọn học kỳ:</label>
-									<form:select path="semester" class="custom-select">
-										<form:option value="-" label="--Chọn một giá trị--" />
-										<form:options items="${semesters}" />
+									<form:select path="semester" class="custom-select" required="required">
+										<form:option value="" label="--Chọn một giá trị--" />
+										<form:options items="${semesters}" required="required"/>
 									</form:select>
 									<form:errors path="semester" />
 								</div>

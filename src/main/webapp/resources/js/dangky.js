@@ -5,33 +5,36 @@ $(document).ready(function() {
 		return re.test(String(email).toLowerCase());
 	}
 
-	$("#fullname").keyup(function(){
-		$("#sokytu").text($("#fullname").val().length);
-	});
 
 
+	
 	$("#btn_submit_register").click(function(){
-		if($("#fullname").val() == ""){
-			toastr.warning('Vui lòng nhập tên đầy đủ!','Thông báo');
-		}else if($("#email").val() == ""){
+		if($("#email").val() == ""){
 			toastr.warning('Vui lòng nhập địa chỉ Email!','Thông báo');
 		}else if($("#username").val() == ""){
 			toastr.warning('Vui lòng nhập tên tài khoản!','Thông báo');
+		}else if($("#firstname").val() == ""){
+			toastr.warning('Vui lòng nhập tên!','Thông báo');
+		}else if($("#lastname").val() == ""){
+			toastr.warning('Vui lòng nhập họ và tên đệm!','Thông báo');
 		}else if($("#password").val() == ""){
 			toastr.warning('Vui lòng nhập mật khẩu!','Thông báo');
-		}else if($("#repassword").val() == ""){
+		}else if($("#passwordConfirm").val() == ""){
 			toastr.warning('Vui lòng nhập lại mật khẩu lần nữa!','Thông báo');
 		}else{
 			if($("#email").val() != ""){
 				if(!validateEmail($("#email").val())){
 					toastr.warning('Vui lòng nhập đúng định dạng địa chỉ Email!','Thông báo');
-				}else if($("#password").val() != $("#repassword").val()){
+				}else if($("#password").val() != $("#passwordConfirm").val()){
 					toastr.warning('Mật khẩu nhập lại không trùng khớp!','Thông báo');
 				}else{
 					 $("#register_form").submit();
 				}
 			}
-
 		}
 	});
+	if(document.getElementById("email.errors") != ""){
+	toastr.warning(document.getElementById("email.errors").textContent,'Thông báo');
+	document.getElementById("email.errors").textContent="";
+	}
 });

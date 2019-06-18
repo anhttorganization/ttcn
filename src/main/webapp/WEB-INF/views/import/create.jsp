@@ -18,8 +18,8 @@
 							<br>
 							<spring:bind path="calendarId">
 									<label for="calendarId">Chọn lịch:</label>
-									<form:select path="calendarId" class="custom-select">
-										<form:option value="-" label="--Chọn một giá trị--" />
+									<form:select path="calendarId" class="custom-select" required="required">
+										<form:option value="" label="--Chọn một giá trị--" />
 										<form:options items="${calendars}" />
 									</form:select>
 									<form:errors path="calendarId" />
@@ -27,7 +27,7 @@
 							<br><br>
 							<span>Chọn tệp Excel:</span><br>
 							<div class="custom-file" style="margin-top:10px">
-								<input type="file" class="custom-file-input" id="inputGroupFile01" name="multipartFile" accept=".xls,.xlsx"> 
+								<input type="file" class="custom-file-input" id="inputGroupFile01" name="multipartFile" accept=".xls,.xlsx" required="required"> 
 								<label class="custom-file-label" for="inputGroupFile01" id="filelable">Choose file</label>
 							</div>
 							<button type="submit"

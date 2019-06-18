@@ -20,13 +20,20 @@ public class ExGoogleEvent extends GoogleEvent{
 			"{\"summary\":\"%s\","
 			+ "\"start\":{"
 			+ "\"date\":\"%s\"},"
-//			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
 			+ "\"end\":{\"date\":\"%s\"},"
-//			+ "\"timeZone\":\"Asia/Ho_Chi_Minh\"},"
 			+ "\"sequence\":0,"
-//			+ "\"recurrence\":[%s],"
 			+ "\"description\":\"%s\","
 			+ "\"location\":\"%s\","
+			+ " \"visibility\": \"%s\"" + 
+			"}";
+	
+	public static final String weekStudyEvent =  //start, end, description, visibility
+			"{\"summary\":\"%s\","
+			+ "\"start\":{"
+			+ "\"date\":\"%s\"},"
+			+ "\"end\":{\"date\":\"%s\"},"
+			+ "\"sequence\":0,"
+			+ "\"description\":\"%s\","
 			+ " \"visibility\": \"%s\"" + 
 			"}";
 }

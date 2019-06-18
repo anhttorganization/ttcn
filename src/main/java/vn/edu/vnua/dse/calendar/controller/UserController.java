@@ -78,7 +78,7 @@ public class UserController {
 
 		emailService.sendEmail(registrationEmail);
 
-		model.addAttribute("confirmationMessage", "A confirmation e-mail has been sent to " + user.getEmail());
+		model.addAttribute("confirmationMessage", "Email xách nhận đã được gửi tới địa chỉ email " + user.getEmail());
 
 		userService.init(user);// save and encode
 
