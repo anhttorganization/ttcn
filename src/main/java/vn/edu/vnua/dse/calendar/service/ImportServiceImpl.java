@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -93,6 +94,8 @@ public class ImportServiceImpl {
 					boolean _private = row.getCell(8).getBooleanCellValue();
 
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
+					formatter.setTimeZone(TimeZone.getTimeZone(CalendarConstant.TIME_ZONE));
+
 					Date start;
 					start = formatter.parse(startDateStr + startTimeStr);
 					Date end = formatter.parse(endDateStr + endTimeStr);
@@ -177,6 +180,7 @@ public class ImportServiceImpl {
 					}
 
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
+					formatter.setTimeZone(TimeZone.getTimeZone(CalendarConstant.TIME_ZONE));
 					Date start;
 					start = formatter.parse(startDateStr + startTimeStr);
 					Date end = formatter.parse(endDateStr + endTimeStr);

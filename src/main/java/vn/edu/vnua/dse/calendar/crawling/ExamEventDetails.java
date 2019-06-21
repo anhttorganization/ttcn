@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -63,9 +64,11 @@ public class ExamEventDetails {
 
 			String summary = subjectName;
 			String startTimeStr = DateTimeConstant.STARTTIME.get(startSlot);
-			Date start = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dateStr + " " + startTimeStr);
+			SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			dateTimeFormat.setTimeZone(TimeZone.getTimeZone(CalendarConstant.TIME_ZONE));
+			Date start = dateTimeFormat.parse(dateStr + " " + startTimeStr);
 			String endTimeStr = DateTimeConstant.ENDTIME.get(endSlot);
-			Date end = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dateStr + " " + endTimeStr);
+			Date end = dateTimeFormat.parse(dateStr + " " + endTimeStr);
 			String description = String.format(DESCRIPTION, subjectCode, group, team);
 
 			GoogleEvent event = new GoogleEvent();

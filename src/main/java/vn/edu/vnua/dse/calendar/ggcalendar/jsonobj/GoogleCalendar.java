@@ -7,7 +7,7 @@ public class GoogleCalendar {
 	private String id;
 	@Expose(deserialize = true, serialize = true)
 	private String summary;
-	@Expose(deserialize = true, serialize = false)
+	@Expose(deserialize = true, serialize = true)
 	public String timeZone;
 
 	public GoogleCalendar() {

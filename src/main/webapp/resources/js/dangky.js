@@ -10,7 +10,7 @@ $(document).ready(function() {
 	
 	$("#btn_submit_register").click(function(){
 		if($("#email").val() == ""){
-			toastr.warning('Vui lòng nhập địa chỉ Email!','Thông báo');
+			toastr.warning('Vui lòng nhập địa chỉ Gmail!','Thông báo');
 		}else if($("#username").val() == ""){
 			toastr.warning('Vui lòng nhập tên tài khoản!','Thông báo');
 		}else if($("#firstname").val() == ""){
@@ -24,7 +24,7 @@ $(document).ready(function() {
 		}else{
 			if($("#email").val() != ""){
 				if(!validateEmail($("#email").val())){
-					toastr.warning('Vui lòng nhập đúng định dạng địa chỉ Email!','Thông báo');
+					toastr.warning('Vui lòng nhập đúng định dạng địa chỉ Gmail!','Thông báo');
 				}else if($("#password").val() != $("#passwordConfirm").val()){
 					toastr.warning('Mật khẩu nhập lại không trùng khớp!','Thông báo');
 				}else{

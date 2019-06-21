@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -222,11 +223,15 @@ public final class SubjectEventDetails {
 
 		String timeStr = DateTimeConstant.STARTTIME.get(slot);
 		Date date = ScheduleUtils.findDay(semesterDate, week, day);
+	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String dateStr = dateFormat.format(date);
 		// create datetime
 		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		dateTimeFormat.setTimeZone(TimeZone.getTimeZone(CalendarConstant.TIME_ZONE));
 		date = dateTimeFormat.parse(dateStr + " " + timeStr);
+		//set time zone
+		
 		return date;
 	}
 
@@ -239,6 +244,7 @@ public final class SubjectEventDetails {
 		String dateStr = dateFormat.format(date);
 		// create datetime
 		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		dateTimeFormat.setTimeZone(TimeZone.getTimeZone(CalendarConstant.TIME_ZONE));
 		date = dateTimeFormat.parse(dateStr + " " + timeStr);
 		return date;
 	}

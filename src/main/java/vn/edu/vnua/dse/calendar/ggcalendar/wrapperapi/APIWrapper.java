@@ -151,12 +151,13 @@ public class APIWrapper {
 		return null;
 	}
 
-	public GoogleCalendar insertCalendar(String CalendarName) {
+	public GoogleCalendar insertCalendar(String CalendarName, String timeZone) {
 		String url = "https://www.googleapis.com/calendar/v3/calendars/";
 
 		// Create a new calendar, with description
 		GoogleCalendar newCalendar = new GoogleCalendar();
 		newCalendar.setSummary(CalendarName);
+		newCalendar.setTimeZone(timeZone);
 
 		// convert calendar to json string
 		gson = getExposeOnlyGson();

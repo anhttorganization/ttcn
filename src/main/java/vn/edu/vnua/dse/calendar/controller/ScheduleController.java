@@ -26,6 +26,7 @@ import vn.edu.vnua.dse.calendar.crawling.SubjectEventDetails;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleCalendar;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.APIWrapper;
+import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.CalendarConstant;
 import vn.edu.vnua.dse.calendar.model.Calendar;
 import vn.edu.vnua.dse.calendar.model.CalendarDetail;
 import vn.edu.vnua.dse.calendar.model.Event;
@@ -171,7 +172,7 @@ public class ScheduleController {
 
 			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 
-			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary);
+			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary, CalendarConstant.TIME_ZONE);
 			User user = UserDetailsServiceImpl.getUser();
 			// lấy tkb
 			List<GoogleEvent> ggEvents = result.getResult();
