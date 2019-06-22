@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Lay danh sach tat ca nguoi dùng
+	 * Lay danh sach tat ca nguoi dung
 	 * 
 	 */
 	@Override
