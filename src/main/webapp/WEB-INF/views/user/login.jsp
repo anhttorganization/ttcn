@@ -72,13 +72,13 @@
 						Bạn chưa có tài khoản?<a href="${contextPath}/register" class="ml-2">Đăng ký</a>
 					</div>
 					<div class="d-flex justify-content-center links">
-						<a href="#">Quên mật khẩu?</a>
+						<a href="${contextPath}/fogot_password">Quên mật khẩu?</a>
 					</div>
 					<span>${message}</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/dangnhap.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/dangnhap.js"></script>
 </body>
 </html>

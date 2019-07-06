@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.model.Role;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -79,6 +83,23 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException(e.getMessage());
 		}
 		return listResult;
+	}
+	
+	/**
+	 * Kiem tra pass
+	 */
+	@Override
+	public boolean checkIfValidOldPassword(User user, String oldPassword) {
+		return passwordEncoder.matches(oldPassword, user.getPassword());		
+	}
+	
+	/**
+	 * Thay doi pass
+	 */
+	@Override
+	public void changeUserPass(User user,String password) {
+		user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
 	}
 
 }

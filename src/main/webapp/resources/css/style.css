@@ -89,3 +89,7 @@ td.tool_lesson ul li {
 .lesson_table th, .lesson_table td, .lesson_table tr {
     text-align: center;
 }
+.themlichtkb {
+    padding-left: 50px;
+    padding-right: 50px;
+}

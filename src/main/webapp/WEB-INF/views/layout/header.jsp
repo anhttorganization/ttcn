@@ -21,7 +21,8 @@
 					property="principal.firstName" /></a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="myaccount.html"></i> Thông tin</a> <a
-					class="dropdown-item" href="#"></i> Đổi mật khẩu</a>
+					class="dropdown-item" href="${contextPath}/change_password"></i> Đổi
+					mật khẩu</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="${contextPath}/login?logout"><i
 					class="fas fa-sign-out-alt"></i> Đăng xuất</a>

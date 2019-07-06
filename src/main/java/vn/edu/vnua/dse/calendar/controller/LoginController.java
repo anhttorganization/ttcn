@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import vn.edu.vnua.dse.calendar.co.CustomUserDetails;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.model.User;
 import vn.edu.vnua.dse.calendar.service.EmailService;
 import vn.edu.vnua.dse.calendar.service.SecurityService;
+import vn.edu.vnua.dse.calendar.service.UserDetailsServiceImpl;
 import vn.edu.vnua.dse.calendar.service.UserService;
 import vn.edu.vnua.dse.calendar.validator.UserValidator;
 
@@ -31,13 +36,16 @@ import vn.edu.vnua.dse.calendar.validator.UserValidator;
 public class LoginController {
 	@Autowired
 	private UserService userService;
-
+	
 	@Autowired
 	private SecurityService securityService;
 
 	@Autowired
 	private UserValidator userValidator;
 
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	@Autowired
 	private EmailService emailService;
 
@@ -78,7 +86,7 @@ public class LoginController {
 
 		emailService.sendEmail(registrationEmail);
 
-		model.addAttribute("confirmationMessage", "Email xách nhận đã được gửi tới địa chỉ email " + user.getEmail());
+		model.addAttribute("confirmationMessage", "Email xÃ¡ch nháº­n Ä‘Ã£ Ä‘Æ°á»£c gá»­i tá»›i Ä‘á»‹a chá»‰ email " + user.getEmail());
 
 		userService.init(user);// save and encode
 
@@ -104,7 +112,29 @@ public class LoginController {
 
 		return "redirect:/login";
 	}
-
+	
+	@RequestMapping(value = {"/change_password"}, method = RequestMethod.GET)
+	public String changePassword(Model model) {
+		return "change_password";
+	}
+	
+	@RequestMapping(value = {"/change_password"}, method = RequestMethod.POST)
+	public String loadchangePassword(Model model, @RequestParam String oldPass, @RequestParam String newPass) {
+		User user = UserDetailsServiceImpl.getUser();
+		if(user == null) {
+			model.addAttribute("invalidToken", "Oops!");
+			return "change_password";
+		}else {
+			if(!userService.checkIfValidOldPassword(user, oldPass)) {
+				model.addAttribute("invalidToken", "Lỗi! Mật khẩu cũ không đúng");
+				return "change_password";
+			}
+			userService.changeUserPass(user, newPass);
+		}
+		model.addAttribute("confirmationMessage", "Thay đổi mật khẩu thành công!");
+		return "change_password";
+	}
+	
 //	// Process confirmation link
 //	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
 //	public ModelAndView confirmRegistration(ModelAndView modelAndView, BindingResult bindingResult,
@@ -167,6 +197,17 @@ public class LoginController {
 		return "admin";
 	}
 	
+	@RequestMapping(value= {"/fogot_password"}, method = RequestMethod.GET)
+	public String fogotPassword(Model model) {
+		return "fogot_password";
+	}
+	
+	@RequestMapping(value = {"/fogot_password"},method = RequestMethod.POST)
+	public String loadFogotPassword(@RequestParam String emailrepass, BindingResult bindingResult, Model model,
+			HttpServletRequest request) throws IOException{
+		
+		return "fogot_password";
+	}
 	/**
 	 * Controller tra ve trang quan ly nguoi dung
 	 * 

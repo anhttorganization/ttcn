@@ -21,4 +21,8 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> findAll();
+	
+	public boolean checkIfValidOldPassword(User user,String oldPassword);
+	
+	public void changeUserPass(User user,String password);
 }
