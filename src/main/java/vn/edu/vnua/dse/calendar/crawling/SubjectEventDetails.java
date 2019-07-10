@@ -288,7 +288,7 @@ public final class SubjectEventDetails {
 				String startStr = formatter.format(start);
 				String endStr = formatter.format(end);
 				
-				String event = String.format(ExGoogleEvent.allDayEvent, "Tuần " + (i + 1), startStr, endStr, "Tuần " + (i + 1),	"Học viện Nông nghiệp Việt Nam", "default");
+				String event = String.format(ExGoogleEvent.weekStudyEvent, "Tuần " + (i + 1), startStr, endStr, semeseterName, "default");
 				events.add(event);
 			}
 		}
