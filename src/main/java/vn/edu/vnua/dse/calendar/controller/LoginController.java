@@ -9,11 +9,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import vn.edu.vnua.dse.calendar.co.CustomUserDetails;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.model.User;
@@ -43,9 +40,6 @@ public class LoginController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
 	@Autowired
 	private EmailService emailService;
 
@@ -86,7 +80,7 @@ public class LoginController {
 
 		emailService.sendEmail(registrationEmail);
 
-		model.addAttribute("confirmationMessage", "Email xÃ¡ch nháº­n Ä‘Ã£ Ä‘Æ°á»£c gá»­i tá»›i Ä‘á»‹a chá»‰ email " + user.getEmail());
+		model.addAttribute("confirmationMessage", "Email xác nhận đã được gửi đến email của bạn " + user.getEmail());
 
 		userService.init(user);// save and encode
 
@@ -202,12 +196,7 @@ public class LoginController {
 		return "fogot_password";
 	}
 	
-	@RequestMapping(value = {"/fogot_password"},method = RequestMethod.POST)
-	public String loadFogotPassword(@RequestParam String emailrepass, BindingResult bindingResult, Model model,
-			HttpServletRequest request) throws IOException{
-		
-		return "fogot_password";
-	}
+	
 	/**
 	 * Controller tra ve trang quan ly nguoi dung
 	 * 

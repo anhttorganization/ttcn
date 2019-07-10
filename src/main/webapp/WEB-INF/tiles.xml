@@ -39,13 +39,28 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/testschedule/create.jsp" />
 	</definition>
-
+	<definition name="reset_password" extends="index">
+		<put-attribute name="title" value="Thêm lịch thi" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/user/reset_password.jsp" />
+	</definition>
 	<definition name="import/create" extends="index">
-		<put-attribute name="title" value="Thêm lịch từ file excel" />
+		<put-attribute name="title"
+			value="Thêm lịch từ file excel" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/import/create.jsp" />
 	</definition>
 
+	<definition name="fogot_password" extends="index">
+		<put-attribute name="title" value="Quên mật khẩu" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/user/fogot_password.jsp" />
+	</definition>
+	<definition name="change_password" extends="index">
+		<put-attribute name="title" value="Đổi mật khẩu" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/user/change_password.jsp" />
+	</definition>
 	<definition name="register"
 		template="/WEB-INF/views/user/register.jsp">
 	</definition>
@@ -53,16 +68,15 @@
 	<definition name="login"
 		template="/WEB-INF/views/user/login.jsp">
 	</definition>
-	
-	
+
+
 	<definition name="privacy"
 		template="/WEB-INF/views/privacy.jsp">
 	</definition>
-	
-	<definition name="terms"
-		template="/WEB-INF/views/terms.jsp">
+
+	<definition name="terms" template="/WEB-INF/views/terms.jsp">
 	</definition>
-	
-	
-	
+
+
+
 </tiles-definitions>
