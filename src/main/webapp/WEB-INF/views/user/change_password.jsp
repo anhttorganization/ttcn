@@ -17,30 +17,29 @@
 					</c:if>
 					<c:if test="${not empty invalidToken}">
 						<script type="text/javascript">
-						toastr.error('${invalidToken}', 'Lỗi');
+							toastr.error('${invalidToken}', 'Lỗi');
 						</script>
 					</c:if>
 					<%-- <c:if test="${empty invalidToken}"> --%>
-						<form method="POST" action="${contextPath}/change_password"
-							onSubmit="return checkPassword()" class="change_password">
-							<h1>Đổi mật khẩu</h1>
-							<div class="themlichtkb">
-								<label class="mt-2" for="masv">Mật khẩu cũ:</label> <input
-									type="password" class="form-control" name="oldPass"
-									id="oldPass"> <label class="mt-2" for="masv">Mật
-									khẩu mới:</label> <input type="password" class="form-control"
-									name="newPass" id="newPass"> <label class="mt-2"
-									for="masv">Nhập lại mật khẩu mới:</label> <input
-									type="password" class="form-control" name="renewPass"
-									id="renewPass">
-								<button type="submit" id="btnSavePass"
-									class="btn btn-primary mt-4 float-right w-25">Đổi mật
-									khẩu</button>
-								<div class="backhome">
-								<a href="../home">Dùng các chức năng khác</a>
+					<form method="POST" action="${contextPath}/change_password"
+						onSubmit="return checkPassword()" class="change_password">
+						<h1>Đổi mật khẩu</h1>
+						<div class="themlichtkb">
+							<label class="mt-2" for="masv">Mật khẩu cũ:</label> <input
+								type="password" class="form-control" name="oldPass" id="oldPass">
+							<label class="mt-2" for="masv">Mật khẩu mới:</label> <input
+								type="password" class="form-control" name="newPass" id="newPass">
+							<label class="mt-2" for="masv">Nhập lại mật khẩu mới:</label> <input
+								type="password" class="form-control" name="renewPass"
+								id="renewPass">
+							<button type="submit" id="btnSavePass"
+								class="btn btn-primary mt-4 float-right w-25">Đổi mật
+								khẩu</button>
+							<div class="backhome">
+								<a href="${contextPath}/home">Dùng các chức năng khác</a>
 							</div>
-							</div>
-						</form>
+						</div>
+					</form>
 					<%-- </c:if> --%>
 				</div>
 			</div>
@@ -79,5 +78,4 @@
 		}
 		return true;
 	}
-	
 </script>

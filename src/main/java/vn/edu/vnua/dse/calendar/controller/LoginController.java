@@ -80,7 +80,7 @@ public class LoginController {
 
 		emailService.sendEmail(registrationEmail);
 
-		model.addAttribute("confirmationMessage", "Email xác nhận đã được gửi đến email của bạn " + user.getEmail());
+		model.addAttribute("confirmationMessage", "Email xác nhận đã được gửi tới email của bạn, vui lòng kiểm tra email " + user.getEmail());
 
 		userService.init(user);// save and encode
 
@@ -124,9 +124,10 @@ public class LoginController {
 				return "change_password";
 			}
 			userService.changeUserPass(user, newPass);
+			
 		}
-		model.addAttribute("confirmationMessage", "Thay đổi mật khẩu thành công!");
-		return "change_password";
+		//model.addAttribute("confirmationMessage", "Thay đổi mật khẩu thành công!");
+		return "redirect:/home";
 	}
 	
 //	// Process confirmation link
