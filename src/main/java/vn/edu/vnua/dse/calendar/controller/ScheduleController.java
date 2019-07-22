@@ -117,8 +117,9 @@ public class ScheduleController {
 						String oldHash = calendarDetail.getScheduleHash();
 
 						if (!newHash.equals(oldHash)) {// neu thoi khoa bieu thay doi
+							model.addAttribute("updateCalendar", true);
 							Set<Event> oldEvents = calendarDetail.getEvents();
-
+							
 							for (Event oldEvent : oldEvents) {
 								aPIWrapper.deleteEvent(calendar.getCalendarId(), oldEvent.getEventId());// xoa tren
 								eventRepository.delete(oldEvent);

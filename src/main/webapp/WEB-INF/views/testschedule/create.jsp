@@ -40,28 +40,33 @@
 </div>
 
 
-<c:if test="${not empty success}">
-	<script type="text/javascript">
-		alert("Thêm lịch thành công!");
-	</script>
-</c:if>
-
-<c:if test="${not empty error}">
-	<script type="text/javascript">
-		alert("Thêm lịch không thành công!");
-	</script>
-</c:if>
-
-<c:if test="${not empty exist}">
-	<script type="text/javascript">
-		alert("Lịch đã tồn tại!");
-	</script>
-</c:if>
-
-<c:if test="${not empty update}">
-	<script type="text/javascript">
-		alert("Website Đào tạo đang update dữ liệu!");
-	</script>
-</c:if>
-
-
+<c:choose>
+	<c:when test="${not empty exist}">
+		<script type="text/javascript">
+			alert("Lịch đã tồn tại!");
+		</script>
+	</c:when>
+	<c:when test="${not empty updateCalendar}">
+		<script type="text/javascript">
+			alert("Lịch thi có thay đổi, cập nhật thành công!");
+		</script>
+	</c:when>
+	<c:when test="${not empty update}">
+		<script type="text/javascript">
+			alert("Website Đào tạo đang update dữ liệu!");
+		</script>
+	</c:when>
+	<c:when test="${not empty error}">
+		<script type="text/javascript">
+			alert("Thêm lịch không thành công!");
+		</script>
+	</c:when>
+	<c:when test="${not empty success}">
+		<script type="text/javascript">
+			alert("Thêm lịch thành công!");
+		</script>
+	</c:when>
+	<c:otherwise>
+		
+	</c:otherwise>
+</c:choose>

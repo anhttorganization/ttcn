@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>ST Calendar</title>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/png" href="${contextPath}/resources/images/Logo.png" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
@@ -24,6 +25,7 @@
 
 </head>
 <body>
+<div  style="height: 100%;" >
 <div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -79,6 +81,13 @@
 			</div>
 		</div>
 	</div>
+	</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/dangnhap.js"></script>
 </body>
+<footer id = "footer">
+<div	>
+	<hr>
+	<p align="center">© Copyright <a href="https://st-dse.vnua.edu.vn/" target="_blank">Nhóm ST</a>, Bộ môn Công nghệ phần mềm, Khoa Công nghệ thông tin, Học viện Nông nghiệp Việt Nam</p>
+</div>
+</footer>
 </html>

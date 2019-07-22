@@ -17,9 +17,10 @@
 							<spring:bind path="semester">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<label for="semester">Chọn học kỳ:</label>
-									<form:select path="semester" class="custom-select" required="required">
+									<form:select path="semester" class="custom-select"
+										required="required">
 										<form:option value="" label="--Chọn một giá trị--" />
-										<form:options items="${semesters}" required="required"/>
+										<form:options items="${semesters}" required="required" />
 									</form:select>
 									<form:errors path="semester" />
 								</div>
@@ -31,7 +32,7 @@
 										viên:</label>
 									<form:input path="studentId" id="studentId"
 										class="form-control" title="Mã GV/SV có 5/6 kí tự" type="text"
-										pattern=".{5,6}" required="required"/>
+										pattern=".{5,6}" required="required" />
 									<form:errors path="studentId" />
 								</div>
 							</spring:bind>
@@ -49,7 +50,42 @@
 	</div>
 </div>
 
-<c:if test="${not empty success}">
+<c:choose>
+	<c:when test="${not empty exist}">
+		<script type="text/javascript">
+			alert("Lịch đã tồn tại!");
+		</script>
+	</c:when>
+	<c:when test="${not empty updateCalendar}">
+		<script type="text/javascript">
+			alert("Thời khóa có thay đổi, cập nhật thành công!");
+		</script>
+	</c:when>
+	<c:when test="${not empty update}">
+		<script type="text/javascript">
+			alert("Website Đào tạo đang update dữ liệu!");
+		</script>
+	</c:when>
+	<c:when test="${not empty error}">
+		<script type="text/javascript">
+			alert("Thêm lịch không thành công!");
+		</script>
+	</c:when>
+	<c:when test="${not empty success}">
+		<script type="text/javascript">
+			alert("Thêm lịch thành công!");
+		</script>
+	</c:when>
+	<c:otherwise>
+		
+	</c:otherwise>
+</c:choose>
+<%-- <c:if test="${not empty success}">
+	<c:if test="${not empty exist}">
+		<script type="text/javascript">
+			alert("Lịch đã tồn tại!");
+		</script>
+	</c:if>
 	<script type="text/javascript">
 		alert("Thêm lịch thành công!");
 	</script>
@@ -75,3 +111,4 @@
 
 
 
+ --%>

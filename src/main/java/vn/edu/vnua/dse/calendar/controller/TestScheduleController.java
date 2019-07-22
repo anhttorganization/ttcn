@@ -97,6 +97,9 @@ public class TestScheduleController {
 						String oldHash = calendarDetail.getScheduleHash();
 
 						if (!newHash.equals(oldHash)) {// neu thoi khoa bieu thay doi
+							//
+							model.addAttribute("updateCalendar", "Cập nhật lịch thành công!");
+
 							Set<Event> oldEvents = calendarDetail.getEvents();
 
 							for (Event oldEvent : oldEvents) {

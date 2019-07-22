@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/dashboard.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/toastr.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/common.css">
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
@@ -32,4 +33,7 @@
 
 	<script type="text/javascript" src="${contextPath}/resources/js/dashboard.js"></script>
 </body>
+<footer id = "footer">
+	<tiles:insertAttribute name="footer" />
+</footer>
 </html>

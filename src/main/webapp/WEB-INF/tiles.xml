@@ -12,8 +12,8 @@
 			/> -->
 		<put-attribute name="body"
 			value="/WEB-INF/views/layout/home.jsp" />
-		<!-- <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" 
-			/> -->
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" 
+			/> 
 	</definition>
 
 	<definition name="admin" extends="index">
