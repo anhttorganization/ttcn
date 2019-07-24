@@ -90,11 +90,11 @@ public class LoginController {
 	// Process confirmation link
 	@RequestMapping(value = "/register-confirm", method = RequestMethod.GET)
 	public String confirmRegistration(Model model, @RequestParam("token") String token) {
-
+		
 		User user = userService.findByConfirmToken(token);
 
 		if (user == null) { // No token found in DB
-			model.addAttribute("invalidToken", "Oops!  This is an invalid confirmation link.");
+			model.addAttribute("invalidToken", true);
 			return "login";
 		} else { // Token found
 			// Set user to enabled
@@ -102,6 +102,7 @@ public class LoginController {
 			user.setConfirmToken(null);
 			// Save user
 			userService.save(user);
+			model.addAttribute("success", true);
 		}
 
 		return "redirect:/login";

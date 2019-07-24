@@ -61,18 +61,18 @@ public class ImportController {
 
 		try {
 			MultipartFile multipartFile = importCreate.getMultipartFile();
-//      String fileName = multipartFile.getOriginalFilename();
+			//      String fileName = multipartFile.getOriginalFilename();
 			File file = new File(uploadRootDir.getAbsolutePath() + File.separator + "event.xlsx");
 
 			multipartFile.transferTo(file);
 			// code
-			ImportServiceImpl.insert(calendarId, file);
+			String message = ImportServiceImpl.insert(calendarId, file);
 
 			file.delete();
-
+			model.addAttribute("message", message);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("message", "upload failed");
+			model.addAttribute("error", true);
 		}
 
 		// add list calendar

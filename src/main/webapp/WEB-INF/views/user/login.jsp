@@ -91,3 +91,15 @@
 </div>
 </footer>
 </html>
+
+<c:if test="${not empty invalidToken}">
+	<script type="text/javascript">
+		alert("Confirm token không hợp lệ!");
+	</script>
+</c:if>
+
+<c:if test="${not empty success}">
+	<script type="text/javascript">
+		alert("Kích hoạt tài khoản thành công!");
+	</script>
+</c:if>

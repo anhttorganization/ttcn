@@ -27,5 +27,7 @@ public final class AppConstant {
 	
 	public static final String WEB_DRIVER = "D:\\SeleniumWebdriver\\chromedriver.exe";
 	
+	public static final String IMPORT_ERROR = "Dòng %s, cột %s: %s";
+	
 	
 }
