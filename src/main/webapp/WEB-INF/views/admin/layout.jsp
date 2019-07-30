@@ -23,6 +23,13 @@
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
 
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/tempusdominus-bootstrap-4.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin.css">
+	<script type="text/javascript" src="${contextPath}/resources/js/moment.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/tempusdominus-bootstrap-4.min.js"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-primary menu_calendar">

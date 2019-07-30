@@ -49,16 +49,16 @@
 							<option value="1" selected>Tiết 1</option>
 							<option value="2">Tiết 2</option>
 							<option value="3">Tiết 3</option>
-							<option value="3">Tiết 4</option>
-							<option value="3">Tiết 5</option>
-							<option value="3">Tiết 6</option>
-							<option value="3">Tiết 7</option>
-							<option value="3">Tiết 8</option>
-							<option value="3">Tiết 9</option>
-							<option value="3">Tiết 10</option>
-							<option value="3">Tiết 11</option>
-							<option value="3">Tiết 12</option>
-							<option value="3">Tiết 13</option>
+							<option value="4">Tiết 4</option>
+							<option value="5">Tiết 5</option>
+							<option value="6">Tiết 6</option>
+							<option value="7">Tiết 7</option>
+							<option value="8">Tiết 8</option>
+							<option value="9">Tiết 9</option>
+							<option value="10">Tiết 10</option>
+							<option value="11">Tiết 11</option>
+							<option value="12">Tiết 12</option>
+							<option value="13">Tiết 13</option>
 						</select> <label class="font-weight-bold mt-1" for="inputGroupSelect01">Thời
 							gian bắt đầu: </label>
 						<div class="input-group date" id="tietbatdau"
