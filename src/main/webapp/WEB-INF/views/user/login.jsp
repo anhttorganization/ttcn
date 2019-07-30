@@ -76,7 +76,7 @@
 					<div class="d-flex justify-content-center links">
 						<a href="${contextPath}/fogot_password">Quên mật khẩu?</a>
 					</div>
-					<span>${message}</span>
+					<span id="message"  hidden>${message}</span>
 				</div>
 			</div>
 		</div>
@@ -103,3 +103,11 @@
 		alert("Kích hoạt tài khoản thành công!");
 	</script>
 </c:if>
+
+
+<script type="text/javascript">
+	var msg = $("#message").text();
+	if(msg){
+	alert(msg);
+	}
+</script>

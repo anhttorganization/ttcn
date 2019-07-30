@@ -10,15 +10,15 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Xem lịch</h5>
-					<p class="card-text">Đang phát triển.</p>
+					<p class="card-text">Đang phát triển...</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4 col-sm-6 card-calendar mt-4">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Thêm thời khóa biểu</h5>
-					<p class="card-text">Thêm thời khóa biểu, lịch giảng dạy của sinh viên theo từng học kỳ vào Google Calendar.</p>
+					<h5 class="card-title">Thời khóa biểu</h5>
+					<p class="card-text">Thêm thời khóa biểu, lịch giảng dạy của sinh viên theo từng học kỳ vào Google Calendar</p>
 					<a class="link-function" href="schedule/create"></a>
 				</div>
 			</div>
@@ -26,26 +26,26 @@
 		<div class="col-md-4 col-sm-6 card-calendar mt-4">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Thêm lịch thi</h5>
-					<p class="card-text">Thêm lịch thi kỳ hiện tại của sinh viên vào Google Calendar.</p>
+					<h5 class="card-title">Lịch thi</h5>
+					<p class="card-text">Thêm lịch thi kỳ hiện tại của sinh viên vào Google Calendar</p>
 					<a class="link-function" href="testschedule/create"></a>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-6 card-calendar mt-4">
+		<!-- <div class="col-md-4 col-sm-6 card-calendar mt-4">
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thêm lịch coi thi</h5>
-					<p class="card-text">Đang phát triển.</p>
-					<!-- <a class="link-function" href=""></a> -->
+					<p class="card-text">Đang phát triển</p>
+					<a class="link-function" href=""></a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="col-md-4 col-sm-6 card-calendar mt-4">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Thêm lịch từ excel</h5>
-					<p class="card-text">Thêm các sự kiện(event) vào trong lịch đã tạo trên Google Calendar</p>
+					<h5 class="card-title">File Excel</h5>
+					<p class="card-text">Thêm các sự kiện từ file excel vào trong lịch đã tạo trên Google Calendar</p>
 					<a class="link-function" href="import/create"></a>
 				</div>
 			</div>

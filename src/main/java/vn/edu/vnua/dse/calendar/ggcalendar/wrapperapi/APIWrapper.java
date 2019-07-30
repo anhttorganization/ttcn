@@ -278,7 +278,7 @@ public class APIWrapper {
 		String result = APIService.PostResult(url, accessToken, eventJson);
 		gson = new Gson();
 		GoogleEvent event = gson.fromJson(result, GoogleEvent.class);
-
+		
 		return event;
 	}
 	// update

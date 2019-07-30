@@ -26,14 +26,13 @@
 						</div>
 						<div class="modal-body">
 							<label for="staticEmail2">Email:</label> <input type="text"
-								class="form-control" placeholder="VD: thangdangblog@gmail.com">
+								class="form-control" placeholder="VD: user@gmail.com">
 							<label for="staticEmail2">Tên:</label> <input type="text"
-								class="form-control" placeholder="VD: Thắng"> <label
+								class="form-control" placeholder="VD: A"> <label
 								for="staticEmail2">Họ đệm:</label> <input type="text"
-								class="form-control" placeholder="VD: Đặng Quốc"> <label
+								class="form-control" placeholder="VD: Nguyễn Văn"> <label
 								for="staticEmail2">Mật khẩu:</label> <input type="password"
-								class="form-control"> <label for="staticEmail2">Nhập
-								lại mật khẩu:</label> <input type="password" class="form-control">
+								class="form-control"> <label for="staticEmail2">Nhập lại mật khẩu:</label> <input type="password" class="form-control">
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -46,8 +45,7 @@
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
 					placeholder="Tìm kiếm" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm
-					kiếm</button>
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
 			</form>
 		</nav>
 		<!-- Modal hiển thị -->
@@ -56,8 +54,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa
-							tài khoản</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa	tài khoản</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>

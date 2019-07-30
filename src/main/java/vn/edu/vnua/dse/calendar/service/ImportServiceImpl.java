@@ -321,7 +321,7 @@ public class ImportServiceImpl {
 				return new BaseResult<List<String>>(false, new ArrayList<>(), "Sai tên thứ 8!");
 			}
 		}
-		return new BaseResult<List<String>>(true, events, "Import lịch thành công!");
+		return new BaseResult<List<String>>(true, events, "Đọc sự kiện từ file excel thành công!");
 
 		
 	}

@@ -15,34 +15,45 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" 
 			/> 
 	</definition>
+	
+	
+	<definition name="admin"
+		template="/WEB-INF/views/admin/layout.jsp">
+		<put-attribute name="title" value="home" />
+		<put-attribute name="header"
+			value="/WEB-INF/views/admin/header.jsp" />
+		<!-- <put-attribute name="menu" value="/WEB-INF/views/layout/menu.jsp" 
+			/> -->
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/admin.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" 
+			/> 
+	</definition>
+	
+	
 
-	<definition name="admin" extends="index">
-		<put-attribute name="title" value="Thêm thời khóa biểu" />
+<!-- 	<definition name="admin" extends="index">
+		<put-attribute name="title" value="Thời khóa biểu" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/admin.jsp" />
 	</definition>
-
-	<definition name="admin/quan-ly-nguoi-dung" extends="index">
-		<put-attribute name="title" value="Quản lý người dùng" />
+ -->
+	<definition name="admin/quan-ly-nguoi-dung" extends="admin">
+		<put-attribute name="title" value="Người dùng" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/nguoidung.jsp" />
 	</definition>
 
 	<definition name="schedule/create" extends="index">
-		<put-attribute name="title" value="Thêm thời khóa biểu" />
+		<put-attribute name="title" value="Thời khóa biểu" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/schedule/create.jsp" />
 	</definition>
 
 	<definition name="testschedule/create" extends="index">
-		<put-attribute name="title" value="Thêm lịch thi" />
+		<put-attribute name="title" value="Lịch thi" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/testschedule/create.jsp" />
-	</definition>
-	<definition name="reset_password" extends="index">
-		<put-attribute name="title" value="Thêm lịch thi" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/user/reset_password.jsp" />
 	</definition>
 	<definition name="import/create" extends="index">
 		<put-attribute name="title"
@@ -51,10 +62,12 @@
 			value="/WEB-INF/views/import/create.jsp" />
 	</definition>
 
-	<definition name="fogot_password" extends="index">
-		<put-attribute name="title" value="Quên mật khẩu" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/user/fogot_password.jsp" />
+	<definition name="fogot_password"
+		template="/WEB-INF/views/user/fogot_password.jsp" >
+	</definition>
+	
+	<definition name="reset_password"
+		template="/WEB-INF/views/user/reset_password.jsp" >
 	</definition>
 	<definition name="change_password" extends="index">
 		<put-attribute name="title" value="Đổi mật khẩu" />

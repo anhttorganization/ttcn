@@ -76,7 +76,7 @@ public class LoginController {
 		registrationEmail.setSubject("Registration Confirmation");
 		registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + appUrl
 				+ "/register-confirm?token=" + user.getConfirmToken());
-		registrationEmail.setFrom("anhtt@gmail.com");
+		registrationEmail.setFrom("ttcnmail@gmail.com");
 
 		emailService.sendEmail(registrationEmail);
 
@@ -98,7 +98,9 @@ public class LoginController {
 			return "login";
 		} else { // Token found
 			// Set user to enabled
-			user.setEnabled(true);
+			if(!user.isEnabled()) {
+				user.setEnabled(true);
+			}
 			user.setConfirmToken(null);
 			// Save user
 			userService.save(user);
@@ -131,50 +133,14 @@ public class LoginController {
 		return "redirect:/home";
 	}
 	
-//	// Process confirmation link
-//	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
-//	public ModelAndView confirmRegistration(ModelAndView modelAndView, BindingResult bindingResult,
-//			@RequestParam Map<String, String> requestParams) {
-//
-//		modelAndView.setViewName("confirm");
-//
-////			Zxcvbn passwordCheck = new Zxcvbn();
-//
-////			Strength strength = passwordCheck.measure(requestParams.get("password"));
-//
-////			if (strength.getScore() < 3) {
-////				//modelAndView.addObject("errorMessage", "Your password is too weak.  Choose a stronger one.");
-////				bindingResult.reject("password");
-////				
-////				redir.addFlashAttribute("errorMessage", "Your password is too weak.  Choose a stronger one.");
-////
-////				modelAndView.setViewName("redirect:confirm?token=" + requestParams.get("token"));
-////				System.out.println(requestParams.get("token"));
-////				return modelAndView;
-////			}
-//
-//		// Find the user associated with the reset token
-//		User user = userService.findByConfirmToken(requestParams.get("token"));
-//
-//		// Set user to enabled
-//		user.setEnabled(true);
-//
-//		// Save user
-//		userService.save(user);
-//
-//		securityService.autologin(user.getEmail(), user.getPasswordConfirm());
-//		modelAndView.addObject("successMessage", "Your password has been set!");
-//		
-//		return new ModelAndView("redirect:/home");
-//	}
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
 		if (error != null)
-			model.addAttribute("error", "Your username and password is invalid.");
+			model.addAttribute("error", "Tài khoản hoặc mật khẩu không chính xác");
 
 		if (logout != null)
-			model.addAttribute("message", "You have been logged out successfully.");
+			model.addAttribute("message", "Tài khoản đã được đăng xuất");
 
 		return "login";
 	}
@@ -182,23 +148,79 @@ public class LoginController {
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String welcome(Model model) {
 		if (securityService.hasRole(AppConstant.ROLE_USER)) {
-			return "index";
+			return "index";//trang chủ người dùng
 		}
-		return "admin";
+		return "redirect:/admin";
 	}
 
-	@RequestMapping(value = { "/index" }, method = RequestMethod.GET)
-	public String Index(Model model) {
-		
-		return "admin";
-	}
+		@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+		public String Index(Model model) {
+			
+			return "admin";
+		}
 	
 	@RequestMapping(value= {"/fogot_password"}, method = RequestMethod.GET)
-	public String fogotPassword(Model model) {
+	public String fogotPassword() {
 		return "fogot_password";
 	}
 	
+	@RequestMapping(value= {"/fogot_password"}, method = RequestMethod.POST)
+	public String fogotPassword(@RequestParam String email, Model model) throws IOException {
+		//tim user
+		User user = userService.findByEmail(email);
+		if(user != null) {
+			//set token
+			user.setConfirmToken(UUID.randomUUID().toString());
+			//gui email
+			Properties prop = AppUtils.MyProperties(AppConstant.APLICATION_PRO);
+			String appUrl = prop.getProperty("app.appURL");
+			SimpleMailMessage registrationEmail = new SimpleMailMessage();
+			registrationEmail.setTo(user.getEmail());// get mail
+			registrationEmail.setSubject("Registration Confirmation");
+			registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + appUrl
+					+ "/reset-password?token=" + user.getConfirmToken());
+			registrationEmail.setFrom("ttcnmail@gmail.com");
+			
+			emailService.sendEmail(registrationEmail);
+			
+			model.addAttribute("success", "Email xác nhận đã được gửi tới email " + user.getEmail());
+			
+			userService.save(user);// save and encode
+		}else {
+			model.addAttribute("message", "Vui lòng nhập đúng email tài khoản!");
+		}
+		
+		return "fogot_password";
+	}
 	
+	@RequestMapping(value = "/reset-password", method = RequestMethod.GET)
+	public String ResetPassword(Model model, @RequestParam("token") String token) {
+		
+		User user = userService.findByConfirmToken(token);
+		if(user != null) {
+			model.addAttribute("email", user.getEmail() );
+			
+			return "reset_password";
+		}
+		return "login";
+	}
+	
+	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+	public String ResetPassword(Model model,@RequestParam("email") String email, @RequestParam("password") String password) {
+		
+		User user = userService.findByEmail(email);
+		if(user != null) {
+			userService.changeUserPass(user, password);
+			user.setConfirmToken(null);
+			model.addAttribute("message", "Thay đổi mật khẩu thành công!");
+			userService.save(user);
+			return "login";
+		}
+		model.addAttribute("message", "Có lỗi xảy ra!");
+		return "login";
+	}
+	
+	 
 	/**
 	 * Controller tra ve trang quan ly nguoi dung
 	 * 
@@ -217,10 +239,4 @@ public class LoginController {
 		return "admin/quan-ly-nguoi-dung";
 	}
 
-//	@RequestMapping(value = "/change_password", method = RequestMethod.GET)
-//	public String changePassword(Model model) {
-//		model.addAttribute("user", new User());
-//
-//		return "change_password";
-//	}
 }
