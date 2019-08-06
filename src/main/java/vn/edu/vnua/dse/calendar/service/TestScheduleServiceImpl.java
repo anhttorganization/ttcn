@@ -32,10 +32,10 @@ public class TestScheduleServiceImpl implements TestScheduleService{
 				eventIds.add(aPIWrapper.insertEvent(calenId, event).getId());
 			}
 			
-			return new ScheduleResult<Set<String>>(true, eventIds, events.getMassage(), events.getScheduleHash());
+			return new ScheduleResult<Set<String>>(true, eventIds, events.getMessage(), events.getScheduleHash());
 		}
 		
-		return new ScheduleResult<Set<String>>(false, eventIds, events.getMassage(), events.getScheduleHash());
+		return new ScheduleResult<Set<String>>(false, eventIds, events.getMessage(), events.getScheduleHash());
 	}
 
 	@Override

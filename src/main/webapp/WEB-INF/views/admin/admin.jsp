@@ -40,8 +40,7 @@
 
 			<!-- Thiết lập thời gian bắt đầu, kết thúc-->
 			<div class="card mt-3 mb-4">
-				<h4 class="card-title border-bottom p-2 bg-primary">Thêm tiết
-					học</h4>
+				<h4 class="card-title border-bottom p-2 bg-primary">Thêm tiết học</h4>
 				<div class="card-block p-3">
 					<form>
 						<label class="font-weight-bold" for="inputGroupSelect01">Chọn
@@ -59,8 +58,8 @@
 							<option value="11">Tiết 11</option>
 							<option value="12">Tiết 12</option>
 							<option value="13">Tiết 13</option>
-						</select> <label class="font-weight-bold mt-1" for="inputGroupSelect01">Thời
-							gian bắt đầu: </label>
+						</select> 
+						<label class="font-weight-bold mt-1" for="inputGroupSelect01">Thời gian bắt đầu: </label>
 						<div class="input-group date" id="tietbatdau"
 							data-target-input="nearest">
 							<input type="text" class="form-control datetimepicker-input"

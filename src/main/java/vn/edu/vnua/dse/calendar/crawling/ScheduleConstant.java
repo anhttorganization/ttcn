@@ -9,6 +9,7 @@ public final class ScheduleConstant {
    public static final String GET_EXAM_SCHEDULE_JQUERY = "D:\\ttcn\\dev\\getExamSchedule.txt";
    public static final String SCHEDULE_ELEMENT = "ctl00_ContentPlaceHolder1_ctl00_ddlChonNHHK";
    public static final String THUTIET_RADIO = "ctl00_ContentPlaceHolder1_ctl00_rad_ThuTiet";
-
+   public static final String CONTENT_MSV = "ctl00_ContentPlaceHolder1_ctl00_lblContentMaSV";
+   public static final String HEADER_DAOTAO_ID = "ctl00_Header1_ucLogout_dLog";
    
 }

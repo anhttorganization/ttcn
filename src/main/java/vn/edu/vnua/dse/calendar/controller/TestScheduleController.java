@@ -110,8 +110,8 @@ public class TestScheduleController {
 							updateCalendar(calendar, newEvents.getResult(), newHash);
 							calendarDetailRepository.delete(calendarDetail.getId());
 							// thong bao cap nhat thoi khoa bieu thanh cong
-							// model.addAttribute("message", newEvents.getMassage());//
-							model.addAttribute(newEvents.getMassage().toString(), AppUtils.getScheduleMessage(newEvents.getMassage()));
+							// model.addAttribute("message", newEvents.getMessage());//
+							model.addAttribute(newEvents.getMessage().toString(), AppUtils.getScheduleMessage(newEvents.getMessage()));
 						} else {
 							model.addAttribute("exist", "Lịch thi đã tồn tại!");
 						}
@@ -167,7 +167,7 @@ public class TestScheduleController {
 			
 		}
 		// tra ve message
-		return result.getMassage();
+		return result.getMessage();
 	}
 
 	// Khi da co calendar
@@ -193,7 +193,7 @@ public class TestScheduleController {
 
 		}
 
-		return result.getMassage();
+		return result.getMessage();
 	}
 
 	// khi calendar thay doi

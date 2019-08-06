@@ -50,13 +50,18 @@ public final class SubjectEventDetails {
 		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semester.getId());
 
 		ArrayList<String> scheduleJson = scheduleResult.getResult();
-		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semesterStart, semester);
-		if (scheduleJson.size() > 0) {
-			// return toGoogleEvent(scheduleJson);
-			return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMassage(), weekEventJson);	
+		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semester);
+		if(scheduleResult.isStatus()) {
+			if (scheduleJson.size() > 0) {
+				// return toGoogleEvent(scheduleJson);
+				return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), scheduleResult.getMessage(), weekEventJson);	
+			}else {
+				return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), "Học kỳ không có môn học nào, Thêm lịch không thành công!", weekEventJson);	
+			}
+			
 		}
 
-		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>(), scheduleResult.getMassage(), new ArrayList<String>());
+		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>(), scheduleResult.getMessage(), new ArrayList<String>());
 	}
 
 	private static final ScheduleResult<ArrayList<String>> getSchedule(String studentId, String semesId)
@@ -91,6 +96,15 @@ public final class SubjectEventDetails {
 			String passCap = ScheduleUtils.readResourceFile("js/capcha.js");
 			jse.executeScript(passCap);
 			driver.navigate().to(String.format(ScheduleConstant.SCHEDULE_URL, studentId));
+			//check thong tin sinh vien 
+			//wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ScheduleConstant.CONTENT_MSV)));
+			
+			if(driver.findElements(By.id(ScheduleConstant.HEADER_DAOTAO_ID)).size() == 0){
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Trang đạo tạo VNUA hiện không truy cập được \nVui lòng thử lại sau!", scheduleHash);
+			}
+			if(driver.findElements(By.id(ScheduleConstant.CONTENT_MSV)).size() == 0){
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Không tìm thấy thông tin thời khóa biểu sinh viên/giảng viên", scheduleHash);
+			}
 			// chon hoc ky
 			wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
 			Select dropdown = new Select(driver.findElement(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
@@ -130,14 +144,14 @@ public final class SubjectEventDetails {
 				driver.quit();
 
 				scheduleHash = AppUtils.getMD5(scheduleJson.toString());
-				return new ScheduleResult<ArrayList<String>>(true, scheduleJson, "success", scheduleHash);
+				return new ScheduleResult<ArrayList<String>>(true, scheduleJson, "Lấy lịch thành công", scheduleHash);
 			}
 
 			driver.close();
 			driver.quit();
 
 			scheduleHash = null;
-			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", scheduleHash);
+			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Có lỗi xảy ra", scheduleHash);
 		}
 
 	}
@@ -249,18 +263,18 @@ public final class SubjectEventDetails {
 		return date;
 	}
 
-	private static ArrayList<String> getWeekOfSemesEvent(Date startSemester, Semester semester) {
+	private static ArrayList<String> getWeekOfSemesEvent(Semester semester) {
 		String semeseterName = semester.getName();
 		
 		ArrayList<String> events = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(startSemester);
+		calendar.setTime(semester.getStartDate());
 		int monthStart = calendar.get(Calendar.MONTH);
 		if(monthStart >= 4 && monthStart < 6) {
 			for (int i = 0; i < 12; i++) {
 				// set date
 				Calendar calen = Calendar.getInstance();
-				calen.setTime(startSemester);
+				calen.setTime(semester.getStartDate());
 				// compute
 				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
 				Date start = calen.getTime();
@@ -278,7 +292,7 @@ public final class SubjectEventDetails {
 				
 				// set date
 				Calendar calen = Calendar.getInstance();
-				calen.setTime(startSemester);
+				calen.setTime(semester.getStartDate());
 				// compute
 				calen.set(Calendar.DAY_OF_MONTH, calen.get(Calendar.DAY_OF_MONTH) + i * 7 + 0);//thêm vào mỗi thứ 2
 				Date start = calen.getTime();

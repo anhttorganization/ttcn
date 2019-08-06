@@ -52,7 +52,7 @@ public class ImportServiceImpl {
 					aPIWrapper.insertEvent(calendarId, eventJson);
 				}
 			}
-			return result.getMassage();
+			return result.getMessage();
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

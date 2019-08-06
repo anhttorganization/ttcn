@@ -47,10 +47,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 					eventIds.add(aPIWrapper.insertEvent(calenId, event).getId());
 				}
 				
-				return new BaseResult<Set<String>>(true, eventIds, events.getMassage(), events.getWeekEvents());
+				return new BaseResult<Set<String>>(true, eventIds, events.getMessage(), events.getWeekEvents());
 			}
 			
-			return new BaseResult<Set<String>>(false, eventIds, events.getMassage());
+			return new BaseResult<Set<String>>(false, eventIds, events.getMessage());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,6 +79,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return eventIds;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public void insert1(String calenId, List<String> events) {
 		try {

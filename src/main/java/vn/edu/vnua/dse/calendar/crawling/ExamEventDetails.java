@@ -38,10 +38,10 @@ public class ExamEventDetails {
 		ArrayList<String> examScheduleJson = examScheduleResult.getResult();
 		if (examScheduleJson.size() > 0) {
 			return new ScheduleResult<List<GoogleEvent>>(true, toGoogleEvent(examScheduleJson),
-					examScheduleResult.getMassage(), examScheduleResult.getScheduleHash());
+					examScheduleResult.getMessage(), examScheduleResult.getScheduleHash());
 		}
 
-		return new ScheduleResult<List<GoogleEvent>>(false, null, examScheduleResult.getMassage(), null);
+		return new ScheduleResult<List<GoogleEvent>>(false, null, examScheduleResult.getMessage(), null);
 	}
 
 	// chuyển từ list json sang list GoogleEvent

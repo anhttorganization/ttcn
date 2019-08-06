@@ -15,21 +15,21 @@ public class BaseResult<T> {
 
 	T result;
 	
-	String massage;
+	String message;
 
 	ArrayList<String> weekEvents;
-	public BaseResult(boolean status, T result, String massage) {
+	public BaseResult(boolean status, T result, String message) {
 		super();
 		this.status = status;
 		this.result = result;
-		this.massage = massage;
+		this.message = message;
 	}
 	
-	public BaseResult(boolean status, T result, String massage, ArrayList<String> weekEvents) {
+	public BaseResult(boolean status, T result, String message, ArrayList<String> weekEvents) {
 		super();
 		this.status = status;
 		this.result = result;
-		this.massage = massage;
+		this.message = message;
 		this.weekEvents = weekEvents;
 	}
 
@@ -49,12 +49,12 @@ public class BaseResult<T> {
 		this.result = result;
 	}
 
-	public String getMassage() {
-		return massage;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMassage(String massage) {
-		this.massage = massage;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	
