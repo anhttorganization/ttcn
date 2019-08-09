@@ -25,7 +25,6 @@
 
 </head>
 <body>
-<div  style="height: 100%;" >
 <div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -36,24 +35,23 @@
 				</div>
 				
 				<div class="d-flex justify-content-center form_container">
-					<form method="POST" action="${contextPath}/j_spring_security_check" class="form-signin">
+					<form method="POST" action="${contextPath}/j_spring_security_check" class="form-signin" id="login_form">
 						<div class="form-group ${error != null ? 'has-error' : ''}">
 							<div class="input-group mb-3">
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
 								
-								<input name="email" type="text" class="form-control input_user" placeholder="Tài khoản" autofocus="true" required="required"/>
+								<input id="email" name="email" type="text" class="form-control input_user" placeholder="Tài khoản" autofocus="true"/>
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input id="password" name="password" type="password" class="form-control input_pass" placeholder="Mật khẩu" required="required"/>
+								<input id="password" name="password" type="password" class="form-control input_pass" placeholder="Mật khẩu"/>
 
 							</div>
 							<div>
-								<span>${error}</span>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							</div>
 							<div class="form-group">
@@ -62,12 +60,12 @@
 									<label class="custom-control-label" for="customControlInline">Nhớ tài khoản</label>
 								</div>
 							</div>
-							<div class="d-flex justify-content-center mt-3 login_container">
-								<button id="btn_submit" class="btn login_btn" type="submit" name="button">Đăng nhập</button>
-							</div>
 						</div>
 					</form>
 				</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+								<button id="btn_submit" class="btn login_btn" type="submit" name="button">Đăng nhập</button>
+							</div>
 				
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
@@ -81,33 +79,16 @@
 			</div>
 		</div>
 	</div>
-	</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/dangnhap.js"></script>
 </body>
-<footer id = "footer">
+<!-- <footer id = "footer">
 <div	>
 	<hr>
 	<p align="center">© Copyright <a href="https://st-dse.vnua.edu.vn/" target="_blank">Nhóm ST</a>, Bộ môn Công nghệ phần mềm, Khoa Công nghệ thông tin, Học viện Nông nghiệp Việt Nam</p>
 </div>
-</footer>
-</html>
-
-<c:if test="${not empty invalidToken}">
-	<script type="text/javascript">
-		alert("Confirm token không hợp lệ!");
-	</script>
-</c:if>
-
-<c:if test="${not empty success}">
-	<script type="text/javascript">
-		alert("Kích hoạt tài khoản thành công!");
-	</script>
-</c:if>
-
-
-<script type="text/javascript">
-	var msg = $("#message").text();
-	if(msg){
-	alert(msg);
-	}
-</script>
+</footer> -->
+	<input type="hidden" id="error_message" value='${error}'/>
+	<input type="hidden" id="success_message" value='${success}'/>
+	<input type="hidden" id="info_message" value='${info}'/>
+	
+	

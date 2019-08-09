@@ -100,6 +100,9 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="error_message" value='${error}'/>
+	<input type="hidden" id="success_message" value='${success}'/>
+	<input type="hidden" id="info_message" value='${info}'/>
 	<script type="text/javascript" src="${contextPath}/resources/js/dangky.js"></script>
 </body>
 </html>

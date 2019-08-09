@@ -13,11 +13,11 @@
 					<h1>Thêm thời khóa biểu</h1>
 					<div class="themlichtkb">
 						<form:form method="POST" modelAttribute="scheduleCreate"
-							action="${contextPath}/schedule/create">
+							action="${contextPath}/schedule/create" id="schedule_create">
 							<spring:bind path="semester">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<label for="semester">Chọn học kỳ:</label>
-									<form:select path="semester" class="custom-select"
+									<form:select path="semester" class="custom-select" id="semester"
 										required="required">
 										<form:option value="" label="--Chọn một giá trị--" />
 										<form:options items="${semesters}" required="required" />
@@ -37,9 +37,9 @@
 								</div>
 							</spring:bind>
 
-							<button type="submit"
-								class="btn btn-primary mt-4 float-right w-25">Thêm lịch</button>
 						</form:form>
+							<button id="btn_submit" type="submit"
+								class="btn btn-primary mt-4 float-right w-25">Thêm lịch</button>
 						<div class="backhome">
 							<a href="../home">Dùng các chức năng khác</a>
 						</div>

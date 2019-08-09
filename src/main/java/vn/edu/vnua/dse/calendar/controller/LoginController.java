@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.calendar.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,11 +8,17 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 //import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.calendar.common.AppConstant;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
@@ -51,51 +59,90 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model,
-			HttpServletRequest request) throws IOException {
+	public String register(@ModelAttribute("user") User user, Model model,RedirectAttributes ra,
+			HttpServletRequest request) throws IOException, MessagingException {
 
-		userValidator.validate(user, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			return "register";
-		}
-
+		 if (userService.findByEmail(user.getEmail()) != null) {
+	            ra.addFlashAttribute("error", "Emai đã được đăng ký!");
+	            return "redirect:/register";
+		 }
 		// new user so we create user and send confirmation e-mail
 		// Disable user until they click on confirmation link in email
 		user.setEnabled(false);
 		user.setCreateDate(new Date());
 		// Generate random 36-character string token for confirmation link
 		user.setConfirmToken(UUID.randomUUID().toString());
-
-//		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
-//				+ "/ScheduleAndCalendar";
+		//
 		Properties prop = AppUtils.MyProperties(AppConstant.APLICATION_PRO);
+		String emailFrom = prop.getProperty("email.username");
+		String pass = prop.getProperty("email.password");
 		String appUrl = prop.getProperty("app.appURL");
-		SimpleMailMessage registrationEmail = new SimpleMailMessage();
-		registrationEmail.setTo(user.getEmail());// get mail
-		registrationEmail.setSubject("Registration Confirmation");
-		registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + appUrl
-				+ "/register-confirm?token=" + user.getConfirmToken());
-		registrationEmail.setFrom("ttcnmail@gmail.com");
-
-		emailService.sendEmail(registrationEmail);
-
-		model.addAttribute("confirmationMessage", "Email xác nhận đã được gửi tới email của bạn, vui lòng kiểm tra email " + user.getEmail());
-
+		String confirmLink = appUrl	+ "/register-confirm?token=" + user.getConfirmToken();
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		
+		sender.setHost("smtp.gmail.com");
+		sender.setPort(587);
+ 
+		sender.setUsername(emailFrom);
+		sender.setPassword(pass);
+ 
+        Properties props = sender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+        props.setProperty("mail.smtp.allow8bitmime", "true");
+        props.setProperty("mail.smtps.allow8bitmime", "true");
+		//mail html
+        String html = "<!DOCTYPE html>\r\n" + 
+        		"<html>\r\n" + 
+        		"	<head>\r\n" + 
+        		"		<meta charset=\"UTF-8\">\r\n" + 
+        		"		</head>\r\n" + 
+        		"		<body>\r\n" + 
+        		"			<div class=\"container\" style=\"text-align: center;background-color: #f0fbfa;padding: 10px 40px 10px 40px;\">\r\n" + 
+        		"				<h1>Xác nhận email</h1>\r\n" + 
+        		"				<p>Cảm ơn bạn đã tạo tài khoản trên \r\n" + 
+        		"			\r\n" + 
+        		"					<a href=\"%s\" id=\"stcalendar\" style=\"color: #007bff;text-decoration: none !important;\">\r\n" + 
+        		"						<b>STCalendar</b>\r\n" + 
+        		"					</a>. Xác minh địa chỉ email của bạn đảm bảo rằng chỉ bạn mới có quyền truy cập vào thông tin tài khoản của mình. Để hoàn tất quá trình đăng ký, vui lòng nhấn vào nút dưới đây:\r\n" + 
+        		"		\r\n" + 
+        		"				</p>\r\n" + 
+        		"				<a href=\"%s\" class=\"button\" onMouseOver=\"this.style.color='#0F0'\"   onMouseOut=\"this.style.color='#fff'\" style=\"text-align: center;display: inline-block;margin: 10px auto;padding: 10px 20px 10px 20px;color: white;background-color: #007bff;box-shadow: 2px 2px 2px grey;border-radius: 10px;text-decoration: none !important;\">Xác nhận</a>\r\n" + 
+        		"			</div>\r\n" + 
+        		"		</body>\r\n" + 
+        		"	</html>\r\n" + 
+        		"";
+        
+        String htmlText = String.format(html, appUrl, confirmLink);
+		
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		helper.setTo(user.getEmail());
+		helper.setSubject("Xác nhận đăng ký tài khoản STCalendar");
+		// use the true flag to indicate the text included is HTML
+		helper.setText(htmlText, true);
+		
+		sender.send(message);
+		//
+		
+		
 		userService.init(user);// save and encode
-
-		return "register";
+		
+		ra.addFlashAttribute("success", "Email xác nhận đã được gửi tới email của bạn, vui lòng kiểm tra email" + user.getEmail());
+		
+		return "redirect:/register";
 	}
 
 	// Process confirmation link
 	@RequestMapping(value = "/register-confirm", method = RequestMethod.GET)
-	public String confirmRegistration(Model model, @RequestParam("token") String token) {
-		
+	public String confirmRegistration(Model model, @RequestParam("token") String token, RedirectAttributes ra) {
 		User user = userService.findByConfirmToken(token);
 
 		if (user == null) { // No token found in DB
-			model.addAttribute("invalidToken", true);
-			return "login";
+			ra.addFlashAttribute("error", "Confirm token không hợp lệ. Xác nhận tài khoản không thành công!");
+			return "redirect:/login";
 		} else { // Token found
 			// Set user to enabled
 			if(!user.isEnabled()) {
@@ -104,7 +151,7 @@ public class LoginController {
 			user.setConfirmToken(null);
 			// Save user
 			userService.save(user);
-			model.addAttribute("success", true);
+			ra.addFlashAttribute("success", "Xác nhận tài khoản thành công!");
 		}
 
 		return "redirect:/login";
@@ -136,15 +183,17 @@ public class LoginController {
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
-		if (error != null)
+		if (error != null) {
 			model.addAttribute("error", "Tài khoản hoặc mật khẩu không chính xác");
-
-		if (logout != null)
-			model.addAttribute("message", "Tài khoản đã được đăng xuất");
+		}
+		
+		if (logout != null) {
+			model.addAttribute("success", "Tài khoản đã được đăng xuất");
+		}
 
 		return "login";
 	}
-
+	
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String welcome(Model model) {
 		if (securityService.hasRole(AppConstant.ROLE_USER)) {

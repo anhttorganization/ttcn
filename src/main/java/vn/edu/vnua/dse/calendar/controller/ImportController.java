@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ImportCreate;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleCalendar;
 import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.APIWrapper;
@@ -46,7 +49,7 @@ public class ImportController {
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String Create(Model model, ImportCreate importCreate, HttpServletRequest request) throws IOException {
+	public String Create(Model model, ImportCreate importCreate, HttpServletRequest request, RedirectAttributes ra) throws IOException {
 		String calendarId = importCreate.getCalendarId();
 
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
@@ -66,28 +69,21 @@ public class ImportController {
 
 			multipartFile.transferTo(file);
 			// code
-			String message = ImportServiceImpl.insert(calendarId, file);
-
+			BaseResult<List<String>> result = ImportServiceImpl.insert(calendarId, file);
+			if (result.isStatus()) {
+				if(result.getResult().size() > 0) {
+					ra.addFlashAttribute("success", "Import lịch thành công!");
+				}else {
+					ra.addFlashAttribute("info", result.getMessage());
+				}
+			} else {
+				ra.addFlashAttribute("error", result.getMessage());
+			}
 			file.delete();
-			model.addAttribute("message", message);
 		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("error", true);
+			ra.addFlashAttribute("error", "Có lỗi xảy ra sự kiện chưa được thêm!");
 		}
 
-		// add list calendar
-		Map<String, String> calendars = new HashMap<String, String>();
-		// get list calendar
-		APIWrapper apiWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
-		ArrayList<GoogleCalendar> calendarList = (ArrayList<GoogleCalendar>) apiWrapper.getCalendarList();
-		// put into list
-		for (GoogleCalendar googleCalendar : calendarList) {
-			calendars.put(googleCalendar.getId(), googleCalendar.getSummary());
-		}
-		// add to attribute
-		model.addAttribute("calendars", calendars);
-		model.addAttribute("importCreate", new ImportCreate());
-		
-		return "import/create";
+		return "redirect:/import/create";
 	}
 }

@@ -29,5 +29,4 @@ public final class AppConstant {
 	
 	public static final String IMPORT_ERROR = "Dòng %s, cột %s: %s";
 	
-	
 }

@@ -104,9 +104,13 @@ public class ScheduleController {
 				// trả về thông báo
 				BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
 				if (result.isStatus()) {
-					ra.addFlashAttribute("success", AppUtils.getScheduleMessage(result.getMessage()));
+					if(result.getResult().size() > 0) {
+						ra.addFlashAttribute("success", "Thêm lịch thành công!");
+					}else {
+						ra.addFlashAttribute("info", result.getMessage());
+					}
 				} else {
-					ra.addFlashAttribute("error", AppUtils.getScheduleMessage(result.getMessage()));
+					ra.addFlashAttribute("error", result.getMessage());
 				}
 			} else {
 				Semester semester = semesterRepository.findById(semesterId);
@@ -136,7 +140,7 @@ public class ScheduleController {
 							// thong bao cap nhat thoi khoa bieu thanh cong
 							ra.addFlashAttribute("success", "Cập nhật thay đổi thời khóa biểu thành công!");
 						} else {
-							ra.addFlashAttribute("error", "Thời khóa biểu đã tồn tại!");
+							ra.addFlashAttribute("info", "Thời khóa biểu đã tồn tại!");
 						}
 					}else {
 						ra.addFlashAttribute("error", newEvents.getMessage());
@@ -145,9 +149,13 @@ public class ScheduleController {
 					BaseResult<Set<String>> result = updateCalendar(calendar, scheduleCreate);
 					
 					if (result.isStatus()) {
-						ra.addFlashAttribute("success", "Thêm lịch thành công!");
+						if(result.getResult().size() > 0) {
+							ra.addFlashAttribute("success", "Thêm lịch thành công!");
+						}else {
+							ra.addFlashAttribute("info", result.getMessage());
+						}
 					} else {
-						ra.addFlashAttribute("error", AppUtils.getScheduleMessage(result.getMessage()));
+						ra.addFlashAttribute("error", result.getMessage());
 					}
 				}
 			}
@@ -181,11 +189,11 @@ public class ScheduleController {
 
 			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 
-			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary, CalendarConstant.TIME_ZONE);
-			User user = UserDetailsServiceImpl.getUser();
 			// lấy tkb
 			List<GoogleEvent> ggEvents = result.getResult();
 			if (ggEvents.size() > 0) {
+				GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary, CalendarConstant.TIME_ZONE);
+				User user = UserDetailsServiceImpl.getUser();
 				Set<String> eventIds = scheduleService.insert(ggcalen.getId(), ggEvents);
 				if (eventIds.size() > 0) {
 					HashSet<Event> events = new HashSet<>();
