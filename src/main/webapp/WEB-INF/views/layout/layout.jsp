@@ -24,6 +24,7 @@
 <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/user.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/tempusdominus-bootstrap-4.min.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin.css">
@@ -39,8 +40,9 @@
 	<tiles:insertAttribute name="body" />
 
 	<script type="text/javascript" src="${contextPath}/resources/js/dashboard.js"></script>
-</body>
 <footer id = "footer">
 	<tiles:insertAttribute name="footer" />
 </footer>
+</body>
+
 </html>

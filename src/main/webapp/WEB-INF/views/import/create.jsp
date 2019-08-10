@@ -14,8 +14,8 @@
 					<h1>Thêm lịch từ Excel</h1>
 					<div class="themlichtkb">
 						<form:form method="POST" action="${contextPath}/import/create"  enctype="multipart/form-data" modelAttribute="importCreate" id="import_form">
-							 <a href="${contextPath}/resources/samplefile/sample.xlsx" download>Tải file mẫu ở đây </a><br>
-							<br>
+							 <a href="${contextPath}/resources/samplefile/sample.xlsx" download>Tải file mẫu ở đây </a>
+							<br><br>
 							<spring:bind path="calendarId">
 									<label for="calendarId">Chọn lịch:</label>
 									<form:select path="calendarId" class="custom-select" required="required">
@@ -24,8 +24,7 @@
 									</form:select>
 									<form:errors path="calendarId" />
 							</spring:bind>
-							<br><br>
-							<span>Chọn tệp Excel:</span><br>
+							<span style="margin-top:10px;display:block">Chọn tệp Excel:</span>
 							<div class="custom-file" style="margin-top:10px">
 								<input type="file" class="custom-file-input" id="inputGroupFile01" name="multipartFile" accept=".xls,.xlsx" required="required"> 
 								<label class="custom-file-label" for="inputGroupFile01" id="filelable">Choose file</label>
