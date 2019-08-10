@@ -91,7 +91,8 @@
 			<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>.
 				All rights reserved.</p>
 		</div>
-	</footer> -->
+	</footer>
 	<input type="hidden" id="error_message" value='${error}' />
 	<input type="hidden" id="success_message" value='${success}' />
 	<input type="hidden" id="info_message" value='${info}' />
+	</body>
