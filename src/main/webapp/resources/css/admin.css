@@ -43,3 +43,13 @@ ul.user_tool li:nth-last-child(1) a::before {
     color: black;
     margin-right: 3px;
 }
+footer#footer {
+    width: 100%;
+    bottom:0;
+    height: 50px;
+}
+body {
+    position: absolute;
+    width: 100%;
+    padding-bottom:200px;
+}
