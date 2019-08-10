@@ -12,15 +12,13 @@ $(document).ready(function() {
 	}
 
 	// Khi người dùng nhấn xác nhận
-	$("#btn_submit").click(function() {
-		if($("#semester").val() == ""){
-			toastr.warning('Vui lòng chọn học kỳ!','Lỗi');
-		}else if($("#studentId").val() == ""){
-			toastr.warning('Vui lòng nhập mã sinh viên/giảng viên!','Lỗi');
-		}else if($("#studentId").val().length < 5 || $("#studentId").val().length > 6){
-			toastr.warning('Mã sinh viên/giảng viên không hợp lệ!','Lỗi');
+	$("#import_submit").click(function() {
+		if($("#calendarId").val() == ""){
+			toastr.warning('Vui lòng chọn một lịch!','Lỗi');
+		}else if($("#inputGroupFile01").val() == ""){
+			toastr.warning('Vui lòng chọn file excel!','Lỗi');
 		}else{
-			$("#schedule_create").submit();
+			$("#import_form").submit();
 		}
 	});
  

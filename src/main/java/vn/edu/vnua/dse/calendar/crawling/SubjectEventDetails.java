@@ -100,9 +100,13 @@ public final class SubjectEventDetails {
 			//wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ScheduleConstant.CONTENT_MSV)));
 			
 			if(driver.findElements(By.id(ScheduleConstant.HEADER_DAOTAO_ID)).size() == 0){
+				driver.close();
+				driver.quit();
 				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Trang đạo tạo VNUA hiện không truy cập được \nVui lòng thử lại sau!", scheduleHash);
 			}
 			if(driver.findElements(By.id(ScheduleConstant.CONTENT_MSV)).size() == 0){
+				driver.close();
+				driver.quit();
 				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Không tìm thấy thông tin thời khóa biểu sinh viên/giảng viên", scheduleHash);
 			}
 			// chon hoc ky
