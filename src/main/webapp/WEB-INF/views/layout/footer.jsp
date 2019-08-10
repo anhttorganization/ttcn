@@ -5,5 +5,5 @@
 
 <div>
 	<hr>
-	<p align="center">© Copyright <a href="https://st-dse.vnua.edu.vn/" target="_blank">Nhóm ST</a>, Bộ môn Công nghệ phần mềm, Khoa Công nghệ thông tin, Học viện Nông nghiệp Việt Nam</p>
+	<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 </div>

@@ -8,13 +8,17 @@ html {
 body{
 	margin: 0;
 	padding: 0;
-	height: 93%;
+	height: 100%;
 	background: #60a3bc !important;
 }
 
 #footer{
-	height: 7%;
-	background: #f3f3f3
+	height: 47px;
+	background: #f3f3f3;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	overflow: hidden;
 }
 
 #footer p{

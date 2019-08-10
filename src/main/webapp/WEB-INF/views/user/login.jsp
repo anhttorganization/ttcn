@@ -76,20 +76,21 @@
 					<div class="d-flex justify-content-center links">
 						<a href="${contextPath}/fogot_password">Quên mật khẩu?</a>
 					</div>
-					<span id="message"  hidden>${message}</span>
+					<span id="message" hidden>${message}</span>
 				</div>
 			</div>
 		</div>
 	</div>
 	</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/dangnhap.js"></script>
-</body>
-<footer id = "footer">
+	<footer id = "footer">
 <div	>
 	<hr>
-	<p align="center">© Copyright <a href="https://st-dse.vnua.edu.vn/" target="_blank">Nhóm ST</a>, Bộ môn Công nghệ phần mềm, Khoa Công nghệ thông tin, Học viện Nông nghiệp Việt Nam</p>
+	<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 </div>
 </footer>
+</body>
+
 </html>
 
 <c:if test="${not empty invalidToken}">

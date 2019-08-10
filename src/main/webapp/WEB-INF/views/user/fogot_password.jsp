@@ -53,7 +53,12 @@
 			</div>
 		</div>
 	</div>
-	
+	<footer id = "footer">
+<div	>
+	<hr>
+	<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>. All rights reserved.</p>
+</div>
+</footer>
 	<div id = "success" hidden>${success}</div>
 	<div id = "message" hidden>${message}</div>
 	<script type="text/javascript" src="${contextPath}/resources/js/quenmatkhau.js"></script>

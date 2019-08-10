@@ -8,7 +8,7 @@ html {
 .user_card {
 	height: 530px;
 	width: 350px;
-	margin-top: auto;
+	margin-top: 80px;
 	margin-bottom: auto;
 	background: #f3f3f3;
 	position: relative;
@@ -74,4 +74,18 @@ form#register_form {
 }
 .d-flex.justify-content-center.links {
     margin-top: -15px;
+}
+#footer{
+	height: 50px;
+	background: #f3f3f3;
+	line-height:50px;
+	margin-top: 50px;
+}
+
+#footer p{
+	text-align: center;
+	margin:0 !important;
+}
+#footer hr{
+	margin: 0
 }

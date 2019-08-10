@@ -1,0 +1,45 @@
+ul.user_tool {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.user_tool li {
+    display: inline-block;
+}
+
+ul.user_tool li:nth-last-child(1) a {
+    color: red;
+}
+
+ul.user_tool li a {
+    text-decoration: none;
+}
+
+ul.user_tool li:nth-last-child(1) a::before {
+    content: "-";
+    color: black;
+    margin-right: 3px;
+}
+
+.tool_lesson {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tool_lesson li {
+    display: inline-block;
+}
+
+.tool_lesson li:nth-last-child(1) a {
+    color: red;
+}
+
+.tool_lesson li a {
+    text-decoration: none;
+}
+
+.tool_lesson li:nth-last-child(1) a::before {
+    content: "-";
+    color: black;
+    margin-right: 3px;
+}
