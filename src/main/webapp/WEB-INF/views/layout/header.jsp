@@ -7,7 +7,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<a class="navbar-brand" href="${contextPath}/home">Trang chủ</a>
+<a style="color: #fff;font-weight: bold;" class="navbar-brand" href="${contextPath}/home">Trang chủ</a>
 <div class="navbar-collapse" id="navbarSupportedContent">
 	<ul class="left_menu_calendar">
 		<%-- <li class="nav-item"><a class="nav-link" href="${contextPath}/admin/quan-ly-nguoi-dung">Người dùng</a></li> --%>
