@@ -36,7 +36,6 @@
 									<form:errors path="studentId" />
 								</div>
 							</spring:bind>
-
 						</form:form>
 							<button id="btn_submit" type="submit"
 								class="btn btn-primary mt-4 float-right w-25">Thêm lịch</button>
@@ -55,3 +54,4 @@
 
 <script type="text/javascript" src="${contextPath}/resources/js/schedule.js"></script>
 
+<div id="spinner" class="spinner" style="display: none;"></div>

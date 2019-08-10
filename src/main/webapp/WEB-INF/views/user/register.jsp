@@ -83,7 +83,6 @@
 								</div>
 							</spring:bind>
 						</div>
-						
 					</form:form>
 				</div>
 				<div class="d-flex justify-content-center mt-3 login_container">
@@ -101,7 +100,7 @@
 		</div>
 	</div>
 	<footer id = "footer">
-<div	>
+<div>
 	<hr>
 	<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 </div>

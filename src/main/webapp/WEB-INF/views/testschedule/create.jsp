@@ -17,17 +17,16 @@
 							<button type="submit" class="btn btn-primary mt-4 float-right w-25">Thêm lịch thi</button>
 						</form> --%>
 
-						<form:form method="POST" modelAttribute="scheduleCreate" action="${contextPath}/testschedule/create">
+						<form:form method="POST" modelAttribute="scheduleCreate" action="${contextPath}/testschedule/create" id="testschedule_create">
 							<spring:bind path="studentId">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<label class="mt-4" for="studentId">Mã sinh viên:</label>
-									<form:input path="studentId" id="studentId" class="form-control"
-										title="Mã GV/SV có 5/6 kí tự" type="text" pattern=".{5,6}" required="required"/>
+									<form:input path="studentId" id="studentId" class="form-control"/>
 									<form:errors path="studentId" />
 								</div>
 							</spring:bind>
 
-							<button type="submit" class="btn btn-primary mt-4 float-right w-25">Thêm lịch</button>
+							<button type="submit" class="btn btn-primary mt-4 float-right w-25" id="btn_submit">Thêm lịch</button>
 						</form:form>
 						<div class="backhome">
 							<a href="../home">Dùng các chức năng khác</a>
@@ -39,8 +38,14 @@
 	</div>
 </div>
 
+<input type="hidden" id="error_message" value='${error}'/>
+<input type="hidden" id="success_message" value='${success}'/>
+<input type="hidden" id="info_message" value='${info}'/>
 
-<c:choose>
+<div id="spinner" class="spinner" style="display: none;"></div>
+<script type="text/javascript" src="${contextPath}/resources/js/testschedule.js"></script>
+
+<%-- <c:choose>
 	<c:when test="${not empty exist}">
 		<script type="text/javascript">
 			alert("Lịch đã tồn tại!");
@@ -69,4 +74,4 @@
 	<c:otherwise>
 		
 	</c:otherwise>
-</c:choose>
+</c:choose> --%>

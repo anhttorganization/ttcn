@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
 import vn.edu.vnua.dse.calendar.common.AppConstant;
-import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.crawling.SubjectEventDetails;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleCalendar;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleEvent;
@@ -84,8 +83,8 @@ public class ScheduleController {
 	}
 
 	@RequestMapping(value = "/schedule/create", method = RequestMethod.POST)
-	public String Create(@ModelAttribute("scheduleCreate") ScheduleCreate scheduleCreate, Model model, RedirectAttributes ra)
-			throws IOException, ParseException, NoSuchAlgorithmException {
+	public String Create(@ModelAttribute("scheduleCreate") ScheduleCreate scheduleCreate, Model model,
+			RedirectAttributes ra) throws IOException, ParseException, NoSuchAlgorithmException {
 		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 
 		String semesterId = scheduleCreate.getSemester();
@@ -104,9 +103,9 @@ public class ScheduleController {
 				// trả về thông báo
 				BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
 				if (result.isStatus()) {
-					if(result.getResult().size() > 0) {
+					if (result.getResult().size() > 0) {
 						ra.addFlashAttribute("success", "Thêm lịch thành công!");
-					}else {
+					} else {
 						ra.addFlashAttribute("info", result.getMessage());
 					}
 				} else {
@@ -120,15 +119,16 @@ public class ScheduleController {
 
 				if (calenDetailOptional.isPresent()) {
 					CalendarDetail calendarDetail = calenDetailOptional.get();
-					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId, semester);
+					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId,
+							semester);
 					if (newEvents.isStatus()) {
 						String newHash = SubjectEventDetails.scheduleHash;
 						String oldHash = calendarDetail.getScheduleHash();
 
 						if (!newHash.equals(oldHash)) {// neu thoi khoa bieu thay doi
 							Set<Event> oldEvents = calendarDetail.getEvents();
-							
-							if(oldEvents != null && oldEvents.size() > 0) {
+
+							if (oldEvents != null && oldEvents.size() > 0) {
 								for (Event oldEvent : oldEvents) {
 									aPIWrapper.deleteEvent(calendar.getCalendarId(), oldEvent.getEventId());// xoa tren
 									eventRepository.delete(oldEvent);
@@ -142,16 +142,16 @@ public class ScheduleController {
 						} else {
 							ra.addFlashAttribute("info", "Thời khóa biểu đã tồn tại!");
 						}
-					}else {
+					} else {
 						ra.addFlashAttribute("error", newEvents.getMessage());
 					}
 				} else {// ma sinh viên da duoc them, hoc ky chua duoc them
 					BaseResult<Set<String>> result = updateCalendar(calendar, scheduleCreate);
-					
+
 					if (result.isStatus()) {
-						if(result.getResult().size() > 0) {
+						if (result.getResult().size() > 0) {
 							ra.addFlashAttribute("success", "Thêm lịch thành công!");
-						}else {
+						} else {
 							ra.addFlashAttribute("info", result.getMessage());
 						}
 					} else {
@@ -163,9 +163,9 @@ public class ScheduleController {
 			// Nếu chưa thêm thì insert vào ggcalen và thêm calendar vào db
 			BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
 			if (result.isStatus()) {
-				if(result.getResult().size() > 0) {
+				if (result.getResult().size() > 0) {
 					ra.addFlashAttribute("success", "Thêm lịch thành công!");
-				}else {
+				} else {
 					ra.addFlashAttribute("info", result.getMessage());
 				}
 			} else {
@@ -218,7 +218,8 @@ public class ScheduleController {
 		return result;
 	}
 
-	private BaseResult<Set<String>> updateCalendar(Calendar calendar, ScheduleCreate scheduleCreate)// lich cua hoc ky chu duoc them
+	private BaseResult<Set<String>> updateCalendar(Calendar calendar, ScheduleCreate scheduleCreate)// lich cua hoc ky
+																									// chu duoc them
 			throws NoSuchAlgorithmException, IOException, ParseException {
 		HashSet<String> eventIds;
 		BaseResult<Set<String>> result = scheduleService.insert(calendar.getCalendarId(), scheduleCreate);

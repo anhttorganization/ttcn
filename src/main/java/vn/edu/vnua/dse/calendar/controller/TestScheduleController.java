@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.calendar.co.ScheduleCreate;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
@@ -65,12 +66,13 @@ public class TestScheduleController {
 			return "redirect:" + AuthorizationService.isauthorized();
 		}
 		model.addAttribute("scheduleCreate", new ScheduleCreate());
-		
+
 		return "testschedule/create";
 	}
 
 	@RequestMapping(value = "/testschedule/create", method = RequestMethod.POST)
-	public String Create(@ModelAttribute("scheduleCreate") ScheduleCreate scheduleCreate, Model model) throws NoSuchAlgorithmException, IOException, ParseException {
+	public String Create(@ModelAttribute("scheduleCreate") ScheduleCreate scheduleCreate, Model model,
+			RedirectAttributes ra) throws NoSuchAlgorithmException, IOException, ParseException {
 		String studentId = scheduleCreate.getStudentId();
 		// 1. Kiểm tra xem lịch thi với mã sinh viên đã được thêm chưa?
 		Optional<Calendar> calenOptional = calendarRepository.findByStudentIdAndType(studentId, true);
@@ -82,8 +84,16 @@ public class TestScheduleController {
 			GoogleCalendar googleCalendar = aPIWrapper.findCalendarInCalendarList(calendarId);
 			if (googleCalendar == null) {
 				calendarRepository.delete(calendar.getId());
-				String message = addCalendar(studentId);
-				model.addAttribute(message, message);
+				ScheduleResult<List<GoogleEvent>> result = addCalendar(studentId);
+				if (result.isStatus()) {
+					if (result.getResult().size() > 0) {
+						ra.addFlashAttribute("success", "Thêm lịch thành công!");
+					} else {
+						ra.addFlashAttribute("info", result.getMessage());
+					}
+				} else {
+					ra.addFlashAttribute("error", result.getMessage());
+				}
 			} else {
 				// kiem tra xem lich thi da duoc them chua
 				Optional<CalendarDetail> optional = calendarDetailRepository.findByCalendar(calendar);
@@ -98,7 +108,7 @@ public class TestScheduleController {
 
 						if (!newHash.equals(oldHash)) {// neu thoi khoa bieu thay doi
 							//
-							model.addAttribute("updateCalendar", true);
+							ra.addFlashAttribute("updateCalendar", true);
 
 							Set<Event> oldEvents = calendarDetail.getEvents();
 
@@ -110,42 +120,46 @@ public class TestScheduleController {
 							updateCalendar(calendar, newEvents.getResult(), newHash);
 							calendarDetailRepository.delete(calendarDetail.getId());
 							// thong bao cap nhat thoi khoa bieu thanh cong
-							// model.addAttribute("message", newEvents.getMessage());//
-							model.addAttribute(newEvents.getMessage().toString(), AppUtils.getScheduleMessage(newEvents.getMessage()));
+							ra.addFlashAttribute("success", "Cập nhật thay đổi lịch thi thành công!");
 						} else {
-							model.addAttribute("exist", "Lịch thi đã tồn tại!");
+							ra.addFlashAttribute("info", "Lịch thi đã tồn tại!");
 						}
+					}else {
+						ra.addFlashAttribute("error", newEvents.getMessage());
 					}
-				} else {
-					String mesage = updateCalendar(calendar, studentId);
-					model.addAttribute(mesage, AppUtils.getScheduleMessage(mesage));
 				}
 			}
 		} else {// Neu chua duoc them
-			String message = addCalendar(studentId);
-			model.addAttribute(message, AppUtils.getScheduleMessage(message));
+			ScheduleResult<List<GoogleEvent>> result = addCalendar(studentId);
+			if (result.isStatus()) {
+				if (result.getResult().size() > 0) {
+					ra.addFlashAttribute("success", "Thêm lịch thành công!");
+				} else {
+					ra.addFlashAttribute("info", result.getMessage());
+				}
+			} else {
+				ra.addFlashAttribute("error", result.getMessage());
+			}
 		}
-		//
-		model.addAttribute("scheduleCreate", new ScheduleCreate());
-		
-		return "testschedule/create";
+		return "redirect:/testschedule/create";
 	}
 
-	private String addCalendar(String studentId) throws IOException, NoSuchAlgorithmException, ParseException {
-		//lay thoi khoa bieu
+	private ScheduleResult<List<GoogleEvent>> addCalendar(String studentId)
+			throws IOException, NoSuchAlgorithmException, ParseException {
+		// lay thoi khoa bieu
 		ScheduleResult<List<GoogleEvent>> result = ExamEventDetails.getEventsFromSchedule(studentId);
-		if(result.isStatus()) {
+		if (result.isStatus()) {
 			// tao calendar
 			String summary = AppConstant.TEST_SCHEDULE_SUMMARY + studentId;
 			aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 			GoogleCalendar ggcalen = aPIWrapper.insertCalendar(summary, CalendarConstant.TIME_ZONE);
-			
+
 			User user = UserDetailsServiceImpl.getUser();
 			List<GoogleEvent> ggEvents = result.getResult();
-			if(ggEvents.size() > 0) {
+			if (ggEvents.size() > 0) {
 				// lấy lịch thi
 				Set<String> eventIds = testScheduleService.insert(ggcalen.getId(), ggEvents);
-				
+
 				// tao list event
 				if (eventIds.size() > 0) {
 					HashSet<Event> events = new HashSet<>();
@@ -156,22 +170,23 @@ public class TestScheduleController {
 					// tao calendarDetail
 					String scheduleHash = result.getScheduleHash();
 					CalendarDetail calendarDetail = new CalendarDetail(scheduleHash, events);
-					
+
 					// tao calendar
 					Calendar calendar = new Calendar(user, studentId, ggcalen.getId(), true, calendarDetail);
-					
+
 					// save
 					calendarRepository.save(calendar);
 				}
 			}
-			
+
 		}
 		// tra ve message
-		return result.getMessage();
+		return result;
 	}
 
 	// Khi da co calendar
-	private String updateCalendar(Calendar calendar, String studentId) throws NoSuchAlgorithmException, IOException, ParseException {
+	private String updateCalendar(Calendar calendar, String studentId)
+			throws NoSuchAlgorithmException, IOException, ParseException {
 		ScheduleResult<Set<String>> result = testScheduleService.insert(calendar.getCalendarId(), studentId);
 
 		HashSet<String> eventIds;

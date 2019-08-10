@@ -272,7 +272,6 @@ public class ImportServiceImpl {
 							return new BaseResult<List<String>>(false, new ArrayList<>(), error);
 						}
 						
-						
 						String description = "";
 						if(row.getCell(6) != null) {
 							description = row.getCell(6).getStringCellValue();

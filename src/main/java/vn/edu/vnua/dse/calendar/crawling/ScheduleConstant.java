@@ -11,5 +11,5 @@ public final class ScheduleConstant {
    public static final String THUTIET_RADIO = "ctl00_ContentPlaceHolder1_ctl00_rad_ThuTiet";
    public static final String CONTENT_MSV = "ctl00_ContentPlaceHolder1_ctl00_lblContentMaSV";
    public static final String HEADER_DAOTAO_ID = "ctl00_Header1_ucLogout_dLog";
-   
+   public static final String LICHTHI_MSV = "ctl00_ContentPlaceHolder1_ctl00_ucThongTinSV_lblMaSinhVien";
 }

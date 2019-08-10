@@ -58,7 +58,6 @@ public final class SubjectEventDetails {
 			}else {
 				return new BaseResult<List<GoogleEvent>>(true, toGoogleEvent(scheduleJson), "Học kỳ không có môn học nào, Thêm lịch không thành công!", weekEventJson);	
 			}
-			
 		}
 
 		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>(), scheduleResult.getMessage(), new ArrayList<String>());
@@ -83,7 +82,6 @@ public final class SubjectEventDetails {
 			// Accepting alert
 			alert.accept();
 			String message = "error";
-			System.out.println("Server đang tải lại dữ liệu. Vui lòng trở lại sau 15 phút!");
 			if (alertMessage.equals("Server đang tải lại dữ liệu. Vui lòng trở lại sau 15 phút!")) {
 				message = "update";
 			}

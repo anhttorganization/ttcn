@@ -12,14 +12,11 @@ import java.util.TimeZone;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.gson.Gson;
 
-import vn.edu.vnua.dse.calendar.co.BaseResult;
 import vn.edu.vnua.dse.calendar.co.ScheduleResult;
 import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.ggcalendar.jsonobj.GoogleDateTime;
@@ -29,19 +26,22 @@ import vn.edu.vnua.dse.calendar.ggcalendar.wrapperapi.CalendarConstant;
 public class ExamEventDetails {
 	private static final String DESCRIPTION = "Mã học phần: %s" + "\nNhóm: %s" + "\nTổ: %s";
 
-	public static String examScheduleHash;
-
 	// lấy danh dách các event từ lịch thi
 	public static final ScheduleResult<List<GoogleEvent>> getEventsFromSchedule(String studentId)
 			throws IOException, ParseException, NoSuchAlgorithmException {
 		ScheduleResult<ArrayList<String>> examScheduleResult = getExamSchedule(studentId);
 		ArrayList<String> examScheduleJson = examScheduleResult.getResult();
-		if (examScheduleJson.size() > 0) {
-			return new ScheduleResult<List<GoogleEvent>>(true, toGoogleEvent(examScheduleJson),
-					examScheduleResult.getMessage(), examScheduleResult.getScheduleHash());
+
+		if(examScheduleResult.isStatus()) {
+			if (examScheduleJson.size() > 0) {
+				// return toGoogleEvent(scheduleJson);
+				return new ScheduleResult<List<GoogleEvent>>(true, toGoogleEvent(examScheduleJson), examScheduleResult.getMessage(), examScheduleResult.getScheduleHash());	
+			}else {
+				return new ScheduleResult<List<GoogleEvent>>(true, new ArrayList<>(), "Lịch thi kỳ hiện tại không có môn thi nào, lịch chưa được thêm!", examScheduleResult.getScheduleHash());	
+			}
 		}
 
-		return new ScheduleResult<List<GoogleEvent>>(false, null, examScheduleResult.getMessage(), null);
+		return new ScheduleResult<List<GoogleEvent>>(false, new ArrayList<>(), examScheduleResult.getMessage(), null);
 	}
 
 	// chuyển từ list json sang list GoogleEvent
@@ -87,8 +87,6 @@ public class ExamEventDetails {
 
 			event.setRecurrence(recurrence);
 			events.add(event);
-			System.out.println("-----------------------------");
-			System.out.println(gson.toJson(event));
 		}
 
 		return events;
@@ -104,7 +102,6 @@ public class ExamEventDetails {
 
 		// Get schedule
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-
 		
 		// check update
 		if (AppUtils.isAlertPresent(driver)) {
@@ -113,9 +110,9 @@ public class ExamEventDetails {
 			String alertMessage = driver.switchTo().alert().getText();
 			// Accepting alert
 			alert.accept();
-			String message = "error";
+			String message = "";
 			if (alertMessage.equals("Server đang tải lại dữ liệu. Vui lòng trở lại sau 15 phút!")) {
-				message = "update";
+				message = "Website Đào tạo đang update dữ liệu!";
 			}
 			driver.close();
 			driver.quit();
@@ -127,6 +124,21 @@ public class ExamEventDetails {
 			String passCap = ScheduleUtils.readResourceFile("js/capcha.js");
 			jse.executeScript(passCap);
 			driver.navigate().to(String.format(ScheduleConstant.EXAM_SCHEDULE_URL, studentId));
+			//kiem tra neu khong vao duoc trang xem lich thi
+			
+			if(driver.findElements(By.id(ScheduleConstant.HEADER_DAOTAO_ID)).size() == 0){
+				driver.close();
+				driver.quit();
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Trang đạo tạo VNUA hiện không truy cập được \nVui lòng thử lại sau!", null);
+			}
+			
+			if(driver.findElements(By.id(ScheduleConstant.LICHTHI_MSV)).size() == 0){
+				driver.close();
+				driver.quit();
+				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Không tìm thấy thông tin giảng viên/sinh viên!", null);
+			}
+			
+			
 			// Lay lich thi
 			String code = ScheduleUtils.readResourceFile("js/getExamSchedule.js");
 			@SuppressWarnings("unchecked")
@@ -134,12 +146,8 @@ public class ExamEventDetails {
 
 			driver.close();
 			driver.quit();
-			if(examScheduleJson.size() == 0) {
-				examScheduleHash = AppUtils.getMD5(examScheduleJson.toString());
-				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", examScheduleHash);
-			}
-			examScheduleHash = AppUtils.getMD5(examScheduleJson.toString());
-			return new ScheduleResult<ArrayList<String>>(true, examScheduleJson, "success", examScheduleHash);
+			String examScheduleHash = AppUtils.getMD5(examScheduleJson.toString());
+			return new ScheduleResult<ArrayList<String>>(true, examScheduleJson, "Thêm lịch thi thành công!", examScheduleHash);
 		}
 	}
 }
