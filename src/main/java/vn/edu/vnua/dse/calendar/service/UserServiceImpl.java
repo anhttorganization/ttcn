@@ -102,4 +102,15 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 	}
 
+	@Override
+	public List<User> findByLastName(String lastName) {
+		List<User> listResult = null;
+		try {
+			listResult = userRepository.findByLastName(lastName);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return listResult;
+	}
+
 }

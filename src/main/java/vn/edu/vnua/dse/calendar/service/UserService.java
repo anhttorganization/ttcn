@@ -15,14 +15,16 @@ public interface UserService {
 
 	public User findByConfirmToken(String resetToken);
 
+	public List<User> findByLastName(String lastName);
+
 	/**
 	 * Lay tat ca nguoi dung
 	 * 
 	 * @return
 	 */
 	public List<User> findAll();
-	
-	public boolean checkIfValidOldPassword(User user,String oldPassword);
-	
-	public void changeUserPass(User user,String password);
+
+	public boolean checkIfValidOldPassword(User user, String oldPassword);
+
+	public void changeUserPass(User user, String password);
 }

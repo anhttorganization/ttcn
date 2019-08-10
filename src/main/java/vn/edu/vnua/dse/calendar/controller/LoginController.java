@@ -268,24 +268,4 @@ public class LoginController {
 		model.addAttribute("message", "Có lỗi xảy ra!");
 		return "login";
 	}
-	
-	 
-	/**
-	 * Controller tra ve trang quan ly nguoi dung
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "admin/quan-ly-nguoi-dung", method = RequestMethod.GET)
-	public String loadScreenManagermentUser(Model model) {
-		List<User> listResult = new ArrayList<User>();
-		try {
-			listResult = userService.findAll();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		model.addAttribute("listResult", listResult);
-		return "admin/quan-ly-nguoi-dung";
-	}
-
 }
