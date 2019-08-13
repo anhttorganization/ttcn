@@ -30,7 +30,7 @@ public class SemesterController {
 		for(int i = 0; i < list.size(); i++) {
 			Date startDate = list.get(i).getStartDate();
 			
-			list.get(i).setStartDate(new MySqlDate(startDate.getYear(), startDate.getMonth(), startDate.getDay()));
+			list.get(i).setStartDate(new MySqlDate(startDate.getYear(), startDate.getMonth(), startDate.getDate()));
 			System.out.println(list.get(i).getStartDate());
 		}
 		

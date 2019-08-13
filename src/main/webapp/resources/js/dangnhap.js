@@ -4,18 +4,6 @@ $(document).ready(function() {
 		return re.test(String(email).toLowerCase());
 	}
 
-	var error_message = $('#error_message').val();
-	var success_message = $('#success_message').val();
-	var info_message = $('#info_message').val();
-
-	if (error_message != "") {
-		toastr.warning(`${error_message}`, 'Lỗi');
-	} else if (success_message != "") {
-		toastr.success(`${success_message}`, 'Thành công')
-	} else if (info_message != "") {
-		toastr.info(`${info_message}`, 'Thông báo')
-	}
-
 	// Khi người dùng nhấn xác nhận
 	$("#btn_submit").click(function() {
 		if($("#email").val() == ""){
@@ -25,6 +13,7 @@ $(document).ready(function() {
 		}else if($("#password").val() == ""){
 			toastr.warning('Vui lòng nhập mật khẩu!','Lỗi');
 		}else{
+			$('#spinner').show();
 			$("#login_form").submit();
 		}
 	});

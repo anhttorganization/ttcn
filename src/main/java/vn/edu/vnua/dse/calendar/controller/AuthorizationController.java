@@ -70,12 +70,12 @@ public class AuthorizationController {
 		String grantedEmail = aPIWrapper.getEmailAddress();
 
 		if (AppUtils.isNullOrEmpty(userEmail) || AppUtils.isNullOrEmpty(grantedEmail)) {
-			model.addAttribute("authError", "Có lỗi xảy ra");
+			model.addAttribute("error", "Có lỗi xảy ra");
 			return "index";
 		}
 		
 		if (grantedEmail.equals(userEmail)) {
-			model.addAttribute("authSuccess", "Cấp quyền thành công");
+			model.addAttribute("success", "Cấp quyền thành công");
 		
 			//cập nhật user details;
 			User user = userRepository.findByEmail(userEmail);
@@ -89,9 +89,9 @@ public class AuthorizationController {
 			//cập nhập user vào db
 			userRepository.save(user);
 		} else {
-			model.addAttribute("authError", true);
+			model.addAttribute("error", "Vui lòng cấp quyền cho ứng dụng với tài khoản gmail đã đăng ký!");
 		}
 		
-		return "redirect:home";
+		return "index";
 	}
 }

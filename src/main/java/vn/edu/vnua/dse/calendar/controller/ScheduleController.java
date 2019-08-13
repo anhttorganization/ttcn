@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -89,91 +90,152 @@ public class ScheduleController {
 
 		String semesterId = scheduleCreate.getSemester();
 		String studentId = scheduleCreate.getStudentId();
-
+		User user = UserDetailsServiceImpl.getUser();
+		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
 		// 1. Kiểm tra xem thời với mã sinh viên nhập vào đã được thêm chưa find
-		// calendar by student id
-		Optional<Calendar> calenOptional = calendarRepository.findByStudentIdAndType(studentId, false);
-		if (calenOptional.isPresent()) { // hoc ky da duoc them
-			Calendar calendar = calenOptional.get();
-			// kiểm tra xem calendar còn trên calendar list cua nguoi dung khong
-			String calendarId = calendar.getCalendarId();
-			GoogleCalendar googleCalendar = aPIWrapper.findCalendarInCalendarList(calendarId);
-			if (googleCalendar == null) {
-				calendarRepository.delete(calendar.getId());
-				// trả về thông báo
-				BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
-				if (result.isStatus()) {
-					if (result.getResult().size() > 0) {
-						ra.addFlashAttribute("success", "Thêm lịch thành công!");
-					} else {
-						ra.addFlashAttribute("info", result.getMessage());
-					}
-				} else {
-					ra.addFlashAttribute("error", result.getMessage());
-				}
-			} else {
-				Semester semester = semesterRepository.findById(semesterId);
-				// kiem tra xem calendar voi hoc ky nhap vao da co chua
-				Optional<CalendarDetail> calenDetailOptional = calendarDetailRepository
-						.findByCalendarAndSemester(calendar, semester);
+		Optional<List<Calendar>> calenOptional = calendarRepository.findByStudentIdAndTypeAndUserId(studentId, false,
+				user.getId());
 
-				if (calenDetailOptional.isPresent()) {
-					CalendarDetail calendarDetail = calenDetailOptional.get();
-					BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId,
-							semester);
-					if (newEvents.isStatus()) {
-						String newHash = SubjectEventDetails.scheduleHash;
-						String oldHash = calendarDetail.getScheduleHash();
-
-						if (!newHash.equals(oldHash)) {// neu thoi khoa bieu thay doi
-							Set<Event> oldEvents = calendarDetail.getEvents();
-
-							if (oldEvents != null && oldEvents.size() > 0) {
-								for (Event oldEvent : oldEvents) {
-									aPIWrapper.deleteEvent(calendar.getCalendarId(), oldEvent.getEventId());// xoa tren
-									eventRepository.delete(oldEvent);
-								}
-							}
-
-							updateCalendar(calendar, newEvents.getResult(), semesterId, newHash);
-							calendarDetailRepository.delete(calendarDetail.getId());
-							// thong bao cap nhat thoi khoa bieu thanh cong
-							ra.addFlashAttribute("success", "Cập nhật thay đổi thời khóa biểu thành công!");
-						} else {
-							ra.addFlashAttribute("info", "Thời khóa biểu đã tồn tại!");
-						}
-					} else {
-						ra.addFlashAttribute("error", newEvents.getMessage());
-					}
-				} else {// ma sinh viên da duoc them, hoc ky chua duoc them
-					BaseResult<Set<String>> result = updateCalendar(calendar, scheduleCreate);
-
-					if (result.isStatus()) {
-						if (result.getResult().size() > 0) {
-							ra.addFlashAttribute("success", "Thêm lịch thành công!");
-						} else {
-							ra.addFlashAttribute("info", result.getMessage());
-						}
-					} else {
-						ra.addFlashAttribute("error", result.getMessage());
-					}
-				}
-			}
-		} else { // ma sinh vien chua duoc tao lich
-			// Nếu chưa thêm thì insert vào ggcalen và thêm calendar vào db
+		// Nếu không có lịch với mã sinh viên được thêm
+		if (!calenOptional.isPresent()) {
 			BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
-			if (result.isStatus()) {
-				if (result.getResult().size() > 0) {
-					ra.addFlashAttribute("success", "Thêm lịch thành công!");
-				} else {
-					ra.addFlashAttribute("info", result.getMessage());
-				}
-			} else {
-				ra.addFlashAttribute("error", result.getMessage());
-			}
+			addFlashAtributes(ra, result);
+			return "redirect:/schedule/create";
 		}
 
+		// Nếu đã có lịch với mã sinh viên truyền vào
+		List<Calendar> calendars = calenOptional.get();
+		Calendar calendar = filterCalendar(calendars);
+		if (calendar == null) {
+			BaseResult<List<GoogleEvent>> result = addCalendar(scheduleCreate);
+			addFlashAtributes(ra, result);
+			return "redirect:/schedule/create";
+		}
+
+		// kiem tra xem calendar voi hoc ky nhap vao da co chua
+		Optional<CalendarDetail> detailOptional = calendarDetailRepository.findByCalendarAndSemester(calendar,
+			semesterRepository.findOne(semesterId));
+		if (!detailOptional.isPresent()) {
+		    BaseResult<Set<String>> result = updateCalendar(calendar, scheduleCreate);
+		    addFlashAtributesString(ra, result);
+			return "redirect:/schedule/create";
+		}
+
+		CalendarDetail calendarDetail = detailOptional.get();
+		handlingChanges(ra, calendarDetail, scheduleCreate, calendar);
+
 		return "redirect:/schedule/create";
+	}
+
+	/**
+	 * @param ra
+	 * @param result
+	 */
+	private void addFlashAtributesString(RedirectAttributes ra, BaseResult<Set<String>> result) {
+		// TODO Auto-generated method stub
+		if (!result.isStatus()) {
+			ra.addFlashAttribute("error", result.getMessage());
+			return;
+		}
+		if (result.getResult().size() > 0) {
+			ra.addFlashAttribute("success", "Thêm lịch thành công!");
+		} else {
+			ra.addFlashAttribute("info", result.getMessage());
+		}
+	}
+
+	/**
+	 * @param calendars
+	 * @return
+	 * @throws IOException
+	 */
+	private Calendar filterCalendar(List<Calendar> calendars) throws IOException {
+		aPIWrapper = new APIWrapper(UserDetailsServiceImpl.getRefreshToken());
+		ArrayList<Calendar> results = new ArrayList<>();
+		for (Calendar calendar : calendars) { // tìm số calendars tồn tại trên cả db và google
+			if(calendar != null) {
+				String calendarId = calendar.getCalendarId(); // kiểm tra xem calendar còn trên calendar list cua nguoi dung
+				// khong
+				GoogleCalendar googleCalendar = aPIWrapper.findCalendarInCalendarList(calendarId);
+				// Nếu lịch nào chỉ có trong db mà không có trên GGCalendar thì xóa trong db
+				if (googleCalendar == null) {
+//					results.remove(calendar);
+					calendarRepository.delete(calendar);
+				}else {
+					results.add(calendar);
+				}
+				
+			}
+		}
+		if (results.size() == 0) {
+			return null;
+		}
+		// giu lai mot calendar
+		for (int i = 1; i < results.size(); i++) {
+			calendarRepository.delete(results.get(i));
+		}
+		Calendar calendar = results.get(0);
+		return calendar;
+	}
+
+	/**
+	 * @param ra
+	 * @param calendarDetail
+	 * @param scheduleCreate
+	 * @param calendar
+	 * @throws ParseException
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+	private void handlingChanges(RedirectAttributes ra, CalendarDetail calendarDetail, ScheduleCreate scheduleCreate,
+			Calendar calendar) throws NoSuchAlgorithmException, IOException, ParseException {
+		// lay list new Events
+		String studentId = scheduleCreate.getStudentId();
+		String semesterId = scheduleCreate.getSemester();
+		Semester semester = semesterRepository.findById(semesterId);
+		BaseResult<List<GoogleEvent>> newEvents = SubjectEventDetails.getEventsFromSchedule(studentId, semester);
+		if (!newEvents.isStatus()) {
+			ra.addFlashAttribute("error", newEvents.getMessage());
+			return;
+		}
+
+		String newHash = SubjectEventDetails.scheduleHash;
+		String oldHash = calendarDetail.getScheduleHash();
+		// Nếu lịch không thay đổi
+		if (newHash.equals(oldHash)) {
+			ra.addFlashAttribute("info", "Thời khóa biểu đã tồn tại!");
+			return;
+		}
+		// Nếu lịch thay đổi
+		Set<Event> oldEvents = calendarDetail.getEvents();
+		for (Event oldEvent : oldEvents) {
+			aPIWrapper.deleteEvent(calendar.getCalendarId(), oldEvent.getEventId());// xoa tren
+			eventRepository.delete(oldEvent);
+		}
+
+		updateCalendar(calendar, newEvents.getResult(), semester.getId(), newHash);
+		calendarDetailRepository.delete(calendarDetail.getId());
+		// thong bao cap nhat thoi khoa bieu thanh cong
+		ra.addFlashAttribute("success", "Cập nhật thay đổi thời khóa biểu thành công!");
+		return;
+
+	}
+
+	/**
+	 * @param ra
+	 * @param result
+	 */
+	private void addFlashAtributes(RedirectAttributes ra, BaseResult<List<GoogleEvent>> result) {
+		// TODO Auto-generated method stub
+		if (!result.isStatus()) {
+			ra.addFlashAttribute("error", result.getMessage());
+			return;
+		}
+		if (result.getResult().size() > 0) {
+			ra.addFlashAttribute("success", "Thêm lịch thành công!");
+		} else {
+			ra.addFlashAttribute("info", result.getMessage());
+		}
 	}
 
 	private BaseResult<List<GoogleEvent>> addCalendar(ScheduleCreate scheduleCreate)

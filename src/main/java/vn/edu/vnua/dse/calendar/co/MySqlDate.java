@@ -8,6 +8,8 @@ public class MySqlDate extends Date {
 	@SuppressWarnings("deprecation")
 	public MySqlDate(int year, int month, int day) {
 		super(year, month, day);
+		System.out.println("-----------------------");
+		System.out.println(new Date(year, month, day));
 		// TODO Auto-generated constructor stub
 	}
 

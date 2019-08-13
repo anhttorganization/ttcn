@@ -18,7 +18,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thời khóa biểu</h5>
-					<p class="card-text">Thêm thời khóa biểu, lịch giảng dạy của sinh viên theo từng học kỳ vào Google Calendar</p>
+					<p class="card-text">Thêm thời khóa biểu của giảng viên và sinh viên theo từng học kỳ vào Google Calendar</p>
 					<a class="link-function" href="schedule/create"></a>
 				</div>
 			</div>
@@ -44,18 +44,22 @@
 		<div class="col-md-4 col-sm-6 card-calendar mt-4">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">File Excel</h5>
+					<h5 class="card-title">Import</h5>
 					<p class="card-text">Thêm các sự kiện từ file excel vào trong lịch đã tạo trên Google Calendar</p>
 					<a class="link-function" href="import/create"></a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="error_message" value='${error}'/>
+	<input type="hidden" id="success_message" value='${success}'/>
+	<input type="hidden" id="info_message" value='${info}'/>
+
 	<p>${authError}</p>
 	<c:if test="${not empty setPermision}">
-		<a href="${setPermision}" target="_blank">Refresh token đã hết
+		<a href="${setPermision}">Refresh token đã hết
 			hạn, vui lòng nhấn vào đấy để xóa quyền truy cập của ứng dụng
-			calendarapi và thử lại!</a>
+			STCalendar và thử lại!</a>
 	</c:if>
 </div>
 

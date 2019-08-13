@@ -11,7 +11,7 @@
 			<button type="button" class="btn btn-success" data-toggle="modal"
 				data-target="#exampleModalCenter">Thêm người dùng mới</button>
 			<!-- Modal -->
-			<form action="quan-ly-nguoi-dung/add" method="post"
+			<form action="user/add" method="post"
 				id="add_user_form">
 				<input type="hidden" id="msgSuccess" value="${msgSuccess}"
 					disabled="disabled"> <input type="hidden" id="msg"
@@ -70,7 +70,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form method="Post" action="quan-ly-nguoi-dung/update" id="update_user_form">
+						<form method="Post" action="user/update" id="update_user_form">
 						<div class="modal-body">
 							<label for="staticEmail2"></label> <input type="text"
 								class="form-control" placeholder="Email" id="email" name="email">
@@ -93,7 +93,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Tim kiem nguoi dung theo firstname -->
+			<%-- <!-- Tim kiem nguoi dung theo firstname -->
 			<form action="quan-ly-nguoi-dung/user.do" method="post"
 				class="form-inline">
 				<input path="firstName" name="firstName"
@@ -101,13 +101,13 @@
 					aria-label="Search" />
 				<button value="Search" class="btn btn-outline-success my-2 my-sm-0"
 					type="submit">Tìm kiếm</button>
-			</form>
+			</form> --%>
 		</nav>
 		<!-- Modal xóa tài khoản -->
 		<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<form action="quan-ly-nguoi-dung/delete" method="post">
+				<form action="user/delete" method="post">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa
@@ -135,7 +135,7 @@
 			<c:if test="${listResult.size()>0 }">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col"><input type="checkbox" name=""></th>
+				<th scope="col">#</th>
 						<th scope="col">Tên người dùng</th>
 						<th scope="col">Email</th>
 						<th scope="col">Vai trò</th>
@@ -145,7 +145,7 @@
 				<tbody>
 					<c:forEach var="i" begin="1" end="${listResult.size()}">
 						<tr>
-							<th scope="row"><input type="checkbox" name=""></th>
+					<td scope="row">${i}</td>
 							<td><a href="#">${listResult.get(i-1).getFirstName()}
 									${listResult.get(i-1).getLastName()}</a></td>
 							<td>${listResult.get(i-1).getEmail()}</td>
@@ -163,7 +163,7 @@
 				</tbody>
 			</c:if>
 		</table>
-		<nav aria-label="Page navigation User" class="m-auto">
+		<!-- <nav aria-label="Page navigation User" class="m-auto">
 			<ul class="pagination justify-content-center">
 				<li class="page-item disabled"><a class="page-link" href="#"
 					tabindex="-1">Trang trước</a></li>
@@ -173,7 +173,7 @@
 				<li class="page-item"><a class="page-link" href="#">Trang
 						sau</a></li>
 			</ul>
-		</nav>
+		</nav> -->
 	</div>
 </div>
 <script type="text/javascript"

@@ -40,11 +40,7 @@
 		</div>
 	</div>
 </div>
-	<input type="hidden" id="error_message" value='${error}'/>
-	<input type="hidden" id="success_message" value='${success}'/>
-	<input type="hidden" id="info_message" value='${info}'/>
-	
-	<div id="spinner" class="spinner" style="display: none;"></div>
+<!-- 	<div id="spinner" class="spinner" style="display: none;"></div> -->
 	
 	<script type="text/javascript" src="${contextPath}/resources/js/import.js"></script>
 <script type="text/javascript">

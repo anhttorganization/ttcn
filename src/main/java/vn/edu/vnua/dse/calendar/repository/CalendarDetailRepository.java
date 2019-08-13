@@ -16,8 +16,7 @@ public interface CalendarDetailRepository extends JpaRepository<CalendarDetail, 
 	Optional<CalendarDetail> findByCalendarAndSemester(Calendar calendar, Semester semester);
 	Optional<CalendarDetail> findByCalendar(Calendar calendar);
 	
-	@Query(value = "Select * from calendar_detail c where c.calenId = ?1 and c.semesId = ?2", nativeQuery = true)
-	Optional<CalendarDetail> findByCalenIdAndSemesId(String calendId, String semesId);
+//	Optional<CalendarDetail> findByCalenIdAndSemesId(long calendId, String semesId);
 	
 	@Modifying
 	@Query(value="DELETE FROM calendar_detail WHERE id = ?1 ", nativeQuery = true)

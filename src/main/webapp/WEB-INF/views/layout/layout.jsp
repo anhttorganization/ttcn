@@ -30,7 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin.css">
 	<script type="text/javascript" src="${contextPath}/resources/js/moment.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/tempusdominus-bootstrap-4.min.js"></script>
-
+	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-primary menu_calendar">
@@ -43,6 +43,9 @@
 <footer id = "footer">
 	<tiles:insertAttribute name="footer" />
 </footer>
+	<input type="hidden" id="error_message" value='${error}'/>
+	<input type="hidden" id="success_message" value='${success}'/>
+	<input type="hidden" id="info_message" value='${info}'/>
 </body>
-
+<div id="spinner" class="spinner" style="display: none;"></div>
 </html>

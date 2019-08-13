@@ -11,10 +11,10 @@
 	<div class="row">
 		<nav
 			class="navbar navbar-light bg-light justify-content-between w-100">
-			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Thêm học kỳ mới</button>
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">Thêm học kỳ mới</button>
 		
 			<!-- Modal thêm mới start -->
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-top" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -58,7 +58,6 @@
 				</div>
 			</div>
 			<!-- Modal thêm mới end -->
-			
 			
 			<!-- Modal update start-->
 			<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -107,36 +106,12 @@
 			
 			<!-- Modal update end-->
 			
-		<%-- 	<!-- Modal xóa start -->
-			<div class="modal fade" id="exampleModal_${listResult.get(i-1).getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa	tài khoản</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							Bạn có chắc chắn muốn xóa học kỳ <span class="font-weight-bold text-danger">${listResult.get(i-1).getName()}</span>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"	data-dismiss="modal">Quay lại</button>
-							<button type="button" class="btn btn-danger" onclick="deleteSemester('${contextPath}/admin/semester/delete/${listResult.get(i-1).getId()}', 'exampleModal_${listResult.get(i-1).getId()}')">Chắc chắn</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Modal xóa end -->
-			 --%>
-			
 			<%-- <form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
 					placeholder="Tìm kiếm" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
 			</form> --%>
 		</nav>
-
 		<table class="table">
 			<c:if test="${listResult.size()==0 }">
 				<c:out value="Không có dữ liệu để hiển thị"></c:out>
@@ -144,7 +119,7 @@
 			<c:if test="${listResult.size()>0 }">
 				<thead class="thead-light">
 					<tr>
-						<!-- <th scope="col"><input type="checkbox" name=""></th> -->
+						<th scope="col">#</th>
 						<th scope="col">Id</th>
 						<th scope="col">Học kỳ</th>
 						<th scope="col">Thời gian bắt đầu</th>
@@ -154,10 +129,9 @@
 				<tbody>
 					<c:forEach var="i" begin="1" end="${listResult.size()}">
 						<tr>
+							<td scope="row">${i}</td>
 							<td>${listResult.get(i-1).getId()}</td>
 							<td><a href="#">${listResult.get(i-1).getName()}</a></td>
-						<%-- 	<% System.out.println(request.getAttribute(listResult.get(i-1))); %>
- --%>						
 							<td>${listResult.get(i-1).getStartDate()}</td>
 							<td>
 								<ul class="user_tool">
@@ -205,9 +179,5 @@
 		</nav> -->
 	</div>
 </div>
-	<script>
-		var number = ${number};
-		console.log(number)
-	</script>
 
 <script type="text/javascript" src="${contextPath}/resources/js/semester.js"></script>

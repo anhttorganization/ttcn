@@ -21,6 +21,7 @@
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
 </head>
 
 <body>
@@ -102,7 +103,7 @@
 	<footer id = "footer">
 <div>
 	<hr>
-	<p align="center">Copyright © 2015 <a href="https://st-dse.vnua.edu.vn:6880/" target="_blank">ST-DSE</a>. All rights reserved.</p>
+	<p align="center">Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 </div>
 </footer>
 	<input type="hidden" id="error_message" value='${error}'/>
@@ -110,4 +111,5 @@
 	<input type="hidden" id="info_message" value='${info}'/>
 	<script type="text/javascript" src="${contextPath}/resources/js/dangky.js"></script>
 </body>
+<div id="spinner" class="spinner" style="display: none;"></div>
 </html>

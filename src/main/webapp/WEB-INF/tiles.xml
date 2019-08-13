@@ -47,16 +47,16 @@
 	<!-- <definition name="admin" extends="index"> <put-attribute name="title" 
 		value="Thời khóa biểu" /> <put-attribute name="body" value="/WEB-INF/views/admin/admin.jsp" 
 		/> </definition> -->
-	<definition name="admin/quan-ly-nguoi-dung" extends="admin">
+	<definition name="admin/user" extends="admin">
 		<put-attribute name="title" value="Người dùng" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/nguoidung.jsp" />
+			value="/WEB-INF/views/admin/user.jsp" />
 	</definition>
-	<definition name="admin/quan-ly-nguoi-dung/add"
+	<definition name="admin/user/add"
 		extends="admin">
 		<put-attribute name="title" value="Người dùng" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/nguoidung.jsp" />
+			value="/WEB-INF/views/admin/user.jsp" />
 	</definition>
 	<definition name="schedule/create" extends="index">
 		<put-attribute name="title" value="Thời khóa biểu" />

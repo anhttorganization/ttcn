@@ -22,6 +22,7 @@ function addSemester(){
 		toastr.warning('Vui lòng nhập đúng định dạng ngày dd/mm/yyyy','Thông báo');
 		return false;
 	}else{
+		$('#addModal').modal('hide');
 		var parts = dateInput.split('/');
 		var	date = parts[2] + '-' + parts[1]  + '-' + parts[0];
 //		$("#close").click();
@@ -35,8 +36,12 @@ function addSemester(){
 			},
 			success : function (result){
 				if(result.status){
-					alert('Thêm học kỳ thành công!');
-					location.reload();
+					toastr.options.timeOut = 1500;
+					toastr.options.fadeOut = 1500;
+					toastr.options.onHidden = function(){
+					  window.location.reload();
+					};
+					toastr.success(result.message,'Thành công');
 				}else{
 					toastr.warning(result.message,'Thông báo');
 				}
@@ -46,7 +51,7 @@ function addSemester(){
 	}
 }
 
-$('#exampleModalCenter').on('hidden.bs.modal', function () {
+$('#addModal').on('hidden.bs.modal', function () {
 	$('#id').val('');
 	$('#name').val('');
 	$("#date").val('');
@@ -60,8 +65,12 @@ function deleteSemester(url, modalId) {
 		  cache: false,
 		  success: function(result){
 				if(result.status){
-					alert('Xóa học kỳ thành công!');
-					location.reload();
+					toastr.options.timeOut = 1500;
+					toastr.options.fadeOut = 1500;
+					toastr.options.onHidden = function(){
+					  window.location.reload();
+					};
+					toastr.success(result.message,'Thành công');
 				}else{
 					toastr.warning(result.message,'Thông báo');
 				}
@@ -92,6 +101,7 @@ $('#submit_update').click(
 				toastr.warning('Vui lòng nhập đúng định dạng ngày dd/mm/yyyy','Thông báo');
 				return false;
 			}else{
+				$('#updateModal').modal('hide');
 				var parts = dateInput.split('/');
 				var	date = parts[2] + '-' + parts[1]  + '-' + parts[0];
 				$.ajax({
@@ -104,8 +114,12 @@ $('#submit_update').click(
 					},
 					success : function (result){
 						if(result.status){
-							alert('Cập nhật học kỳ thành công!');
-							location.reload();
+							toastr.options.timeOut = 1500;
+							toastr.options.fadeOut = 1500;
+							toastr.options.onHidden = function(){
+							  window.location.reload();
+							};
+							toastr.success(result.message,'Thành công');
 						}else{
 							toastr.warning(result.message,'Thông báo');
 						}

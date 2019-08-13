@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.calendar.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import vn.edu.vnua.dse.calendar.model.Semester;
 public interface CalendarRepository extends JpaRepository<Calendar, Long>{
 	Optional<Calendar> findByStudentId(String studentId);
 	
-	Optional<Calendar>findByStudentIdAndType(String studentId, boolean type);
+	Optional<List<Calendar>>findByStudentIdAndTypeAndUserId(String studentId, boolean type, long userId);
 	
 	Optional<Calendar> findByCalendarId(String calendarId);
 	
