@@ -46,10 +46,11 @@ ul.user_tool li:nth-last-child(1) a::before {
 footer#footer {
     width: 100%;
     bottom:0;
-    height: 50px;
-    line-height: 50px;
+    height: 70px;
+   /*  line-height: 50px; */
     border-top: 1px solid #e0e0e0cf;
     box-sizing: border-box;
+    padding:0px 350px;
 }
 body {
     width: 100%;
@@ -59,6 +60,45 @@ footer#footer p {
     margin: 0;
 }
 .container {
-    min-height: calc(100vh - 107px - 1.5em);
+    min-height: calc(100vh - 127px - 1.5em);
     box-sizing: border-box;
+}
+
+footer .bottom_footer_1, footer .bottom_footer_2 {
+    padding: 18px 0 0 0;
+}
+
+footer .bottom_footer {
+    width: 100%;
+    padding: 0 0 20px;
+    border-top: 1px solid #d7dbe3;
+}
+
+footer .bottom_footer_1, footer .bottom_footer_2 {
+    padding: 10px 0 0 10px;
+    font: 400 14px arial;
+    color: #666;
+}
+
+
+footer .bottom_footer_2 {
+/*     text-align: right; */
+    margin-right: 10px;
+}
+
+footer .logo_bottom {
+    width: 69px;
+    height:69px;
+    padding: 0 0 0 0;
+}
+
+footer#footer p {
+    line-height: 160%;
+}
+
+#navbarDropdown{
+	color: #000;
+}
+#navbarDropdown:hover{
+	color: #fff
 }

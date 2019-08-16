@@ -1,10 +1,22 @@
-body,
 html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+ 	background: #f3f3f3; 
+}
+
+body{
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	background: #60a3bc !important;
 }
+
+#footer{
+	background: #ffffff;
+	position: absolute;
+}
+
 .user_card {
 	height: 530px;
 	width: 350px;
@@ -74,18 +86,4 @@ form#register_form {
 }
 .d-flex.justify-content-center.links {
     margin-top: -15px;
-}
-#footer{
-	height: 50px;
-	background: #f3f3f3;
-	line-height:50px;
-	margin-top: 50px;
-}
-
-#footer p{
-	text-align: center;
-	margin:0 !important;
-}
-#footer hr{
-	margin: 0
 }
