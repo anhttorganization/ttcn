@@ -23,8 +23,8 @@
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
-	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
+<%-- 	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script> --%>
+<%-- <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script> --%>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
 				<div class="d-flex justify-content-center form_container">
 					<form:form method="POST" modelAttribute="user" class="form-signin" action="register" id="register_form">
 						
-						<div class="input-group mb-1">
+						<div class="input-group mb-2">
 							<spring:bind path="email">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input type="text" id="email" path="email" class="form-control input_pass"
@@ -54,7 +54,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-1">
+						<div class="input-group mb-2">
 							<spring:bind path="firstName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="firstname" type="text" path="firstName" class="form-control input_user" placeholder="Tên"></form:input>
@@ -62,7 +62,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-1">
+						<div class="input-group mb-2">
 							<spring:bind path="lastName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="lastname" type="text" path="lastName" class="form-control input_pass"
@@ -71,7 +71,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-1">
+						<div class="input-group mb-2">
 							<spring:bind path="password">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="password" type="password" path="password" class="form-control input_pass" placeholder="Mật khẩu"></form:input>
@@ -79,7 +79,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-1">
+						<div class="input-group mb-2">
 							<spring:bind path="passwordConfirm">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="passwordConfirm" type="password" path="passwordConfirm" class="form-control input_pass" placeholder="Nhập lại mật khẩu"></form:input>
@@ -89,12 +89,12 @@
 						</div>
 					</form:form>
 				</div>
-				<div class="d-flex justify-content-center mt-2 login_container">
+				<div class="d-flex justify-content-center mt-3 login_container">
 					<button id="btn_submit_register" type="button" name="button" class="btn login_btn">Đăng ký</button>
 				</div>
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2">Đăng nhập</a>
+						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2" id="login">Đăng nhập</a>
 					</div>
 					<!-- <div class="d-flex justify-content-center links">
 						<a href="#">Forgot your password?</a>
@@ -103,6 +103,7 @@
 			</div>
 		</div>
 	</div>
+
 	<footer id = "footer">
 		<%-- <div class="bottom_footer">
 			<a class="left" href="https://st-dse.vnua.edu.vn/"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
@@ -141,3 +142,6 @@
 </body>
 <div id="spinner" class="spinner" style="display: none;"></div>
 </html>
+<script type="text/javascript">
+
+</script>
