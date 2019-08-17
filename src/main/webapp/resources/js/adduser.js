@@ -186,3 +186,37 @@ $(document).ready(
 				toastr.success(msgSuccess);
 			}
 		});
+
+var able = true;
+var able_2;
+function changeStatusUserById(userId, status) {	
+	$.ajax({
+		type : "post",
+		url : "user/changeStatusUser",
+		data : {
+			status : status_new,
+			id : userId,
+		},
+		success : function(response) {
+			if(able) {
+				status_new = status;
+				able = false;
+			}else{
+				status_new = able_2;
+			}
+			able_2 = response;
+			if(response){
+				$("#changeStatusUser_"+userId).removeClass("fa-toggle-off");
+				$("#changeStatusUser_"+userId).addClass("fa-toggle-on");
+			}else{
+				$("#changeStatusUser_"+userId).removeClass("fa-toggle-on");
+				$("#changeStatusUser_"+userId).addClass("fa-toggle-off");
+			}
+			
+			//location.reload();
+		},
+		error : function(e) {
+			//location.reload();
+		}
+	});
+}

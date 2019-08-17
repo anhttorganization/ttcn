@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.calendar.model.User;
@@ -76,7 +78,7 @@ public class UserController {
 		User user = userService.findByEmail(email);
 
 		if (user != null) {
-			redirectAtribute.addFlashAttribute("msg", "Email đã được đăng ký tài khoản");
+			redirectAtribute.addFlashAttribute("msg", "Email Ä‘Ã£ Ä‘Æ°á»£c Ä‘Äƒng kÃ½ tÃ i khoáº£n");
 		} else {
 			user = new User();
 			user.setEmail(email);
@@ -89,7 +91,7 @@ public class UserController {
 			userService.changeUserPass(user, password);
 
 			userService.save(user);
-			redirectAtribute.addFlashAttribute("msgSuccess", "Thêm người dùng thành công");
+			redirectAtribute.addFlashAttribute("msgSuccess", "ThÃªm ngÆ°á»�i dÃ¹ng thÃ nh cÃ´ng");
 
 		}
 		return "redirect:/admin/user";
@@ -104,10 +106,10 @@ public class UserController {
 		if (user != null) {
 			try {
 				userRepository.delete(user);
-				redirectAttrs.addFlashAttribute("msgSuccess", "Xóa thành công");
+				redirectAttrs.addFlashAttribute("msgSuccess", "XÃ³a thÃ nh cÃ´ng");
 			} catch (Exception e) {
 				redirectAttrs.addFlashAttribute("msg",
-						"Có lỗi xảy ra, xin mời liên hệ quản trị viên để biết thêm chi tiết");
+						"CÃ³ lá»—i xáº£y ra, xin má»�i liÃªn há»‡ quáº£n trá»‹ viÃªn Ä‘á»ƒ biáº¿t thÃªm chi tiáº¿t");
 			}
 		}
 		return "redirect:/admin/user";
@@ -127,12 +129,34 @@ public class UserController {
 				userService.setRole(user, request.getParameter("role"));
 
 				userService.save(user);
-				redirectAttributes.addFlashAttribute("msgSuccess", "Thay đổi thành công");
+				redirectAttributes.addFlashAttribute("msgSuccess", "Thay Ä‘á»•i thÃ nh cÃ´ng");
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("msg",
-						"Có lỗi xảy ra, xin mời liên hệ quản trị viên để biết thêm chi tiết");
+						"CÃ³ lá»—i xáº£y ra, xin má»�i liÃªn há»‡ quáº£n trá»‹ viÃªn Ä‘á»ƒ biáº¿t thÃªm chi tiáº¿t");
 			}
 		}
 		return "redirect:/admin/user";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "admin/user/changeStatusUser", method = RequestMethod.POST)
+	public boolean changeStatusUser(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
+		long id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
+
+		boolean status = request.getParameter("status") != null
+				? "true".equals(request.getParameter("status")) ? false : true
+				: false;
+		User user = null;
+		user = userRepository.findById(id);
+		if (user != null) {
+			try {
+				user.setEnabled(status);
+				userService.save(user);
+				return  status;
+			} catch (Exception e) {
+				return status;
+			}
+		}
+		return status;
 	}
 }
