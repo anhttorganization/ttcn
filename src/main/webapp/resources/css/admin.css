@@ -57,9 +57,7 @@ body {
 }
 footer#footer p {
     margin: 0;
-    height: 25px;
-    text-align: center;
-    line-height: 25px;
+    
 }
 .container {
     min-height: calc(100vh - 107px - 1.5em);
@@ -73,4 +71,12 @@ footer#footer img {
 }
 footer#footer .col-md-8,footer#footer .col-md-4 {
     padding: 0;
+}
+@media screen and (max-width: 768px) {
+  footer#footer img{
+  	display:none;
+  }
+  footer#footer p{
+  	text-align:center;
+  }
 }

@@ -10,7 +10,6 @@ body{
 	padding: 0;
 	height: 100%;
 	background: #60a3bc !important;
-	overflow:hidden;
 }
 
 #footer{
@@ -84,4 +83,12 @@ body{
 }
 .errorinput{
 	border: 1px solid red;
+}
+@media screen and (max-width: 768px) {
+  footer#footer img{
+  	display:none;
+  }
+  footer#footer p{
+  	text-align:center;
+  }
 }
