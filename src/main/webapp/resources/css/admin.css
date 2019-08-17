@@ -57,7 +57,7 @@ body {
 }
 footer#footer p {
     margin: 0;
-    height: 19px;
+    height: 25px;
     text-align: center;
     line-height: 25px;
 }
@@ -70,4 +70,7 @@ footer#footer img {
     height: 50px;
     width: 50px;
     right: 0px;
+}
+footer#footer .col-md-8,footer#footer .col-md-4 {
+    padding: 0;
 }
