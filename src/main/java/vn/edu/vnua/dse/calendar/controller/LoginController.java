@@ -62,7 +62,8 @@ public class LoginController {
 	public String register(@ModelAttribute("user") User user, Model model,RedirectAttributes ra,
 			HttpServletRequest request) throws IOException, MessagingException {
 
-		 if (userService.findByEmail(user.getEmail()) != null) {
+		String email = user.getEmail().toLowerCase();
+		 if (userService.findByEmail(email) != null) {
 	            ra.addFlashAttribute("error", "Emai đã được đăng ký!");
 	            return "redirect:/register";
 		 }
@@ -116,7 +117,7 @@ public class LoginController {
 		MimeMessage message = sender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo(user.getEmail());
+		helper.setTo(email);
 		helper.setSubject("Xác nhận đăng ký tài khoản STCalendar");
 		// use the true flag to indicate the text included is HTML
 		helper.setText(htmlText, true);
@@ -127,7 +128,7 @@ public class LoginController {
 		
 		userService.init(user);// save and encode
 		
-		ra.addFlashAttribute("success", "Email xác nhận đã được gửi tới địa chỉ email " + user.getEmail() + "\nVui lòng kiểm tra email và xác nhận đăng ký tài khoản!") ;
+		ra.addFlashAttribute("success", "Vui lòng kiểm tra gmail " + user.getEmail() + " và kích hoạt tài khoản!<br/><br/><button type=\"button\" class=\"btn clear\" id=\"ok_register\">OK</button>") ;
 		
 		return "redirect:/register";
 	}

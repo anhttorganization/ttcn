@@ -87,3 +87,26 @@ form#register_form {
 .d-flex.justify-content-center.links {
     margin-top: -15px;
 }
+
+div#toast-container {
+    height: 100%;
+    align-items: center;
+}
+/* .toast {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+} */
+
+toast-message{
+	z-index: -1;
+}
+#ok_register{
+		display: table;
+	    margin: 0 auto;
+}
+
+#toast-container > div{
+	opacity: 1;
+}

@@ -23,8 +23,8 @@
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
-	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
+<%-- 	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script> --%>
+<%-- <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script> --%>
 </head>
 
 <body>
@@ -94,7 +94,7 @@
 				</div>
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2">Đăng nhập</a>
+						Đã có tài khoản? <a href="${contextPath}/login" class="ml-2" id="login">Đăng nhập</a>
 					</div>
 					<!-- <div class="d-flex justify-content-center links">
 						<a href="#">Forgot your password?</a>
@@ -103,6 +103,7 @@
 			</div>
 		</div>
 	</div>
+
 	<footer id = "footer">
 		<div class="bottom_footer">
 			<a class="left" href="https://st-dse.vnua.edu.vn/"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
@@ -123,3 +124,6 @@
 </body>
 <div id="spinner" class="spinner" style="display: none;"></div>
 </html>
+<script type="text/javascript">
+
+</script>

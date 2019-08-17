@@ -18,7 +18,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Thời khóa biểu</h5>
-					<p class="card-text">Thêm thời khóa biểu của giảng viên và sinh viên theo từng học kỳ vào Google Calendar</p>
+					<p class="card-text">Thêm/cập nhật thời khóa biểu của giảng viên và sinh viên theo từng học kỳ vào Google Calendar</p>
 					<a class="link-function" href="schedule/create"></a>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Lịch thi</h5>
-					<p class="card-text">Thêm lịch thi kỳ hiện tại của sinh viên vào Google Calendar</p>
+					<p class="card-text">Thêm/cập nhật lịch thi kỳ hiện tại của sinh viên vào Google Calendar</p>
 					<a class="link-function" href="testschedule/create"></a>
 				</div>
 			</div>
