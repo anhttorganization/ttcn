@@ -190,6 +190,12 @@ $(document).ready(
 var able = true;
 var able_2;
 function changeStatusUserById(userId, status) {	
+	if(able) {
+		status_new = status;
+		able = false;
+	}else{
+		status_new = able_2;
+	}
 	$.ajax({
 		type : "post",
 		url : "user/changeStatusUser",
@@ -198,12 +204,6 @@ function changeStatusUserById(userId, status) {
 			id : userId,
 		},
 		success : function(response) {
-			if(able) {
-				status_new = status;
-				able = false;
-			}else{
-				status_new = able_2;
-			}
 			able_2 = response;
 			if(response){
 				$("#changeStatusUser_"+userId).removeClass("fa-toggle-off");
