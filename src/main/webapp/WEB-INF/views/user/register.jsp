@@ -43,7 +43,7 @@
 				<div class="d-flex justify-content-center form_container">
 					<form:form method="POST" modelAttribute="user" class="form-signin" action="register" id="register_form">
 						
-						<div class="input-group mb-2">
+						<div class="input-group mb-1">
 							<spring:bind path="email">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input type="text" id="email" path="email" class="form-control input_pass"
@@ -54,7 +54,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-1">
 							<spring:bind path="firstName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="firstname" type="text" path="firstName" class="form-control input_user" placeholder="Tên"></form:input>
@@ -62,7 +62,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-1">
 							<spring:bind path="lastName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="lastname" type="text" path="lastName" class="form-control input_pass"
@@ -71,7 +71,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-1">
 							<spring:bind path="password">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="password" type="password" path="password" class="form-control input_pass" placeholder="Mật khẩu"></form:input>
@@ -79,7 +79,7 @@
 								</div>
 							</spring:bind>
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-1">
 							<spring:bind path="passwordConfirm">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="passwordConfirm" type="password" path="passwordConfirm" class="form-control input_pass" placeholder="Nhập lại mật khẩu"></form:input>
@@ -89,7 +89,7 @@
 						</div>
 					</form:form>
 				</div>
-				<div class="d-flex justify-content-center mt-3 login_container">
+				<div class="d-flex justify-content-center mt-2 login_container">
 					<button id="btn_submit_register" type="button" name="button" class="btn login_btn">Đăng ký</button>
 				</div>
 				<div class="mt-4">
@@ -104,13 +104,31 @@
 		</div>
 	</div>
 	<footer id = "footer">
-		<div class="bottom_footer">
+		<%-- <div class="bottom_footer">
 			<a class="left" href="https://st-dse.vnua.edu.vn/"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
 			<div class="bottom_footer_1 left">
 				<p>Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 				<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, HVNNVN</p>
 			</div>
 			<div class="bottom_footer_2 right">
+				<p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email: stdse@vnua.edu.vn</p>
+				<p><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Điện thoại: 0912 817 498</p>
+			</div>
+		</div> --%>
+		<div class="row" style="margin:0">
+			<div class="col-md-6">
+				<div class="row" style="margin:0">
+					<div class="col-md-4">
+						<img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar">
+					</div>
+					<div class="col-md-8">
+					<p>Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
+					<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, Học viện Nông nghiệp Việt Nam</p>
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-6">
 				<p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email: stdse@vnua.edu.vn</p>
 				<p><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Điện thoại: 0912 817 498</p>
 			</div>
