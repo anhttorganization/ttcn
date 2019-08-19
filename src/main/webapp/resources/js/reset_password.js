@@ -13,10 +13,10 @@ $(document).ready(function() {
 			}
 		}
 	});
-	
-	var msg = $("#message").text();
-	if(msg){
-		toastr.warning(msg);
-	}
-	
+	$('input').keypress(function (e) {
+		if (e.which == 13) {
+			$("#btn_submit").click();
+		  return false;    //<---- Add this line
+		}
+	  });
 });

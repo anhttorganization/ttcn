@@ -58,7 +58,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="message" hidden></div>
+	<input type="hidden" id="error_message" value='${error}'/>
+	<input type="hidden" id="success_message" value='${success}'/>
+	<input type="hidden" id="info_message" value='${info}'/>
 		<footer id = "footer">
 		<div class="bottom_footer">
 			<a class="left" href="https://st-dse.vnua.edu.vn/" target="_blank"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>

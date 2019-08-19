@@ -219,3 +219,21 @@ box-shadow: rgba(120,120,120, 0.75) 1.5em 0 0 0, rgba(120,120,120, 0.75) 1.1em 1
 .right {
     float: right !important;
 }
+/* div#toast-container {
+    height: 100%;
+    align-items: center;
+}
+.toast {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+} 
+
+#toast-container > div{
+	opacity: 1;
+} */
+#ok_register{
+		display: table;
+	    margin: 0 auto;
+}

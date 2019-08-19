@@ -23,14 +23,11 @@
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/toastr.min.js"></script>
-<%-- 	<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script> --%>
-<%-- <script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script> --%>
+<script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/setuptoartr.js"></script>
 </head>
 
 <body>
-	<c:if test="${not empty confirmationMessage}">
-		<h3>${confirmationMessage}</h3>
-	</c:if>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			
@@ -55,19 +52,19 @@
 							</spring:bind>
 						</div>
 						<div class="input-group mb-2">
-							<spring:bind path="firstName">
-								<div class="form-group ${status.error ? 'has-error' : ''}">
-									<form:input id="firstname" type="text" path="firstName" class="form-control input_user" placeholder="Tên"></form:input>
-									<div hidden = ""><form:errors path="firstName"></form:errors></div>
-								</div>
-							</spring:bind>
-						</div>
-						<div class="input-group mb-2">
 							<spring:bind path="lastName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="lastname" type="text" path="lastName" class="form-control input_pass"
 										placeholder="Họ đệm"></form:input>
 									<div hidden = ""><form:errors path="lastName"></form:errors></div>
+								</div>
+							</spring:bind>
+						</div>
+						<div class="input-group mb-2">
+							<spring:bind path="firstName">
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input id="firstname" type="text" path="firstName" class="form-control input_user" placeholder="Tên"></form:input>
+									<div hidden = ""><form:errors path="firstName"></form:errors></div>
 								</div>
 							</spring:bind>
 						</div>
@@ -105,17 +102,6 @@
 	</div>
 
 	<footer id = "footer">
-		<%-- <div class="bottom_footer">
-			<a class="left" href="https://st-dse.vnua.edu.vn/"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
-			<div class="bottom_footer_1 left">
-				<p>Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
-				<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, HVNNVN</p>
-			</div>
-			<div class="bottom_footer_2 right">
-				<p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email: stdse@vnua.edu.vn</p>
-				<p><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Điện thoại: 0912 817 498</p>
-			</div>
-		</div> --%>
 		<div class="row" style="margin:0">
 			<div class="col-md-6">
 				<div class="row" style="margin:0">
@@ -137,10 +123,8 @@
 	<input type="hidden" id="error_message" value='${error}'/>
 	<input type="hidden" id="success_message" value='${success}'/>
 	<input type="hidden" id="info_message" value='${info}'/>
+	<input type="hidden" id="sendemail" value='${sendmail}' />
 	<script type="text/javascript" src="${contextPath}/resources/js/dangky.js"></script>
 </body>
 <div id="spinner" class="spinner" style="display: none;"></div>
 </html>
-<script type="text/javascript">
-
-</script>

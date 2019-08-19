@@ -1,47 +1,40 @@
 $(document).ready(function() {
-
-	
-
-	
-
 	function validateEmail(email) {
 		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(String(email).toLowerCase());
 	}
-
-	toastr.options = {
-			  "closeButton": true,
-			  "debug": false,
-			  "newestOnTop": true,
-			  "progressBar": false,
-			  "positionClass": "toast-top-center",
-			  "preventDuplicates": false,
-			  "onclick": null,
-			  "showDuration": "300",
-			  "hideDuration": "1000",
-			  "timeOut": 0,
-			  "extendedTimeOut": 0,
-			  "showEasing": "swing",
-			  "hideEasing": "linear",
-			  "showMethod": "fadeIn",
-			  "hideMethod": "fadeOut",
-			  "tapToDismiss": false
-			}
-	
-	
-	var error_message = $('#error_message').val();
-	var success_message = $('#success_message').val();
-	var info_message = $('#info_message').val();
-
-	if(error_message != ""){
-		toastr.warning(`${error_message}`,'Lỗi');
-		registerError();
-	}else if(success_message != ""){
-		toastr.success(`${success_message}`, 'Thành công')
+	var sendemail = $('#sendemail').val();
+	if(sendemail != ""){
+		toastr.options = {
+				  "closeButton": true,
+				  "debug": false,
+				  "newestOnTop": true,
+				  "progressBar": false,
+				  "positionClass": "toast-top-center",
+				  "preventDuplicates": false,
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "1000",
+				  "timeOut": 0,
+				  "extendedTimeOut": 0,
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut",
+				  "tapToDismiss": false
+				}
+		
+		toastr.success(`${sendemail}`,'Thành công');
 		registerOK();
-	}else if(info_message != ""){
-		toastr.info(`${info_message}`, 'Thông báo');
-		registerError();
+		$('body').find('#toast-container > div').style.opacity = '1';
+		$('body').find('#toast-container > div').style.height = '100%';
+		$('body').find('#toast-container > div').style.alignItems="center";
+		$('body').find('#toast').style.position='absolute !important';
+		$('body').find('#toast').style.top = '50%';
+		$('body').find('#toast').style.left = '50%';
+		$('body').find('#toast').style.transform = 'translateX(-50%) translateY(-50%)';
+		
+		
 	}
 	
 	function registerOK(){
@@ -56,7 +49,12 @@ $(document).ready(function() {
 		})
 	}
 	
-	
+	$('input').keypress(function (e) {
+		  if (e.which == 13) {
+			  $("#btn_submit_register").click();
+		    return false;    //<---- Add this line
+		  }
+		});
 	
 	$("#btn_submit_register").click(function(){
 		var email = $("#email").val().toLowerCase();
@@ -64,6 +62,8 @@ $(document).ready(function() {
 		
 		if($("#email").val() == ""){
 			toastr.warning('Vui lòng nhập địa chỉ Gmail!','Lỗi');
+		}else if(!validateEmail($("#email").val())){
+			toastr.warning('Vui lòng nhập đúng định dạng địa chỉ Gmail!','Lỗi');
 		}else if($("#lastname").val() == ""){
 			toastr.warning('Vui lòng nhập tên!','Lỗi');
 		}else if($("#firstname").val() == ""){
@@ -74,9 +74,7 @@ $(document).ready(function() {
 			toastr.warning('Vui lòng nhập lại mật khẩu lần nữa!','Lỗi');
 		}else{
 			if($("#email").val() != ""){
-				if(!validateEmail($("#email").val())){
-					toastr.warning('Vui lòng nhập đúng định dạng địa chỉ Gmail!','Lỗi');
-				}else if($("#password").val() != $("#passwordConfirm").val()){
+				if($("#password").val() != $("#passwordConfirm").val()){
 					toastr.warning('Mật khẩu nhập lại không trùng khớp!','Lỗi');
 				}else{
 					$('#spinner').show();

@@ -57,7 +57,9 @@ body {
 }
 footer#footer p {
     margin: 0;
-    
+    height: 25px;
+    text-align: center;
+    line-height: 25px; 
 }
 .container {
     min-height: calc(100vh - 107px - 1.5em);

@@ -17,7 +17,12 @@ $(document).ready(function() {
 			$("#login_form").submit();
 		}
 	});
- 
+	$('input').keypress(function (e) {
+		  if (e.which == 13) {
+		    $('#btn_submit').click();
+		    return false;    //<---- Add this line
+		  }
+		});
 	
 });
 

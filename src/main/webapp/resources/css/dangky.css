@@ -108,9 +108,9 @@ toast-message{
 	    margin: 0 auto;
 }
 
-#toast-container > div{
+/* #toast-container > div{
 	opacity: 1;
-}
+} */
 /* ======= */
 @media screen and (max-width: 768px) {
   footer#footer img{
@@ -120,6 +120,13 @@ toast-message{
   	text-align:center;
   }
 }
-
+@media screen and (max-width: 768px) {
+  footer#footer img{
+  	display:none;
+  }
+  footer#footer p{
+  	text-align:center;
+  }
+}
 /* 
 >>>>>>> 22f24fccf53bbe4ac14861312c9b712ce9d76c69 */
