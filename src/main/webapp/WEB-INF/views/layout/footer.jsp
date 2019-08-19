@@ -16,7 +16,7 @@
 </div>
  -->
 <div class="bottom_footer">
-	<a class="left" href="https://st-dse.vnua.edu.vn/" target="_blank"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
+	<%-- <a class="left" href="https://st-dse.vnua.edu.vn/" target="_blank"><img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar"></a>
 	<div class="bottom_footer_1 left">
 		<p>Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
 		<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, HVNNVN</p>
@@ -24,5 +24,23 @@
 	<div class="bottom_footer_2 right">
 		<p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email: stdse@vnua.edu.vn</p>
 		<p><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Điện thoại: 0912 817 498</p>
-	</div>
+	</div> --%>
+	<div class="row" style="margin:0">
+			<div class="col-md-6">
+				<div class="row" style="margin:0">
+					<div class="col-md-4">
+						<img class="logo_bottom" src="${contextPath}/resources/images/logoST_edited.jpg" alt="STCalendar">
+					</div>
+					<div class="col-md-8" style="margin-top:6px;">
+					<p>Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/" target="_blank">ST-DSE</a>. All rights reserved.</p>
+					<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, Học viện Nông nghiệp Việt Nam</p>
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-6" style="margin-top:6px;">
+				<p style="text-align:center"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email: stdse@vnua.edu.vn</p>
+				<p style="text-align:center"><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Điện thoại: 0912 817 498</p>
+			</div>
+		</div>
 </div>

@@ -10,11 +10,11 @@ body{
 	padding: 0;
 	height: 100%;
 	background: #60a3bc !important;
+	overfolow:hidden;
 }
 
 #footer{
 	background: #ffffff;
-	position: absolute;
 }
 
 .user_card {
@@ -87,6 +87,7 @@ form#register_form {
 .d-flex.justify-content-center.links {
     margin-top: -15px;
 }
+/* <<<<<<< HEAD */
 
 div#toast-container {
     height: 100%;
@@ -110,3 +111,15 @@ toast-message{
 #toast-container > div{
 	opacity: 1;
 }
+/* ======= */
+@media screen and (max-width: 768px) {
+  footer#footer img{
+  	display:none;
+  }
+  footer#footer p{
+  	text-align:center;
+  }
+}
+
+/* 
+>>>>>>> 22f24fccf53bbe4ac14861312c9b712ce9d76c69 */

@@ -84,3 +84,11 @@ body{
 .errorinput{
 	border: 1px solid red;
 }
+@media screen and (max-width: 768px) {
+  footer#footer img{
+  	display:none;
+  }
+  footer#footer p{
+  	text-align:center;
+  }
+}

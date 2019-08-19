@@ -11,8 +11,7 @@
 			<button type="button" class="btn btn-success" data-toggle="modal"
 				data-target="#exampleModalCenter">Thêm người dùng mới</button>
 			<!-- Modal -->
-			<form action="user/add" method="post"
-				id="add_user_form">
+			<form action="user/add" method="post" id="add_user_form">
 				<input type="hidden" id="msgSuccess" value="${msgSuccess}"
 					disabled="disabled"> <input type="hidden" id="msg"
 					value="${msg}" disabled="disabled">
@@ -43,8 +42,8 @@
 									type="password" name="password" class="form-control"
 									placeholder="Nhập lại mật khẩu" id="passwordConfirm"> <label
 									for="staticEmail2">Quyền: </label> <input type="radio"
-									name="role" id="role_admin_add" value="ROLE_ADMIN"> Quản
-								trị viên <input type="radio" name="role" id="role_user_add"
+									name="role" id="role_admin_add" value="ROLE_ADMIN">
+								Quản trị viên <input type="radio" name="role" id="role_user_add"
 									value="ROLE_USER"> Người dùng
 							</div>
 							<div class="modal-footer">
@@ -58,8 +57,9 @@
 				</div>
 			</form>
 			<!-- Modal Change User-->
-			<div class="modal fade" id="modal-update-user" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal fade" id="modal-update-user" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalCenterTitle"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-top" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -71,24 +71,26 @@
 							</button>
 						</div>
 						<form method="Post" action="user/update" id="update_user_form">
-						<div class="modal-body">
-							<label for="staticEmail2"></label> <input type="text"
-								class="form-control" placeholder="Email" id="email" name="email">
-							<label for="staticEmail2"></label><input type="text"
-								class="form-control" placeholder="Tên" id="firstName"
-								name="firstName"> <label for="staticEmail2"></label><input
-								type="text" class="form-control" placeholder="Họ đệm"
-								id="lastName" name="lastName"> <label
-								for="staticEmail2">Quyền: </label> <input type="radio"
-									name="role" id="role_admin" value="ROLE_ADMIN"> Quản
-								trị viên <input type="radio" name="role" id="role_user"
-									value="ROLE_USER"> Người dùng
+							<div class="modal-body">
+								<label for="staticEmail2"></label> <input type="text"
+									class="form-control" placeholder="Email" id="email"
+									name="email"> <label for="staticEmail2"></label><input
+									type="text" class="form-control" placeholder="Tên"
+									id="firstName" name="firstName"> <label
+									for="staticEmail2"></label><input type="text"
+									class="form-control" placeholder="Họ đệm" id="lastName"
+									name="lastName"> <label for="staticEmail2">Quyền:
+								</label> <input type="radio" name="role" id="role_admin"
+									value="ROLE_ADMIN"> Quản trị viên <input type="radio"
+									name="role" id="role_user" value="ROLE_USER"> Người
+								dùng
 							</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Hủy</button>
-							<button id="btn_submit_update_user" type="submit" class="btn btn-primary">Lưu</button>
-						</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Hủy</button>
+								<button id="btn_submit_update_user" type="submit"
+									class="btn btn-primary">Lưu</button>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -135,25 +137,36 @@
 			<c:if test="${listResult.size()>0 }">
 				<thead class="thead-light">
 					<tr>
-				<th scope="col">#</th>
+						<th scope="col">#</th>
 						<th scope="col">Tên người dùng</th>
 						<th scope="col">Email</th>
 						<th scope="col">Vai trò</th>
+						<th scope="col">Trạng thái</th>
 						<th scope="col">Hoạt động</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="i" begin="1" end="${listResult.size()}">
 						<tr>
-					<td scope="row">${i}</td>
+							<td scope="row">${i}</td>
 							<td><a href="#">${listResult.get(i-1).getFirstName()}
 									${listResult.get(i-1).getLastName()}</a></td>
 							<td>${listResult.get(i-1).getEmail()}</td>
 							<td>${listResult.get(i-1).getRoleName()}</td>
+							<td><c:if test="${listResult.get(i-1).isEnabled()==true}">
+									<a id="changeStatusUser_${listResult.get(i-1).getId()}" title="Khóa tài khoản"
+										onclick='changeStatusUserById(${listResult.get(i-1).getId()}, ${listResult.get(i-1).isEnabled()})'
+										href="#" class="fa fa-toggle-on"></a>
+								</c:if> <c:if test="${listResult.get(i-1).isEnabled()==false }">
+									<a id="changeStatusUser_${listResult.get(i-1).getId()}" title="Kích hoạt tài khoản"
+										onclick='changeStatusUserById(${listResult.get(i-1).getId()}, ${listResult.get(i-1).isEnabled()})'
+										href="#" class="fa fa-toggle-off"></a>
+								</c:if></td>
 							<td>
 								<ul class="user_tool">
 									<li><a role="button" href="#" data-toggle="modal"
-										onclick='showModalUpdateUser(${listResult.get(i-1).getId()}, "${listResult.get(i-1).getFirstName()}", "${listResult.get(i-1).getLastName()}", "${listResult.get(i-1).getEmail()}", "${listResult.get(i-1).getRoleName()}")'>Chỉnh sửa</a></li>
+										onclick='showModalUpdateUser(${listResult.get(i-1).getId()}, "${listResult.get(i-1).getFirstName()}", "${listResult.get(i-1).getLastName()}", "${listResult.get(i-1).getEmail()}", "${listResult.get(i-1).getRoleName()}")'>Chỉnh
+											sửa</a></li>
 									<li><a role="button" href="#" data-toggle="modal"
 										onclick='showModalDeleteUser(${listResult.get(i-1).getId()})'>Xóa</a></li>
 								</ul>
