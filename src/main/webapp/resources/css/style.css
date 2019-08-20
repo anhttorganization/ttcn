@@ -237,3 +237,19 @@ box-shadow: rgba(120,120,120, 0.75) 1.5em 0 0 0, rgba(120,120,120, 0.75) 1.1em 1
 		display: table;
 	    margin: 0 auto;
 }
+.st_text {
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.st_text span:nth-child(1) 
+{
+	color: #4385F5;
+}
+
+.st_text span:nth-child(2) {
+    color: #FABC05;
+}

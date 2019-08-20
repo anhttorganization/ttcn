@@ -58,7 +58,7 @@ body {
 footer#footer p {
     margin: 0;
     height: 25px;
-    text-align: center;
+    /* text-align: center; */
     line-height: 25px; 
 }
 .container {
