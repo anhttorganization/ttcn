@@ -208,9 +208,11 @@ function changeStatusUserById(userId, status) {
 			if(response){
 				$("#changeStatusUser_"+userId).removeClass("fa-toggle-off");
 				$("#changeStatusUser_"+userId).addClass("fa-toggle-on");
+				$("#changeStatusUser_"+userId).attr('title',"Khóa tài khoản");
 			}else{
 				$("#changeStatusUser_"+userId).removeClass("fa-toggle-on");
 				$("#changeStatusUser_"+userId).addClass("fa-toggle-off");
+				$("#changeStatusUser_"+userId).attr('title',"Kích hoạt tài khoản");
 			}
 			
 			//location.reload();
