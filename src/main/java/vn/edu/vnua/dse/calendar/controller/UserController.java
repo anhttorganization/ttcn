@@ -78,7 +78,7 @@ public class UserController {
 		User user = userService.findByEmail(email);
 
 		if (user != null) {
-			redirectAtribute.addFlashAttribute("msg", "Email Ä‘Ã£ Ä‘Æ°á»£c Ä‘Äƒng kÃ½ tÃ i khoáº£n");
+			redirectAtribute.addFlashAttribute("msg", "Email đã được đăng ký tài khoản");
 		} else {
 			user = new User();
 			user.setEmail(email);
@@ -91,7 +91,7 @@ public class UserController {
 			userService.changeUserPass(user, password);
 
 			userService.save(user);
-			redirectAtribute.addFlashAttribute("msgSuccess", "ThÃªm ngÆ°á»�i dÃ¹ng thÃ nh cÃ´ng");
+			redirectAtribute.addFlashAttribute("msgSuccess", "Thêm người dùng thành công");
 
 		}
 		return "redirect:/admin/user";
@@ -106,10 +106,10 @@ public class UserController {
 		if (user != null) {
 			try {
 				userRepository.delete(user);
-				redirectAttrs.addFlashAttribute("msgSuccess", "XÃ³a thÃ nh cÃ´ng");
+				redirectAttrs.addFlashAttribute("msgSuccess", "Xóa thành công");
 			} catch (Exception e) {
 				redirectAttrs.addFlashAttribute("msg",
-						"CÃ³ lá»—i xáº£y ra, xin má»�i liÃªn há»‡ quáº£n trá»‹ viÃªn Ä‘á»ƒ biáº¿t thÃªm chi tiáº¿t");
+						"Có lỗi xảy ra, vui lòng liên hệ với quản trị viên để biết thêm chi tiết");
 			}
 		}
 		return "redirect:/admin/user";
@@ -129,10 +129,10 @@ public class UserController {
 				userService.setRole(user, request.getParameter("role"));
 
 				userService.save(user);
-				redirectAttributes.addFlashAttribute("msgSuccess", "Thay Ä‘á»•i thÃ nh cÃ´ng");
+				redirectAttributes.addFlashAttribute("msgSuccess", "Thay đổi thành công");
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("msg",
-						"CÃ³ lá»—i xáº£y ra, xin má»�i liÃªn há»‡ quáº£n trá»‹ viÃªn Ä‘á»ƒ biáº¿t thÃªm chi tiáº¿t");
+						"Có lỗi xảy ra, vui lòng liên hệ với quản trị viên để biết thêm chi tiết");
 			}
 		}
 		return "redirect:/admin/user";
