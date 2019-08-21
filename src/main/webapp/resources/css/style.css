@@ -111,7 +111,7 @@ td.tool_lesson ul li {
 }
 .spinner:before {
 font-size:30px;
- content: 'Vui lòng chờ!';
+ content: 'Vui lÃ²ng chá»!';
  color:#1D1D1D;
  text-align: center;
  display: block;
@@ -240,9 +240,10 @@ box-shadow: rgba(120,120,120, 0.75) 1.5em 0 0 0, rgba(120,120,120, 0.75) 1.1em 1
 .st_text {
     height: 50px;
     width: 50px;
-    font-size: 30px;
+    font-size: 44px;
     text-align: center;
     font-weight: bold;
+    margin-top: -10px;
 }
 
 .st_text span:nth-child(1) 
