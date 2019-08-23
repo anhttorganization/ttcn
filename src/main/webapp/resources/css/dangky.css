@@ -18,9 +18,9 @@ body{
 }
 
 .user_card {
-	height: 530px;
+	height: 457px;
 	width: 350px;
-	margin-top: 80px;
+	margin-top: 86px;
 	margin-bottom: auto;
 	background: #f3f3f3;
 	position: relative;
@@ -50,7 +50,7 @@ body{
 	border: 2px solid white;
 }
 .form_container {
-	margin-top: 50px;
+	margin-top: 74px;
 }
 .login_btn {
 	width: 100%;
@@ -82,7 +82,7 @@ form#register_form input {
 	width: 250px;
 }
 form#register_form {
-    margin-top: 30px;
+    margin-top: 0px;
 }
 .d-flex.justify-content-center.links {
     margin-top: -15px;
@@ -127,6 +127,25 @@ toast-message{
   footer#footer p{
   	text-align:center;
   }
+}
+.firstnamecss{
+	width: 60px !important;
+    display: inline-block !important;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    float: left;
+}
+.lastnamecss{
+	width: 190px !important;
+    display: inline-block !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    float: left;
+    border-left: 0;
+}
+footer#footer {
+    position: absolute;
+    bottom: 0;
 }
 /* 
 >>>>>>> 22f24fccf53bbe4ac14861312c9b712ce9d76c69 */
