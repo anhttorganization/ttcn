@@ -55,7 +55,7 @@
 							<spring:bind path="lastName">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:input id="lastname" type="text" path="lastName" class="form-control input_pass firstnamecss"
-										placeholder="Họ đệm"></form:input>
+										placeholder="Họ"></form:input>
 										<form:input id="firstname" type="text" path="firstName" class="form-control input_user lastnamecss" placeholder="Tên"></form:input>
 									<div hidden = ""><form:errors path="lastName"></form:errors></div>
 									<div hidden = ""><form:errors path="firstName"></form:errors></div>
