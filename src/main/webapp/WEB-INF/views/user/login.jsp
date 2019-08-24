@@ -111,9 +111,9 @@
 		src="${contextPath}/resources/js/dangnhap.js"></script>
 	<footer id="footer">
 		<div class="row" style="margin: 0">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="row">
-					<div class="col-md-1 offset-md-2">
+					<div class="col-md-1 offset-md-2" style="max-width: 100%;padding: 0;">
 						<div class="st_text">
 							<span>S</span><span>T</span>
 						</div>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6" style="text-align: center;padding-top:25px;">
+			<div class="col-md-4" style="text-align: center;padding-top:25px;">
 				<p>
 					Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/"
 						target="_blank">ST-DSE</a>. All rights reserved

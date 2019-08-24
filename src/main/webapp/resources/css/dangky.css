@@ -148,7 +148,7 @@ footer#footer {
     bottom: 0;
 }
 .container {
-    min-height: calc(100vh - 50px) !important;
+    min-height: calc(100vh - 52px) !important;
 }
 /* 
 >>>>>>> 22f24fccf53bbe4ac14861312c9b712ce9d76c69 */
