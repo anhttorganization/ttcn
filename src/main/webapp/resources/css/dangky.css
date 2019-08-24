@@ -129,14 +129,14 @@ toast-message{
   }
 }
 .firstnamecss{
-	width: 60px !important;
+	width: 160px !important;
     display: inline-block !important;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     float: left;
 }
 .lastnamecss{
-	width: 190px !important;
+	width: 90px !important;
     display: inline-block !important;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -144,8 +144,11 @@ toast-message{
     border-left: 0;
 }
 footer#footer {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
+}
+.container {
+    min-height: calc(100vh - 50px) !important;
 }
 /* 
 >>>>>>> 22f24fccf53bbe4ac14861312c9b712ce9d76c69 */
