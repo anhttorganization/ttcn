@@ -43,7 +43,7 @@
 
 	<script type="text/javascript" src="${contextPath}/resources/js/dashboard.js"></script>
 </body>
-<footer id = "footer">
+<footer id = "footer" style="margin:0;">
 	<tiles:insertAttribute name="footer" />
 </footer>
 <div id="spinner" class="spinner" style="display: none;"></div>

@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
-<html>
+<html">
 <head>
 <meta charset="utf-8">
 <title><tiles:getAsString name="title" /></title>
@@ -40,7 +40,7 @@
 	<tiles:insertAttribute name="body" />
 
 	<script type="text/javascript" src="${contextPath}/resources/js/dashboard.js"></script>
-<footer id = "footer">
+<footer id = "footer" style="margin-top: 0px !important;">
 	<tiles:insertAttribute name="footer" />
 </footer>
 	<input type="hidden" id="error_message" value='${error}'/>

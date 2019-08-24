@@ -6,12 +6,12 @@
 <div class="row" style="margin: 0">
 			<div class="col-md-8">
 				<div class="row">
-					<div class="col-md-1 offset-md-2" style="max-width: fit-content;padding: 0;">
+					<div class="col-md-1 offset-md-2" style="max-width: 100%;padding: 0;">
 						<div class="st_text" >
 							<span>S</span><span>T</span>
 						</div>
 					</div>
-					<div class="col-md-8" style="padding-left: 20px;">
+					<div class="col-md-8">
 						<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, Học viện Nông nghiệp Việt Nam <br />ĐT: 0912 817 498 - Email: stdse@vnua.edu.vn - Website: st-dse.vnua.edu.vn</p>
 					</div>
 				</div>
