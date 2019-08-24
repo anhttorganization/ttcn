@@ -257,3 +257,6 @@ box-shadow: rgba(120,120,120, 0.75) 1.5em 0 0 0, rgba(120,120,120, 0.75) 1.1em 1
 footer#footer {
     min-height: 50px;
 }
+html {
+    background: #60a3bc !important;
+}

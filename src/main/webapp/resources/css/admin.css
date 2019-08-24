@@ -45,11 +45,11 @@ ul.user_tool li:nth-last-child(1) a::before {
 }
 footer#footer {
     width: 100%;
-    bottom:0;
-    min-height: 50px;
+    min-height: 52px;
     border-top: 1px solid #e0e0e0cf;
     box-sizing: border-box;
     font-size: 12px;
+    margin-top: 100px;
 }
 body {
     width: 100%;

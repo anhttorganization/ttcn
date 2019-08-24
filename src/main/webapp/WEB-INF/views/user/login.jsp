@@ -78,14 +78,14 @@
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input"
 										id="customControlInline"> <label
 										class="custom-control-label" for="customControlInline">Nhớ
 										tài khoản</label>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</form>
 				</div>
