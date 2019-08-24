@@ -10,7 +10,8 @@ body{
 	padding: 0;
 	height: 100%;
 	background: #60a3bc !important;
-	overfolow:hidden;
+	overflow:hidden !important;
+	
 }
 
 #footer{
@@ -18,9 +19,10 @@ body{
 }
 
 .user_card {
+	transform: scale(0.9);
 	height: 457px;
 	width: 350px;
-	margin-top: 86px;
+	margin-top: 46px;
 	margin-bottom: auto;
 	background: #f3f3f3;
 	position: relative;
@@ -144,7 +146,7 @@ toast-message{
     float: left;
 }
 footer#footer {
-    /* position: absolute; */
+    position: absolute;
     bottom: 0;
 }
 .container {

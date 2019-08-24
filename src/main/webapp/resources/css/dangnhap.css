@@ -18,6 +18,7 @@ body{
 }
 
 .user_card {
+	transform: scale(0.9);
 	height: 400px;
 	width: 350px;
 	margin-top: auto;
