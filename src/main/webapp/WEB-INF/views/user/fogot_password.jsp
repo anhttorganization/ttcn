@@ -66,7 +66,7 @@
 					</div>
 					<div class="col-md-8" style="padding-left: 20px;">
 						<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, Học viện Nông nghiệp Việt Nam</p>
-						<p>ĐT: 0912 817 498 Email: stdse@vnua.edu.vn Website: st-dse.vnua.edu.vn</p>
+						<p>ĐT: 0912 817 498 - Email: stdse@vnua.edu.vn - Website: st-dse.vnua.edu.vn</p>
 					</div>
 				</div>
 			</div>
