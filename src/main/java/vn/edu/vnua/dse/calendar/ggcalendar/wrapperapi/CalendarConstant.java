@@ -4,6 +4,8 @@ public final class CalendarConstant {
 	public static final String TIME_ZONE = "Asia/Ho_Chi_Minh";
 
 	public static final String RDATE = "RDATE;VALUE=DATE:%s";
+	public static final String EXDATE ="EXDATE;TZID=%s:%s";
+	public static final String RRULE_WEEKLY_COUNT = "RRULE:FREQ=WEEKLY;COUNT=%s";
 
 //	public static final String CLIEN_ID = "230214211786-v7jupfhbqhn13igto95equlqd7ncg06b.apps.googleusercontent.com";
 //

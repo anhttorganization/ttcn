@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -130,7 +131,27 @@ public class ScheduleUtils {
 		}
 		return weeks;
 	}
-
+	
+	public static ArrayList<Integer> getFullWeek(String week) {
+		ArrayList<Integer> studyWeeks = getWeek(week);
+		ArrayList<Integer> fullWeeks = new ArrayList<>();
+		
+		int minWeek = Collections.min(studyWeeks);
+		int maxWeek = Collections.max(studyWeeks);
+		for(int i = minWeek; i <= maxWeek; i++) {//full week
+			fullWeeks.add(i);
+		}
+		
+		return fullWeeks;
+	}
+	
+	public static ArrayList<Integer> getExceptWeek(String week) {
+		ArrayList<Integer> studyWeeks = getWeek(week);
+		ArrayList<Integer> exceptWeeks = getFullWeek(week);
+		
+		exceptWeeks.removeAll(studyWeeks);
+		return exceptWeeks;
+	}
 	public static String joinIntArray(String delimiter, ArrayList<Integer> numbers) {
 		StringBuilder builder = new StringBuilder();
 		// Append all Integers in StringBuilder to the StringBuilder.
@@ -144,12 +165,11 @@ public class ScheduleUtils {
 	}
 
 	public static String formatyyMMddTHHmmss(Date date) {
-		String fomat = "yyyyMMdd HHmmss";
+		String fomat = "yyyyMMdd'T'HHmmss";
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(fomat);
 
 		String dateStr = simpleDateFormat.format(date);
-		dateStr = dateStr.replace(" ", "T");
 
 		return dateStr;
 	}

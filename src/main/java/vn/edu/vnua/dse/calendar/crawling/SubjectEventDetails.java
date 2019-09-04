@@ -185,9 +185,18 @@ public final class SubjectEventDetails {
 
 				Date start = getStartTime(weekStudy.get(0), day, startSlot);
 				Date end = getEnd_Time(weekStudy.get(0), day, endSlot);
-				String RDATE = getRDATE(weekStudy, day, startSlot);
+//				String RDATE = getRDATE(weekStudy, day, startSlot);
+				int count = ScheduleUtils.getFullWeek(weekStr).size();
+				String WEEKLY = getWEEKLY_COUNT(count);
+				
+				ArrayList<Integer> exceptWeek = ScheduleUtils.getExceptWeek(weekStr);
 				ArrayList<String> recurrence = new ArrayList<>();
-				recurrence.add(RDATE);
+				recurrence.add(WEEKLY);
+				if(exceptWeek.size() > 0) {
+					String EXDATE = getEXDATE(exceptWeek, day, startSlot);
+					recurrence.add(EXDATE);
+				}
+				
 
 				String summary = getSummary(subjectName, subjectCode, group, practiceGroup);
 				GoogleEvent event = new GoogleEvent();
@@ -206,6 +215,12 @@ public final class SubjectEventDetails {
 		}
 
 		return events;
+	}
+
+	private static String getWEEKLY_COUNT(int count) {
+		// TODO Auto-generated method stub
+		String WEEKLY_COUNT = String.format(CalendarConstant.RRULE_WEEKLY_COUNT, count);
+		return WEEKLY_COUNT;
 	}
 
 	private static String getDescription(String subjectCode, String classCode, String group, String practiceGroup,
@@ -332,4 +347,23 @@ public final class SubjectEventDetails {
 		return RDATE;
 	}
 
+	
+	private static String getEXDATE(ArrayList<Integer> excepWeek, int day, int slot) throws ParseException {
+		ArrayList<String> EXDATE_Arr = new ArrayList<>();
+		String timeStr = DateTimeConstant.STARTTIME.get(slot);
+		for (int i = 0; i < excepWeek.size(); i++) {
+			// RDATE.add(MyUtils.formatyyMMddTHHmmss(findDay(date, weekStudy.get(i), day)));
+			Date result = ScheduleUtils.findDay(semesterStart, excepWeek.get(i), day);
+			String dateSTr = new SimpleDateFormat("yyyy/MM/dd").format(result);
+
+			// create datetime
+			result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateSTr + " " + timeStr);
+			// format datetime
+			EXDATE_Arr.add(ScheduleUtils.formatyyMMddTHHmmss(result));
+		}
+		String EXDATE = String.join(",", EXDATE_Arr);
+		EXDATE = String.format(CalendarConstant.EXDATE, CalendarConstant.TIME_ZONE, EXDATE);
+
+		return EXDATE;
+	}
 }

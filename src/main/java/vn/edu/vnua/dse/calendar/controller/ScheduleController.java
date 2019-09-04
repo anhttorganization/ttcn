@@ -164,7 +164,6 @@ public class ScheduleController {
 				}else {
 					results.add(calendar);
 				}
-				
 			}
 		}
 		if (results.size() == 0) {
@@ -305,7 +304,6 @@ public class ScheduleController {
 
 				calendarRepository.save(calendar);
 			}
-
 		}
 
 		return result;
