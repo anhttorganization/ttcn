@@ -3,8 +3,8 @@ package vn.edu.vnua.dse.calendar.co;
 public class ScheduleResult<T> extends BaseResult<T> {
 	String scheduleHash;
 
-	public ScheduleResult(boolean status, T result, String massage, String scheduleHash) {
-		super(status, result, massage);
+	public ScheduleResult(boolean status, T result, String message, String scheduleHash) {
+		super(status, result, message);
 		this.scheduleHash = scheduleHash;
 	}
 

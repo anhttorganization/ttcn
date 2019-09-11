@@ -47,9 +47,9 @@ public final class SubjectEventDetails {
 
 	public static final BaseResult<List<GoogleEvent>> getEventsFromSchedule(String studentId, Semester semester)
 			throws IOException, ParseException, NoSuchAlgorithmException {
-		ScheduleResult<ArrayList<String>> scheduleResult = getSchedule(studentId, semester.getId());
+		ScheduleResult<ArrayList<ArrayList<String>>> scheduleResult = getSchedule(studentId, semester.getId());
 
-		ArrayList<String> scheduleJson = scheduleResult.getResult();
+		ArrayList<ArrayList<String>> scheduleJson = scheduleResult.getResult();
 		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semester);
 		if(scheduleResult.isStatus()) {
 			if (scheduleJson.size() > 0) {
@@ -63,7 +63,7 @@ public final class SubjectEventDetails {
 		return new BaseResult<List<GoogleEvent>>(false, new ArrayList<GoogleEvent>(), scheduleResult.getMessage(), new ArrayList<String>());
 	}
 
-	private static final ScheduleResult<ArrayList<String>> getSchedule(String studentId, String semesId)
+	private static final ScheduleResult<ArrayList<ArrayList<String>>> getSchedule(String studentId, String semesId)
 			throws IOException, NoSuchAlgorithmException, ParseException {
 		// Mo trinh duyet
 		WebDriver driver = ScheduleUtils.openChrome();
@@ -87,7 +87,7 @@ public final class SubjectEventDetails {
 			}
 			driver.close();
 			driver.quit();
-			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), message, null);
+			return new ScheduleResult<ArrayList<ArrayList<String>>>(false, new ArrayList(), message, null);
 		} else {
 			ScheduleUtils.injectResourceJQuery(driver, "js/MyJQuery.js");
 			JavascriptExecutor jse = ((JavascriptExecutor) driver);
@@ -100,12 +100,12 @@ public final class SubjectEventDetails {
 			if(driver.findElements(By.id(ScheduleConstant.HEADER_DAOTAO_ID)).size() == 0){
 				driver.close();
 				driver.quit();
-				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Trang đạo tạo VNUA hiện không truy cập được \nVui lòng thử lại sau!", scheduleHash);
+				return new ScheduleResult<ArrayList<ArrayList<String>>>(false, new ArrayList(), "Trang đạo tạo VNUA hiện không truy cập được \nVui lòng thử lại sau!", scheduleHash);
 			}
 			if(driver.findElements(By.id(ScheduleConstant.CONTENT_MSV)).size() == 0){
 				driver.close();
 				driver.quit();
-				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Không tìm thấy thông tin thời khóa biểu sinh viên/giảng viên", scheduleHash);
+				return new ScheduleResult<ArrayList<ArrayList<String>>>(false, new ArrayList(), "Không tìm thấy thông tin thời khóa biểu sinh viên/giảng viên", scheduleHash);
 			}
 			// chon hoc ky
 			wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ScheduleConstant.SCHEDULE_ELEMENT)));
@@ -118,7 +118,7 @@ public final class SubjectEventDetails {
 				driver.quit();
 
 				scheduleHash = null;
-				return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "error", scheduleHash);
+				return new ScheduleResult<ArrayList<ArrayList<String>>>(false, new ArrayList(), "error", scheduleHash);
 			}
 
 			// chon che do xem theo thu tiet
@@ -129,7 +129,15 @@ public final class SubjectEventDetails {
 				radio.click();
 				String code = ScheduleUtils.readResourceFile("js/getSchedule.js");
 				@SuppressWarnings("unchecked")
-				ArrayList<String> scheduleJson = (ArrayList<String>) jse.executeScript(code);
+				ArrayList<ArrayList<String>> scheduleJson = (ArrayList<ArrayList<String>>) jse.executeScript(code);
+				
+				for(ArrayList<String> json : scheduleJson) {//json = 1 subject
+					driver.navigate().to(json.get(14));
+					@SuppressWarnings("unused")
+					Long siso = (Long) jse.executeScript("return $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length ?  $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length - 1: 0;");
+					json.add(String.valueOf(siso));
+				}
+				///
 				String semesStartDate = (String) jse
 						.executeScript("return semesStart = $('#ctl00_ContentPlaceHolder1_ctl00_lblNote').text()");
 				// get day string
@@ -146,26 +154,26 @@ public final class SubjectEventDetails {
 				driver.quit();
 
 				scheduleHash = AppUtils.getMD5(scheduleJson.toString());
-				return new ScheduleResult<ArrayList<String>>(true, scheduleJson, "Lấy lịch thành công", scheduleHash);
+				return new ScheduleResult<ArrayList<ArrayList<String>>>(true, scheduleJson, "Lấy lịch thành công", scheduleHash);
 			}
 
 			driver.close();
 			driver.quit();
 
 			scheduleHash = null;
-			return new ScheduleResult<ArrayList<String>>(false, new ArrayList<String>(), "Có lỗi xảy ra", scheduleHash);
+			return new ScheduleResult<ArrayList<ArrayList<String>>>(false, new ArrayList(), "Có lỗi xảy ra", scheduleHash);
 		}
 
 	}
 
-	private static final List<GoogleEvent> toGoogleEvent(ArrayList<String> scheduleJson) throws ParseException {
+	private static final List<GoogleEvent> toGoogleEvent(ArrayList<ArrayList<String>> scheduleJson) throws ParseException {
 		
 		List<GoogleEvent> events = new ArrayList<>();
 		Gson gson = new Gson();
-		for (String json : scheduleJson) {
-			// convert json array to java array
-			@SuppressWarnings("rawtypes")
-			ArrayList item = gson.fromJson(json, ArrayList.class);
+		for (ArrayList<String> item : scheduleJson) {
+//			// convert json array to java array
+//			@SuppressWarnings("rawtypes")
+//			ArrayList item = gson.fromJson(json, ArrayList.class);
 			// convert java array to SubjectEvent object -> function getSubjectEvent
 			String classCode = item.get(4).toString().trim();
 			if (!classCode.equals("")) {
@@ -181,7 +189,7 @@ public final class SubjectEventDetails {
 				String location = item.get(11).toString();
 
 				String description = getDescription(subjectCode, classCode, group, practiceGroup, weekStudy, startSlot,
-						endSlot);
+						endSlot, item.get(14), item.get(15));
 
 				Date start = getStartTime(weekStudy.get(0), day, startSlot);
 				Date end = getEnd_Time(weekStudy.get(0), day, endSlot);
@@ -224,16 +232,16 @@ public final class SubjectEventDetails {
 	}
 
 	private static String getDescription(String subjectCode, String classCode, String group, String practiceGroup,
-			ArrayList<Integer> weekStudy, int startSlot, int endSlot) {
+			ArrayList<Integer> weekStudy, int startSlot, int endSlot, String dssv, String siso) {
 		String weekDes = ScheduleUtils.joinIntArray(", ", weekStudy);
 		String slotDes = startSlot + "-" + endSlot;
 
 		String descpription = "";
 		if (practiceGroup.equals("")) {
-			descpription = String.format(DESCRIPTION, subjectCode, classCode, group, weekDes, slotDes);
+			descpription = String.format(DESCRIPTION, subjectCode, classCode, group, weekDes, slotDes)+"\nDanh sách sinh viên: " + dssv + "\nSĩ số: " + siso  ;
 		} else {
 			descpription = String.format(DESCRIPTION_HAVE_PRACTICE, subjectCode, classCode, group, practiceGroup,
-					weekDes, slotDes);
+					weekDes, slotDes)+"\nDanh sách sinh viên: " + dssv + "\nSĩ số: " + siso  ;
 		}
 		return descpription;
 	}
