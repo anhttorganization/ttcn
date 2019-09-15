@@ -3,7 +3,8 @@
 <div class="container-tabs d-inline-block">
 	<!-- <h2 class="text-center">HÆ°á»ng dáº«n sá»­ dá»¥ng</h2> -->
 	<div class="tab">
-		<span class="tab-header">CHỨC NĂNG</span> <a class="tablinks active"
+		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> 
+			<a class="tablinks active"
 			id="tab-default" onclick="openTab(event, 'dangky')">Đăng ký</a> <a
 			class="tablinks" onclick="openTab(event, 'dangnhap')">Đăng nhập</a> <a
 			class="tablinks" onclick="openTab(event, 'capquyen')">Cấp quyền</a> <a

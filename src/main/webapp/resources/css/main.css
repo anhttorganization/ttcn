@@ -221,7 +221,8 @@ a {
       display: inline-block; }
     .site-navbar .site-navigation .site-menu > li {
       display: inline-block;
-      padding: 10px 5px; }
+      padding: 3px 5px;
+      }
       .site-navbar .site-navigation .site-menu > li > a {
         padding: 10px 10px;
         text-transform: uppercase;
@@ -1240,18 +1241,18 @@ a {
    /*    font-family: "Times New Roman", sans-serif; */
   }
   .container-tabs {
-      width: calc(100% - 20px);
-      margin-right: 20px;
+      width: 100%;
+      /* margin-right: 0px; */
   }
-  /* Äá»‹nh dáº¡ng pháº§n tab */
+  /* ÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹nh dÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â¡ng phÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â§n tab */
   div.tab {
       float: left;
       border: 1px solid #ccc;
       background-color: #f1f1f1;
       width: 200px;
-      height: 300px;
+      height: auto;
   }
-  /* Ä‘á»‹nh dáº¡ng cÃ¡c tháº» a dáº¡i diá»‡n cho tá»«ng tab */
+  /* ÃƒÆ’Ã¢â‚¬Å¾ÃƒÂ¢Ã¢â€šÂ¬Ã‹Å“ÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹nh dÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â¡ng cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡c thÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â» a dÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â¡i diÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¡n cho tÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»Ãƒâ€šÃ‚Â«ng tab */
   div.tab a {
       display: block;
       background-color: inherit;
@@ -1266,6 +1267,7 @@ a {
       font-size: 17px;
   }
   div.tab .tab-header {
+    pointer-events: none;
     display: block;
     background-color: inherit;
     color: black;
@@ -1280,24 +1282,25 @@ a {
     font-weight: bold;
 }
    
-  /* Äá»•i mÃ u khi tab Ä‘Æ°á»£c hover */
+  /* ÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢i mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â u khi tab ÃƒÆ’Ã¢â‚¬Å¾ÃƒÂ¢Ã¢â€šÂ¬Ã‹Å“ÃƒÆ’Ã¢â‚¬Â Ãƒâ€šÃ‚Â°ÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»Ãƒâ€šÃ‚Â£c hover */
   div.tab a:hover {
       background-color: #ddd;
   }
    
-  /* Äá»•i mÃ u khi tab Ä‘Æ°á»£c active */
+  /* ÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢i mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â u khi tab ÃƒÆ’Ã¢â‚¬Å¾ÃƒÂ¢Ã¢â€šÂ¬Ã‹Å“ÃƒÆ’Ã¢â‚¬Â Ãƒâ€šÃ‚Â°ÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»Ãƒâ€šÃ‚Â£c active */
   div.tab a.active {
       background-color: #ccc;
   }
    
-  /* Äá»‹nh dáº¡ng cho pháº§n ná»™i dung */
+  /* ÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹nh dÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â¡ng cho phÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚ÂºÃƒâ€šÃ‚Â§n nÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â»ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢i dung */
   .tabcontent {
       float: left;
       padding: 0px 12px;
       /* border: 1px solid #ccc; */
-      width: calc(100% - 200px);
+      width: calc(100% - 230px);
       border-left: none;
       height: max-content;
+      margin: 30px 15px;
   } 
 
 .st_text {
@@ -1323,6 +1326,8 @@ a {
    height: 100% !important;
  }
  .wrapper {
+  /* margin-top: 97px; */
+  padding-top: 96.6px;
   min-height: 100%;
   margin-bottom: -50px;
   padding-bottom: 50px;
@@ -1342,5 +1347,21 @@ footer p {
 img#home_logo {
     background-color: #ffff;
     border-radius: 5px;
-    height: 64px;
+    height: 48px;
+}
+
+
+.tabcontent img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabcontent h3{
+	text-align: center;
+}
+
+div#menu {
+    position: fixed;
+    width: 100%;
 }

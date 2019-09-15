@@ -8,11 +8,11 @@
 				<div class="row">
 					<div class="col-md-1 offset-md-2" style="max-width: 100%;padding: 0;">
 						<div class="st_text" >
-							<span>S</span><span>T</span>
+							<a href="https://st-dse.vnua.edu.vn/" target="_blank"><span>S</span><span>T</span></a>
 						</div>
 					</div>
 					<div class="col-md-8">
-						<p>Địa chỉ: P.310A, Tầng 3, Nhà hành chính, Học viện Nông nghiệp Việt Nam <br />ĐT: 0912 817 498 - Email: stdse@vnua.edu.vn - Website: st-dse.vnua.edu.vn</p>
+						<p>Địa chỉ: Bộ môn Công nghệ phần mềm, <a href="https://fita.vnua.edu.vn/" target="_blank">Khoa CNTT</a>,  <a href="https://vnua.edu.vn/" target="_blank">Học viện Nông nghiệp Việt Nam</a> <br />ĐT: 0912 817 498 - Email: stdse@vnua.edu.vn - Website: st-dse.vnua.edu.vn</p>
 					</div>
 				</div>
 			</div>

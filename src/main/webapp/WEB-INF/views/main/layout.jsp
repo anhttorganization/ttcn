@@ -10,14 +10,14 @@
 <html lang="en">
 
 <head>
-    <title>STCalendar &mdash;</title>
+    <title><tiles:getAsString name="title" /></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link rel="shortcut icon" type="image/png" href="${contextPath}/resources/images/Logo.png" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
     <link rel="stylesheet" href="${contextPath}/resources/fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="${contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/magnific-popup.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.css">
@@ -37,9 +37,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="site-wrap">
-
+<div id="menu">
             <div class="site-mobile-menu">
                 <div class="site-mobile-menu-header">
                     <div class="site-mobile-menu-close mt-3">
@@ -81,34 +79,34 @@
                 <div class="container">
                     <div class="site-navbar bg-light">
                         <div class="py-1">
-                            <div class="row align-items-center">
-                                <div class="col-2">
+                            <div class="row align-items-center" style="height: 50px;">
+                                <div class="col-1">
 <%--                                    <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2>  --%>
-                            			<img id="home_logo" src="${contextPath}/resources/images/Logo.png">
+                            			<a href="https://st-dse.vnua.edu.vn/" target="blank"><img id="home_logo" src="${contextPath}/resources/images/Logo.png"></a>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-11">
                                     <nav class="site-navigation text-left" role="navigation">
                                         <div class="container">
                                             <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
                                                     class="site-menu-toggle js-menu-toggle text-black"><span
                                                         class="icon-menu h3"></span></a></div>
 
-                                            <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}">Trang chủ</a>
+                                            <ul class="site-menu js-clone-nav d-none d-lg-block" id="ultab">
+                                                <li id="home">
+                                                    <a href="${contextPath}">Trang chủ</a>
                                                 </li>
-                                                <li>
-                                                    <a href="guide.html">Hướng dẫn</a>
+                                                <li id="guide">
+                                                    <a href="${contextPath}/guide">Hướng dẫn</a>
                                                 </li>
 
-                                                <li class="has-children active">
-                                                    <a href="#">Chính sách</a>
+                                                <li  id="policy" class="has-children">
+                                                    <a id="policy" href="#">Chính sách</a>
                                                     <ul class="dropdown arrow-top">
                                                         <li><a href="terms.html">Bảo mật thông tin</a></li>
                                                         <li><a href="privacy.html">Quy định sử dụng</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="contact">Liên hệ</a></li>
+                                                <li id="contact"><a href="contact">Liên hệ</a></li>
                                             </ul>
                                         </div>
                                     </nav>
@@ -118,6 +116,11 @@
                     </div>
                 </div>
             </div>
+
+</div>
+    <div class="wrapper">
+        <div class="site-wrap">
+
         	<tiles:insertAttribute name="body" />
         </div>
     </div>
@@ -141,7 +144,9 @@
     <script src="${contextPath}/resources/js/aos.js"></script>
 
     <script src="${contextPath}/resources/js/main.js"></script>
-
+	<script type="text/javascript" charset="utf-8">
+	
+	</script>
 </body>
 
 </html>

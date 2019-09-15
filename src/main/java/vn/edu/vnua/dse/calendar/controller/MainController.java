@@ -23,4 +23,6 @@ public class MainController {
 	public String contact(Model model, String error, String logout, RedirectAttributes ra) {
 		return "contact";
 	}
+	
+	
 }
