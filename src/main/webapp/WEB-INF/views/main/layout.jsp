@@ -16,7 +16,7 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${contextPath}/resources/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="${contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/magnific-popup.css">
@@ -56,19 +56,19 @@
                             <div class="col-6">
                                 <a href="#">
                                     <span class="icon-envelope mr-2"></span>
-                                    <span class="d-none d-md-inline-block">youremail@domain.com</span>
-                                </a>
+                                    <span class="d-none d-md-inline-block">stdse@vnua.edu.vn</span>
+                                </a>&nbsp;
                                 <a href="tel://12912830302">
                                     <span class="icon-phone mr-2"></span>
-                                    <span class="d-none d-md-inline-block">+1 291 2830 302</span>
+                                    <span class="d-none d-md-inline-block">0912 817 498</span>
                                 </a>
                                 <!-- <a href="#" class="p-2 pl-0"><span class="icon-instagram"></span></a> -->
                             </div>
                             <div class="col-6">
                                 <div class="d-flex ml-auto">
-                                    <a href="#" class="d-flex align-items-center ml-auto mr-4">Đăng
+                                    <a href="login" class="d-flex align-items-center ml-auto mr-4">Đăng
                                         nhập</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="#" class="d-flex align-items-center">Đăng ký</a>
+                                    <a href="register" class="d-flex align-items-center">Đăng ký</a>
 
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                         <div class="py-1">
                             <div class="row align-items-center">
                                 <div class="col-2">
-                                    <h2 class="mb-0 site-logo"><a href="index.html"><strong>ST</strong>Calendar</a></h2>
+                                    <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2>
                                 </div>
                                 <div class="col-10">
                                     <nav class="site-navigation text-right" role="navigation">
@@ -94,7 +94,7 @@
 
                                             <ul class="site-menu js-clone-nav d-none d-lg-block">
                                                 <li>
-                                                    <a href="index.html">Trang chủ</a>
+                                                    <a href="${pageContext.request.contextPath}">Trang chủ</a>
                                                 </li>
                                                 <li>
                                                     <a href="guide.html">Hướng dẫn</a>
@@ -107,7 +107,7 @@
                                                         <li><a href="privacy.html">Quy định sử dụng</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="contact.html">Liên hệ</a></li>
+                                                <li><a href="contact">Liên hệ</a></li>
                                             </ul>
                                         </div>
                                     </nav>
