@@ -20,7 +20,7 @@
 					property="principal.lastName" /> <sec:authentication
 					property="principal.firstName" /></a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" href="#"></i> Thông tin</a> <a
+				<a class="dropdown-item" href="${contextPath}/change_profile"></i> Thông tin</a> <a
 					class="dropdown-item" href="${contextPath}/change_password"></i> Đổi
 					mật khẩu</a>
 				<div class="dropdown-divider"></div>
