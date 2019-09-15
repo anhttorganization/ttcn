@@ -1338,3 +1338,9 @@ footer p {
     margin: 0;
     line-height: 25px;
 }
+
+img#home_logo {
+    background-color: #ffff;
+    border-radius: 5px;
+    height: 64px;
+}

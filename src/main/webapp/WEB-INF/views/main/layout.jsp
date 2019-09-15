@@ -83,11 +83,11 @@
                         <div class="py-1">
                             <div class="row align-items-center">
                                 <div class="col-2">
-                                   <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2> 
-<%--                             			<img id="home_logo" src="${contextPath}/resources/images/Logo.png"> --%>
+<%--                                    <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2>  --%>
+                            			<img id="home_logo" src="${contextPath}/resources/images/Logo.png">
                                 </div>
                                 <div class="col-10">
-                                    <nav class="site-navigation text-right" role="navigation">
+                                    <nav class="site-navigation text-left" role="navigation">
                                         <div class="container">
                                             <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
                                                     class="site-menu-toggle js-menu-toggle text-black"><span
