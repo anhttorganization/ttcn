@@ -54,7 +54,7 @@
                     <div class="container py-2">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <a href="#">
+                                <a href="mailto:stdse@vnua.edu.vn">
                                     <span class="icon-envelope mr-2"></span>
                                     <span class="d-none d-md-inline-block">stdse@vnua.edu.vn</span>
                                 </a>&nbsp;
@@ -83,7 +83,8 @@
                         <div class="py-1">
                             <div class="row align-items-center">
                                 <div class="col-2">
-                                    <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2>
+                                   <h2 class="mb-0 site-logo"><a href="${pageContext.request.contextPath}"><strong>ST</strong>Calendar</a></h2> 
+<%--                             			<img id="home_logo" src="${contextPath}/resources/images/Logo.png"> --%>
                                 </div>
                                 <div class="col-10">
                                     <nav class="site-navigation text-right" role="navigation">
