@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -17,14 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import vn.edu.vnua.dse.calendar.common.AppUtils;
 import vn.edu.vnua.dse.calendar.model.User;
 import vn.edu.vnua.dse.calendar.repository.UserRepository;
-import vn.edu.vnua.dse.calendar.service.EmailService;
 import vn.edu.vnua.dse.calendar.service.SecurityService;
 import vn.edu.vnua.dse.calendar.service.UserDetailsServiceImpl;
 import vn.edu.vnua.dse.calendar.service.UserService;
-import vn.edu.vnua.dse.calendar.validator.UserValidator;
 
 @Controller
 public class LoginController {
@@ -34,11 +35,7 @@ public class LoginController {
    private UserService userService;
    @Autowired
    private SecurityService securityService;
-   @Autowired
-   private UserValidator userValidator;
-   @Autowired
-   private EmailService emailService;
-
+   
    @RequestMapping(
       value = {"/register"},
       method = {RequestMethod.GET}
@@ -140,16 +137,16 @@ public class LoginController {
    }
 
    @RequestMapping(
-      value = {"/", "/login"},
+      value = {"/login"},
       method = {RequestMethod.GET}
    )
    public String login(Model model, String error, String logout, RedirectAttributes ra) {
       if (error != null) {
          ra.addFlashAttribute("error", "Tài khoản hoặc mật khẩu không chính xác");
-         return "redirect:/";
+         return "redirect:/login";
       } else if (logout != null) {
          ra.addFlashAttribute("success", "Tài khoản đã được đăng xuất");
-         return "redirect:/";
+         return "redirect:/login";
       } else {
          return "login";
       }

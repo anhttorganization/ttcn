@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
-<html">
+<html>
 <head>
 <meta charset="utf-8">
 <title><tiles:getAsString name="title" /></title>
