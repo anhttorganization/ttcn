@@ -127,7 +127,7 @@
 	</definition>
 	
 	<definition name="change_profile" extends="index">
-		<put-attribute name="title" value="Đổi mật khẩu" />
+		<put-attribute name="title" value="Thông tin cá nhân" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/user/change_profile.jsp" />
 	</definition>

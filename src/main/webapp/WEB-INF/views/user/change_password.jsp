@@ -23,7 +23,7 @@
 					<%-- <c:if test="${empty invalidToken}"> --%>
 					<form method="POST" action="${contextPath}/change_password"
 						onSubmit="return checkPassword()" class="change_password">
-						<h1>Đổi mật khẩu</h1>
+						<h1 style="color: white;">Đổi mật khẩu</h1>
 						<div class="themlichtkb">
 							<label class="mt-2" for="masv">Mật khẩu cũ:</label> <input
 								type="password" class="form-control" name="oldPass" id="oldPass">

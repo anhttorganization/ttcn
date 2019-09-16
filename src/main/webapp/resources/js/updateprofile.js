@@ -1,16 +1,16 @@
-function showModalUpdateFirstName(id, firstname) {
+function showModalUpdateFirstName(id, firstName) {
 	$('#modal-update-firstname').modal('show');
 	$('#modal-update-firstname .modal-body').append(
 			"<input name = \"id\" id = \"id\" type = \"text\" value = " + id
 					+ " />");
-	$('#modal-update-firstname #firstname').val(firstname);
+	$('#modal-update-firstname #firstName').val(firstName);
 	
 	$('#id').hide();
 
 }
 
 $("#modal-update-firstname").on("hidden.bs.modal", function() {
-	$('#modal-update-firstname #firstname').val("");
+	$('#modal-update-firstname #firstName').val("");
 	// clear input id
 	$('#modal-update-firstname #id').remove();
 });
@@ -26,10 +26,10 @@ $(document).ready(
 					
 							function(event) {
 								event.preventDefault();
-								if ($("#firstname").val() == "") {
+								if ($("#firstName").val() == "") {
 									toastr.warning('Vui lòng nhập họ và tên đệm!','Thông báo');
 								}else {
-									if ($("#firstname").val() != "") {
+									if ($("#firstName").val() != "") {
 										if (checkName($("#firstname").val())) {
 											toastr.warning('Tên không bao gồm ký tự số và ký tự đặc biệt','Thông báo');
 										}else {
@@ -49,19 +49,19 @@ $(document).ready(
 			}
 		});
 
-function showModalUpdateLastName(id, lastname) {
+function showModalUpdateLastName(id, lastName) {
 	$('#modal-update-lastname').modal('show');
 	$('#modal-update-lastname .modal-body').append(
 			"<input name = \"id\" id = \"id\" type = \"text\" value = " + id
 					+ " />");
-	$('#modal-update-lastname #lastname').val(lastname);
+	$('#modal-update-lastname #lastName').val(lastName);
 	
 	$('#id').hide();
 
 }
 
 $("#modal-update-lastname").on("hidden.bs.modal", function() {
-	$('#modal-update-lastname #lastname').val("");
+	$('#modal-update-lastname #lastName').val("");
 	// clear input id
 	$('#modal-update-lastname #id').remove();
 });
@@ -77,11 +77,11 @@ $(document).ready(
 					
 							function(event) {
 								event.preventDefault();
-								if ($("#lastname").val() == "") {
+								if ($("#lastName").val() == "") {
 									toastr.warning('Vui lòng nhập tên!','Thông báo');
 								}else {
-									if ($("#lastname").val() != "") {
-										if (checkName($("#lastname").val())) {
+									if ($("#lastName").val() != "") {
+										if (checkName($("#lastName").val())) {
 											toastr.warning('Tên không bao gồm ký tự số và ký tự đặc biệt','Thông báo');
 										}else {
 											$("#update_lastname_form").submit();

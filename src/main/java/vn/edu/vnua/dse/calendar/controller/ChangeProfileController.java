@@ -30,13 +30,6 @@ public class ChangeProfileController {
 		return "change_profile";
 	}
 
-	@RequestMapping(value = "change_profile", method = RequestMethod.POST)
-	public String changrProfile(Model model) {
-		User user = UserDetailsServiceImpl.getUser();
-
-		return "change_profile";
-	}
-
 	@RequestMapping(value = "change_profile/email/update", method = RequestMethod.POST)
 	public String changeEmail(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 		long id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
@@ -47,13 +40,13 @@ public class ChangeProfileController {
 			try {
 				User u = userRepository.findByEmail(request.getParameter("email"));
 				if (u == null) {
-					//Gửi email xác nhận,xác nhận xong thì lưu lại
+					////Gửi email xác nhận,xác nhận xong thì lưu lại
 				} else {
 					redirectAttributes.addFlashAttribute("msg", "Emai đã được đăng ký!");
 				}
 //				user.setEmail(request.getParameter("email"));
 //				userService.save(user);
-//				redirectAttributes.addFlashAttribute("msgSuccess", "Thay đổi thành công");
+//				redirectAttributes.addFlashAttribute("msgSuccess", "Thay Ä‘á»•i thÃ nh cÃ´ng");
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("msg",
 						"Có lỗi xảy ra, vui lòng liên hệ với quản trị viên để biết thêm chi tiết");

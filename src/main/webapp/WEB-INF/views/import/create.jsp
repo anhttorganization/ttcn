@@ -11,7 +11,7 @@
 		<div class="chucnang tdExpandInBounce animated">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Thêm lịch từ Excel</h1>
+					<h1 style="color: white;">Thêm lịch từ Excel</h1>
 					<div class="themlichtkb">
 						<form:form method="POST" action="${contextPath}/import/create"  enctype="multipart/form-data" modelAttribute="importCreate" id="import_form">
 							 <a href="${contextPath}/resources/samplefile/sample.xlsx" download>Tải file mẫu ở đây </a>

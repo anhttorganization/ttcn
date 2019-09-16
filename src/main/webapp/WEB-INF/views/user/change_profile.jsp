@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<link rel="stylesheet"
+	href="${contextPath}/stcalendar/resources/css/changeprofile.css" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -11,13 +13,6 @@
 		<div class="chucnang tdExpandInBounce animated">
 			<div class="row">
 				<div class="col-md-12">
-					<c:if test="${not empty msgSuccess}">
-						<script type="text/javascript">
-							toastr.success('${msgSuccess}');
-						</script>
-					</c:if>
-					<input type="hidden" id="msg" value="${msg}" disabled="disabled">
-
 					<!-- Modal update gmail -->
 					<div class="modal fade" id="modal-update-email" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -25,13 +20,18 @@
 						<div class="modal-dialog modal-dialog-top" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Gmail</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">Sửa
+										thông tin Gmail</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<form method="Post" action="change_profile/email/update" id="update_email_form">
+								<form method="Post" action="change_profile/email/update"
+									id="update_email_form">
+									<input type="hidden" id="msgSuccess" value="${msgSuccess}"
+										disabled="disabled"> <input type="hidden" id="msg"
+										value="${msg}" disabled="disabled">
 									<div class="modal-body">
 										<label for="staticEmail2"></label> <input type="text"
 											class="form-control" placeholder="Email" id="email"
@@ -47,7 +47,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!-- Modal update first name -->
 					<div class="modal fade" id="modal-update-firstname" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -55,17 +55,21 @@
 						<div class="modal-dialog modal-dialog-top" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Họ và tên đệm</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">Sửa tên</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<form method="Post" action="change_profile/firstname/update" id="update_firstname_form">
+								<form method="Post" action="change_profile/firstname/update"
+									id="update_firstname_form">
+									<input type="hidden" id="msgSuccess" value="${msgSuccess}"
+										disabled="disabled"> <input type="hidden" id="msg"
+										value="${msg}" disabled="disabled">
 									<div class="modal-body">
-										<label for="staticEmail2"></label> <input
-									type="text" class="form-control" 
-									id="firstName" name="firstName"> <label for="staticEmail2"></label>
+										<label for="staticEmail2"></label> <input type="text"
+											class="form-control" id="firstName" name="firstName">
+										<label for="staticEmail2"></label>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -77,7 +81,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!-- Modal update last name -->
 					<div class="modal fade" id="modal-update-lastname" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -85,17 +89,22 @@
 						<div class="modal-dialog modal-dialog-top" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Tên</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">Sửa
+										thông tin Họ và tên đệm</h5>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<form method="Post" action="change_profile/lastname/update" id="update_lastname_form">
+								<form method="Post" action="change_profile/lastname/update"
+									id="update_lastname_form">
+									<input type="hidden" id="msgSuccess" value="${msgSuccess}"
+										disabled="disabled"> <input type="hidden" id="msg"
+										value="${msg}" disabled="disabled">
 									<div class="modal-body">
-										<label for="staticEmail2"></label> <input
-									type="text" class="form-control" 
-									id="lastName" name="lastName"> <label for="staticEmail2"></label>
+										<label for="staticEmail2"></label> <input type="text"
+											class="form-control" id="lastName" name="lastName"> <label
+											for="staticEmail2"></label>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -110,34 +119,37 @@
 					<!-- Change Profile-->
 					<form action="change_profile" onSubmit="return checkAcount()"
 						method="post">
-						<h1>Thông tin cá nhân</h1>
-						<div class="themlichtkb">
-							<table>
-								<tr>
-									<th>Gmail</th>
-									<td><sec:authentication property="principal.email" /></td>
-									<td><a role="button" href="#" data-toggle="modal"
-										onclick='showModalUpdateEmail(${user.getId()}, "${user.getEmail()}")'>Chỉnh
-											sửa</a>
-								</tr>
-								<tr>
-									<th>Họ đệm</th>
-									<td><sec:authentication property="principal.firstName" /></td>
-									<td><a role="button" href="#" data-toggle="modal"
-										onclick='showModalUpdateFirstName(${user.getId()}, "${user.getFirstName()}")'>Chỉnh sửa</a></td>
-								</tr>
-								<tr>
-									<th>Tên</th>
-									<td><sec:authentication property="principal.lastName" /></td>
-									<td><a role="button" href="#" data-toggle="modal"
-										onclick='showModalUpdateLastName(${user.getId()}, "${user.getLastName()}")'>Chỉnh sửa</a></td>
-								</tr>
-							</table>
-							<div class="btn-group-custom"
-								style="width: fit-content; margin: 0 auto; margin-top: 30px;">
+						<div class="title">
+							<h1>Thông tin cá nhân</h1>
+						</div>
+						<div class="content">
+							<div class="content-intput">
+								<span class='label_content'>Gmail</span> <span
+									class='value_content'><sec:authentication
+										property="principal.email" /></span> <a class="edit_content"
+									role="button" href="#" data-toggle="modal"
+									onclick='showModalUpdateEmail(${user.getId()}, "${user.getEmail()}")'>Chỉnh
+									sửa</a>
+							</div>
+							<div class="content-intput">
+								<span class='label_content'>Họ và tên đệm</span> <span
+									class='value_content'><sec:authentication
+										property="principal.lastName" /></span> <a class="edit_content"
+									role="button" href="#" data-toggle="modal"
+									onclick='showModalUpdateLastName(${user.getId()}, "${user.getLastName()}")'>Chỉnh
+									sửa</a>
+							</div>
+							<div class="content-intput">
+								<span class='label_content'>Tên</span> <span
+									class='value_content'><sec:authentication
+										property="principal.firstName" /></span> <a class="edit_content"
+									role="button" href="#" data-toggle="modal"
+									onclick='showModalUpdateFirstName(${user.getId()}, "${user.getFirstName()}")'>Chỉnh
+									sửa</a>
+							</div>
+							<div class="btn-group-custom">
 								<button type="button" onclick="quay_lai_trang_truoc()"
-									class="btn btn-secondary" data-dismiss="modal"
-									style="float: left">Quay lại</button>
+									class="btn-back" data-dismiss="modal">Quay lại</button>
 							</div>
 						</div>
 					</form>
@@ -151,7 +163,6 @@
 <script type="text/javascript" src="js/myaccount.js"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/updateprofile.js"></script>
-<script>
 <script>
 	function quay_lai_trang_truoc() {
 		history.back();

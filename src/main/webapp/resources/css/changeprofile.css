@@ -1,0 +1,52 @@
+h1 {
+    color: white;
+}
+.content {
+    padding: 40px;
+}
+
+.content-intput {
+    height: 50px;
+    border-bottom: 1px solid #717dd2;
+    line-height: 50px;
+}
+
+span.label_content {
+    color: gray;
+    font-weight: 700;
+    min-width: 110px;
+    display: inline-block;
+}
+.content-intput:nth-last-child(1) {
+    border-bottom: none;
+}
+
+a.edit_content {
+    float: right;
+}
+button.btn-back {
+    width: 90px;
+    background: #8c8cff;
+    border: 1px solid #8c8cff;
+    height: 40px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    margin: 0 auto;
+    display: block;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+button.btn-back:hover {
+    background: white;
+    color: #8c8cff;
+}
+
+.content-intput {
+    width: 82%;
+    margin-left: 20px;
+}
+.content-intput:nth-child(3) {
+    border-bottom: unset;
+}
