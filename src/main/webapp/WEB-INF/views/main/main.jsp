@@ -7,7 +7,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<img src="${pageContext.request.contextPath}/resources/images/STCalendar.jpg" alt="Italian Trulli">
+<img src="${pageContext.request.contextPath}/resources/images/STCalendarAbout.jpg" alt="Italian Trulli" class="center">
 <%-- <div class="slide-one-item home-slider owl-carousel">
 	<div class="site-blocks-cover"
 		style="background-image: url(${pageContext.request.contextPath}/resources/images/STCalendar.jpg);"
@@ -41,3 +41,13 @@
         </div>  -->
 </div>
  --%>
+ 
+ <style>
+ .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  margin-top: -10px;
+}
+ </style>

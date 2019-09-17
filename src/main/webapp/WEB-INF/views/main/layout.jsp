@@ -65,8 +65,8 @@
                             <div class="col-6">
                                 <div class="d-flex ml-auto">
                                     <a href="login" class="d-flex align-items-center ml-auto mr-4">Đăng
-                                        nhập</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="register" class="d-flex align-items-center">Đăng ký</a>
+                                        Nhập</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="register" class="d-flex align-items-center">Đăng Ký</a>
 
                                 </div>
                             </div>
@@ -93,20 +93,20 @@
 
                                             <ul class="site-menu js-clone-nav d-none d-lg-block" id="ultab">
                                                 <li id="home">
-                                                    <a href="${contextPath}">Trang chủ</a>
+                                                    <a href="${contextPath}">Trang Chủ</a>
                                                 </li>
                                                 <li id="guide">
-                                                    <a href="${contextPath}/guide">Hướng dẫn</a>
+                                                    <a href="${contextPath}/guide">Hướng Dẫn</a>
                                                 </li>
 
                                                 <li  id="policy" class="has-children">
-                                                    <a id="policy" href="#">Chính sách</a>
+                                                    <a id="policy" href="#">Chính Sách</a>
                                                     <ul class="dropdown arrow-top">
-                                                        <li><a href="terms.html">Bảo mật thông tin</a></li>
-                                                        <li><a href="privacy.html">Quy định sử dụng</a></li>
+                                                        <li><a href="terms.html">Bảo Mật Thông Tin</a></li>
+                                                        <li><a href="privacy.html">Quy Định Sử Dụng</a></li>
                                                     </ul>
                                                 </li>
-                                                <li id="contact"><a href="contact">Liên hệ</a></li>
+                                                <li id="contact"><a href="contact">Liên Hệ</a></li>
                                             </ul>
                                         </div>
                                     </nav>
