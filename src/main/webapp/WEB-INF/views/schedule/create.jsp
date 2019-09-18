@@ -10,7 +10,7 @@
 		<div class="chucnang tdExpandInBounce animated">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Thêm thời khóa biểu</h1>
+					<h1 style="color: white;">Thêm thời khóa biểu</h1>
 					<div class="themlichtkb">
 						<form:form method="POST" modelAttribute="scheduleCreate"
 							action="${contextPath}/schedule/create" id="schedule_create">

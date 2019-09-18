@@ -9,7 +9,7 @@
 		<div class="chucnang tdExpandInBounce animated">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Thêm lịch thi</h1>
+					<h1 style="color: white;">Thêm lịch thi</h1>
 					<div class="themlichtkb">
 <%-- 						<form method="POST" action="${contextPath}/testschedule/create">
 							<label class="mt-4" for="masv">Nhập mã sinh viên:</label> <input class="form-control"

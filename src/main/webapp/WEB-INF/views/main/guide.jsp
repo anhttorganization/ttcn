@@ -3,10 +3,10 @@
 <div class="container-tabs d-inline-block">
 	<!-- <h2 class="text-center">HÆ°á»ng dáº«n sá»­ dá»¥ng</h2> -->
 	<div class="tab">
-		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> 
-			<a class="tablinks active"
-			id="tab-default" onclick="openTab(event, 'dangky')">Đăng ký</a> <a
-			class="tablinks" onclick="openTab(event, 'dangnhap')">Đăng nhập</a> <a
+		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> <a
+			class="tablinks active" id="tab-default"
+			onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
+			onclick="openTab(event, 'dangnhap')">Đăng nhập</a> <a
 			class="tablinks" onclick="openTab(event, 'capquyen')">Cấp quyền</a> <a
 			class="tablinks" onclick="openTab(event, 'themtkb')">Thêm thời
 			khóa biểu</a> <a class="tablinks" onclick="openTab(event, 'themlichthi')">Thêm
@@ -18,11 +18,11 @@
 		<h3>Đăng ký</h3>
 		&nbsp
 		<p style="font-size: 17px;">
-			Bước 1: Người dùng click vào nút <strong>[Đăng ký]</strong> tại trang chủ của phần
-			mềm, giao diện Đăng ký được mở ra. <br> <br> <img
+			Bước 1: Người dùng click vào nút <strong>[Đăng ký]</strong> tại trang
+			chủ của phần mềm, giao diện Đăng ký được mở ra. <br> <br> <img
 				src="${contextPath}/stcalendar/resources/images/hdsd/dangky.PNG"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
-			<!-- <p style="text-align: center; color: gray;">Hình 1.Giao diện trang chủ</p> -->
+
 			Bước 2: Người dùng nhập <strong>[Gmail]</strong> là email có đuôi
 			@gmail.com và nhập đầy đủ các thông tin như <strong>[Họ đệm]</strong>,
 			<strong>[Tên]</strong>, <strong>[Mật khẩu]</strong>, <strong>[Nhập
@@ -45,7 +45,11 @@
 		<h3>Đăng nhập</h3>
 		&nbsp
 		<p style="font-size: 17px;">
-			Người dùng đăng nhập với <strong>[Tên đăng nhập]</strong> là gmail đã
+			Bước 1: Người dùng click vào nút <strong>[Đăng nhập]</strong> tại trang
+			chủ của phần mềm, giao diện Đăng nhập được mở ra. <br> <br> <img
+				src="${contextPath}/stcalendar/resources/images/hdsd/dangnhaptc.PNG"
+				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
+			Bước 2: Người dùng đăng nhập với <strong>[Tên đăng nhập]</strong> là gmail đã
 			đăng ký và <strong>[Mật khẩu]</strong> là mật khẩu đã đặt. Click vào
 			<strong>[Đăng nhập]</strong> để sử dụng phần mềm. Chọn <strong>[Quên
 				mật khẩu]</strong> trong trường hợp quên mật khẩu đăng nhập hoặc click <strong>[Đăng
@@ -140,10 +144,10 @@
 				src="${contextPath}/stcalendar/resources/images/hdsd/filemau.png"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
 			Bước 2: Sau khi điền thông tin vào file mẫu, người dùng chọn một lịch
-			đã có sẵn trong Calendar ở trường <strong>[Chọn lịch]</strong>, kéo thả file mẫu vào
-			trang web hoặc click <strong>[Browse]</strong> để chọn file upload. Sau đó người dùng
-			click <strong>[Upload Exel]</strong> để upload file.
-			<br> <br> <img
+			đã có sẵn trong Calendar ở trường <strong>[Chọn lịch]</strong>, kéo
+			thả file mẫu vào trang web hoặc click <strong>[Browse]</strong> để
+			chọn file upload. Sau đó người dùng click <strong>[Upload
+				Exel]</strong> để upload file. <br> <br> <img
 				src="${contextPath}/stcalendar/resources/images/hdsd/themtuexel.png"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
 		</p>
