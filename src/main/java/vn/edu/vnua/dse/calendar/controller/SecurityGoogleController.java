@@ -1,8 +1,8 @@
 package vn.edu.vnua.dse.calendar.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 @Controller
@@ -28,7 +30,19 @@ public class SecurityGoogleController {
 		
 		Element privacy = doc.getDocumentElement();
 		model.addAttribute("title", privacy.getElementsByTagName("title").item(0).getTextContent());
-		model.addAttribute("content", privacy.getElementsByTagName("content").item(0).getTextContent());
+		//model.addAttribute("content", privacy.getElementsByTagName("content").item(0).getTextContent());
+		Element paragraphs = (Element) privacy.getElementsByTagName("paragraphs").item(0);
+		NodeList paragraphList = paragraphs.getElementsByTagName("paragraph");
+	
+		ArrayList<String> listParaStr = new ArrayList<String>(); 
+		for (int i = 0; i < paragraphList.getLength(); i++) {
+			Node node = paragraphList.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element paragraph = (Element) node;
+				listParaStr.add(paragraph.getTextContent());
+			}
+		}
+		model.addAttribute("paragraphs", listParaStr);
 		
 		return "privacy";
 	}
@@ -42,7 +56,19 @@ public class SecurityGoogleController {
 		
 		Element terms = doc.getDocumentElement();
 		model.addAttribute("title", terms.getElementsByTagName("title").item(0).getTextContent());
-		model.addAttribute("content", terms.getElementsByTagName("content").item(0).getTextContent());
+		//model.addAttribute("content", terms.getElementsByTagName("content").item(0).getTextContent());
+		Element paragraphs = (Element) terms.getElementsByTagName("paragraphs").item(0);
+		NodeList paragraphList = paragraphs.getElementsByTagName("paragraph");
+	
+		ArrayList<String> listParaStr = new ArrayList<String>(); 
+		for (int i = 0; i < paragraphList.getLength(); i++) {
+			Node node = paragraphList.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element paragraph = (Element) node;
+				listParaStr.add(paragraph.getTextContent());
+			}
+		}
+		model.addAttribute("paragraphs", listParaStr);
 
 		return "terms";
 	}

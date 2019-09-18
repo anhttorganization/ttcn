@@ -7,18 +7,29 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <h3 id="title">${title }</h3>
-<p id="content">
-	${content }
-</p>
+<div id="content">
+	<c:forEach items="${paragraphs}" var="item">
+	    <p>${item}</p>
+	</c:forEach>
+</div>
 
 <style>
-	#title{
-		text-align: center;
-		padding-top: 30px;
-	}
-	#content{
-		padding:20px 200px;
-		font-size: 12pt;
-		text-align:justify;
-	}
+#title {
+	text-align: center;
+	padding-top: 20px;
+}
+
+#content {
+	padding: 15px 200px;
+}
+
+#content p {
+	font-size: 12pt;
+	text-align: justify;
+	margin-bottom: 0;
+	text-indent: 3em;
+	margin-top: 0;
+	padding-bottom: 0.5em;
+}
+
 </style>
