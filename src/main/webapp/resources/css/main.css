@@ -1964,6 +1964,9 @@ div#hdmenu span.icon-menu.h3.left {
 	.d-inline-block.d-lg-none.ml-md-0.mr-auto.py-3 {
    	 padding-top: 11px !important;
 	}
+	.wrapper .site-wrap img {
+    width: 100% !important;
+}
 }
 @media only screen and (max-width: 768px) {
 	.wrapper {
