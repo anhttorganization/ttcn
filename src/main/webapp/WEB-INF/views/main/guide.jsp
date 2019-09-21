@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<div id="hdmenu"><span class="icon-menu h3 left" onclick="showTabMenu()"></span><h4>Hướng Dẫn</h4></div>
+
 <div class="container-tabs d-inline-block">
 	<!-- <h2 class="text-center">HÆ°á»ng dáº«n sá»­ dá»¥ng</h2> -->
-	<div class="tab">
-		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> <a
-			class="tablinks active" id="tab-default"
-			onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
+	<div class="tab" id="guide-tab">
+		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> 
+		<a class="tablinks active" id="tab-default"
+onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 			onclick="openTab(event, 'dangnhap')">Đăng nhập</a> <a
 			class="tablinks" onclick="openTab(event, 'capquyen')">Cấp quyền</a> <a
 			class="tablinks" onclick="openTab(event, 'themtkb')">Thêm thời
 			khóa biểu</a> <a class="tablinks" onclick="openTab(event, 'themlichthi')">Thêm
 			lịch thi</a> <a class="tablinks" onclick="openTab(event, 'import')">Import
 			file Exel</a>
-
 	</div>
 	<div id="dangky" class="tabcontent active">
 		<h3>Đăng ký</h3>
@@ -191,5 +192,15 @@
 		///showContent('PHP');
 
 		evt.currentTarget.className += " active";
+	}
+	
+	function showTabMenu(){
+		  var x = document.getElementById("guide-tab");
+		  if (x.style.display === "none") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		  }
+		  
 	}
 </script>

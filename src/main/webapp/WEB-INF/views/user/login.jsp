@@ -7,6 +7,21 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<%@ page contentType="text/html; charset=utf-8" language="java" import="javax.xml.parsers.DocumentBuilderFactory,javax.xml.parsers.DocumentBuilder,org.w3c.dom.*,vn.edu.vnua.dse.calendar.common.AppUtils" errorPage=""%>
+<%
+	String contact = AppUtils.getString("contact-menu").trim();
+	String fita = AppUtils.getString("fita-name-footer").trim();
+	String fitaURL = AppUtils.getString("fita-website-url").trim();	
+	String department = AppUtils.getString("department-name-footer").trim();
+	String vnua = AppUtils.getString("vnua-name-footer").trim();
+	String phone = AppUtils.getString("contact-phone").trim();
+	String email = AppUtils.getString("st-email").trim();
+	String website = AppUtils.getString("st-website").trim();
+	String websiteURL = AppUtils.getString("st-website-url").trim();
+	String copyright = AppUtils.getString("copyright").trim();
+	String vnuaURL = AppUtils.getString("vnua-website-url").trim();
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -116,24 +131,18 @@
 					<div class="col-md-1 offset-md-2"
 						style="max-width: 100%; padding: 0;">
 						<div class="st_text">
-							<span>S</span><span>T</span>
+							<a href="<%=websiteURL%>" target="_blank"><span>S</span><span>T</span></a>
 						</div>
 					</div>
 					<div class="col-md-8">
-						<p>
-							Địa chỉ: Bộ môn Công nghệ phần mềm, <a
-								href="https://fita.vnua.edu.vn/" target="_blank">Khoa CNTT</a>,
-							<a href="https://vnua.edu.vn/" target="_blank">Học viện Nông
-								nghiệp Việt Nam</a> <br />ĐT: 0912 817 498 - Email:
-							stdse@vnua.edu.vn - Website: st-dse.vnua.edu.vn
-						</p>
+						<p>Địa chỉ: <%=department%>, <a href="<%=fitaURL%>" target="_blank"><%=fita%></a>,  <a href="<%=vnuaURL%>" target="_blank"><%=vnua%></a> <br />ĐT: <%=phone%> - Email: <%=email%> - Website: <%=website%></p>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4" style="text-align: center; padding-top: 25px;">
 				<p>
-					Copyright © 2019 <a href="https://st-dse.vnua.edu.vn/"
-						target="_blank">ST-DSE</a>. All rights reserved
+					Copyright © 2019 <a href="<%=websiteURL%>"
+						target="_blank"><%=copyright%></a>. All rights reserved
 				</p>
 			</div>
 		</div>

@@ -24,7 +24,7 @@
 					class="dropdown-item" href="${contextPath}/change_password"></i> Đổi
 					mật khẩu</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="${contextPath}/login?logout"><i
+				<a class="dropdown-item" href="${contextPath}/?logout"><i
 					class="fas fa-sign-out-alt"></i> Đăng xuất</a>
 			</div></li>
 	</ul>

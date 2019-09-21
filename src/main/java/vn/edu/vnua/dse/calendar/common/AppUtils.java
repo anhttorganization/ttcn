@@ -4,18 +4,26 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 
 @Service
 public final class AppUtils {
@@ -103,5 +111,35 @@ public final class AppUtils {
             return false;
         }   // catch
     }   // isAlertPresent() 
+    
+    public static String getString(String id) {
+    	File file;
+    	String string = "";
+		try {
+			file = ResourceUtils.getFile("classpath:xml/strings.xml");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder buider = factory.newDocumentBuilder();
+			Document doc = buider.parse(file);
+			
+			Element strings = doc.getDocumentElement();
+			NodeList list = strings.getElementsByTagName("string");
+	
+			for (int i = 0; i < list.getLength(); i++) {
+				Node node = list.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element e = (Element) node;
+					String idElement = e.getAttribute("id");
+					if(id.equals(idElement)) {
+						string = e.getTextContent();
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			string = "";
+		}
+		
+    	return string;
+    }
 	
 }

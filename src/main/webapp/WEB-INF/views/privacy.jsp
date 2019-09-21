@@ -21,7 +21,7 @@
 }
 
 #content {
-	padding: 15px 200px;
+	padding: 2% 5%;
 }
 
 #content p {

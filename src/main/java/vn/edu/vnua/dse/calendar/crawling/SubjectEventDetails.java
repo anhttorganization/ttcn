@@ -50,7 +50,7 @@ public final class SubjectEventDetails {
 		ScheduleResult<ArrayList<ArrayList<String>>> scheduleResult = getSchedule(studentId, semester.getId());
 
 		ArrayList<ArrayList<String>> scheduleJson = scheduleResult.getResult();
-		ArrayList<String> weekEventJson =	getWeekOfSemesEvent(semester);
+		ArrayList<String> weekEventJson = getWeekOfSemesEvent(semester);
 		if(scheduleResult.isStatus()) {
 			if (scheduleJson.size() > 0) {
 				// return toGoogleEvent(scheduleJson);
@@ -83,7 +83,7 @@ public final class SubjectEventDetails {
 			alert.accept();
 			String message = "error";
 			if (alertMessage.equals("Server đang tải lại dữ liệu. Vui lòng trở lại sau 15 phút!")) {
-				message = "update";
+				message = "Server đang tải lại dữ liệu. Vui lòng trở lại sau 15 phút!";
 			}
 			driver.close();
 			driver.quit();
@@ -127,16 +127,7 @@ public final class SubjectEventDetails {
 
 			if (ExpectedConditions.elementToBeClickable(radio) != null) {
 				radio.click();
-				String code = ScheduleUtils.readResourceFile("js/getSchedule.js");
-				@SuppressWarnings("unchecked")
-				ArrayList<ArrayList<String>> scheduleJson = (ArrayList<ArrayList<String>>) jse.executeScript(code);
 				
-				for(ArrayList<String> json : scheduleJson) {//json = 1 subject
-					driver.navigate().to(json.get(14));
-					@SuppressWarnings("unused")
-					Long siso = (Long) jse.executeScript("return $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length ?  $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length - 1: 0;");
-					json.add(String.valueOf(siso));
-				}
 				///
 				String semesStartDate = (String) jse
 						.executeScript("return semesStart = $('#ctl00_ContentPlaceHolder1_ctl00_lblNote').text()");
@@ -149,6 +140,17 @@ public final class SubjectEventDetails {
 				}
 
 				semesterStart = new SimpleDateFormat("dd/MM/yyyy").parse(semesStartDateStr);
+				
+				String code = ScheduleUtils.readResourceFile("js/getSchedule.js");
+				@SuppressWarnings("unchecked")
+				ArrayList<ArrayList<String>> scheduleJson = (ArrayList<ArrayList<String>>) jse.executeScript(code);
+				
+				for(ArrayList<String> json : scheduleJson) {//json = 1 subject
+					driver.navigate().to(json.get(14));
+					@SuppressWarnings("unused")
+					Long siso = (Long) jse.executeScript("return $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length ?  $('#ctl00_ContentPlaceHolder1_ctl00_gvDSSinhVien >tbody>tr').length - 1: 0;");
+					json.add(String.valueOf(siso));
+				}
 
 				driver.close();
 				driver.quit();
@@ -238,10 +240,10 @@ public final class SubjectEventDetails {
 
 		String descpription = "";
 		if (practiceGroup.equals("")) {
-			descpription = String.format(DESCRIPTION, subjectCode, classCode, group, weekDes, slotDes)+"\nDanh sách sinh viên: " + dssv + "\nSĩ số: " + siso  ;
+			descpription = String.format(DESCRIPTION, subjectCode, classCode, group, weekDes, slotDes)+"\n" +"<a href=\"" + dssv +"\">Danh sách sinh viên</a>"+ "\nSĩ số: " + siso;
 		} else {
 			descpription = String.format(DESCRIPTION_HAVE_PRACTICE, subjectCode, classCode, group, practiceGroup,
-					weekDes, slotDes)+"\nDanh sách sinh viên: " + dssv + "\nSĩ số: " + siso  ;
+					weekDes, slotDes)+"\n" +"<a href=\"" + dssv +"\">Danh sách sinh viên</a>"+ "\nSĩ số: " + siso;
 		}
 		return descpription;
 	}
