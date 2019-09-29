@@ -24,38 +24,11 @@ public class ChangeProfileController {
 	@Autowired
 	private UserService userService;
 
-	private UserDetailsService userDetailsService;
-
 	@RequestMapping(value = "change_profile", method = RequestMethod.GET)
 	public String loadChangeprofile(Model model) {
 		User user = UserDetailsServiceImpl.getUser();
 		model.addAttribute("user", user);
 		return "change_profile";
-	}
-
-	@RequestMapping(value = "change_profile/email/update", method = RequestMethod.POST)
-	public String changeEmail(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
-		long id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
-		User user = null;
-		user = userService.findById(id);
-
-		if (user != null) {
-			try {
-				User u = userService.findByEmail(request.getParameter("email"));
-				if (u == null) {
-					//// Gửi email xác nhận,xác nhận xong thì lưu lại
-				} else {
-					redirectAttributes.addFlashAttribute("msg", "Emai đã được đăng ký!");
-				}
-//				user.setEmail(request.getParameter("email"));
-//				userService.save(user);
-//				redirectAttributes.addFlashAttribute("msgSuccess", "Thay Ä‘á»•i thÃ nh cÃ´ng");
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("msg",
-						"Có lỗi xảy ra, vui lòng liên hệ với quản trị viên để biết thêm chi tiết");
-			}
-		}
-		return "redirect:/change_profile";
 	}
 
 	@RequestMapping(value = "change_profile/firstname/update", method = RequestMethod.POST)

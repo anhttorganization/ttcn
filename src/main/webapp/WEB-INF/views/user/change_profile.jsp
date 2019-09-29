@@ -13,41 +13,6 @@
 		<div class="chucnang tdExpandInBounce animated">
 			<div class="row">
 				<div class="col-md-12">
-					<!-- Modal update gmail -->
-					<div class="modal fade" id="modal-update-email" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalCenterTitle"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-top" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<!-- <h5 class="modal-title" id="exampleModalLongTitle">Sửa
-										thông tin Gmail</h5> -->
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<form method="Post" action="change_profile/email/update"
-									id="update_email_form">
-									<input type="hidden" id="msgSuccess" value="${msgSuccess}"
-										disabled="disabled"> <input type="hidden" id="msg"
-										value="${msg}" disabled="disabled">
-									<div class="modal-body">
-										<label for="staticEmail2"></label> <input type="text"
-											class="form-control" placeholder="Email" id="email"
-											name="email"> <label for="staticEmail2"></label>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Hủy</button>
-										<button id="btn_submit_update_email" type="submit"
-											class="btn btn-primary">Lưu</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
 					<!-- Modal update first name -->
 					<div class="modal fade" id="modal-update-firstname" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -127,10 +92,6 @@
 								<span class='label_content'>Gmail</span> <span
 									class='value_content'><sec:authentication
 										property="principal.email" /></span>
-								<!-- <a class="edit_content"
-									role="button" href="#" data-toggle="modal"
-									onclick='showModalUpdateEmail(${user.getId()}, "${user.getEmail()}")'>Chỉnh
-									sửa</a> -->
 							</div>
 							<div class="content-intput">
 								<span class='label_content'>Họ và tên đệm</span> <span
