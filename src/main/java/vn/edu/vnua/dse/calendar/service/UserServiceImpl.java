@@ -106,4 +106,15 @@ public class UserServiceImpl implements UserService {
 		return listResult;
 	}
 
+	@Override
+	public User findById(long id) {
+		User user = null;
+		try {
+			user = userRepository.findById(id);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return user;
+	}
+
 }

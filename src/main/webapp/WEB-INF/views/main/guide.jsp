@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<div id="hdmenu"><span class="icon-menu h3 left" onclick="showTabMenu()"></span><h4>Hướng Dẫn</h4></div>
+<div id="hdmenu">
+	<span class="icon-menu h3 left" onclick="showTabMenu()"></span>
+	<h4>Hướng Dẫn</h4>
+</div>
 
 <div class="container-tabs d-inline-block">
 	<!-- <h2 class="text-center">HÆ°á»ng dáº«n sá»­ dá»¥ng</h2> -->
 	<div class="tab" id="guide-tab">
-		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> 
-		<a class="tablinks active" id="tab-default"
-onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
+		<span disabled="disabled" class="tab-header">CHỨC NĂNG</span> <a
+			class="tablinks active" id="tab-default"
+			onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 			onclick="openTab(event, 'dangnhap')">Đăng nhập</a> <a
 			class="tablinks" onclick="openTab(event, 'capquyen')">Cấp quyền</a> <a
 			class="tablinks" onclick="openTab(event, 'themtkb')">Thêm thời
@@ -24,12 +27,12 @@ onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 				src="${contextPath}/stcalendar/resources/images/hdsd/dangky.PNG"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
 
-			Bước 2: Người dùng nhập <strong>[Gmail]</strong> là email có đuôi
-			@gmail.com và nhập đầy đủ các thông tin như <strong>[Họ đệm]</strong>,
-			<strong>[Tên]</strong>, <strong>[Mật khẩu]</strong>, <strong>[Nhập
-				lại mật khẩu]</strong>. Sau khi nhập đầy đủ thông tin, tiến hành click vào
-			nút <strong>[Đăng ký]</strong>, khi đó hệ thống sẽ gửi một email chứa
-			đường dẫn để kích hoạt tài khoản.<br> <br> <img
+			Bước 2: Người dùng nhập đầy đủ các thông tin như <strong>[Gmail]</strong>,
+			<strong>[Họ đệm]</strong>, <strong>[Tên]</strong>, <strong>[Mật
+				khẩu]</strong>, <strong>[Nhập lại mật khẩu]</strong>. Sau khi nhập đầy đủ
+			thông tin, tiến hành click vào nút <strong>[Đăng ký]</strong>, khi đó
+			hệ thống sẽ gửi một email chứa đường dẫn để kích hoạt tài khoản.<br>
+			<br> <img
 				src="${contextPath}/stcalendar/resources/images/hdsd/dangky1.png"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
 			Bước 3: Kiểm tra email và chọn vào nút <strong>[Xác nhận]</strong> để
@@ -46,13 +49,14 @@ onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 		<h3>Đăng nhập</h3>
 		&nbsp
 		<p style="font-size: 17px;">
-			Bước 1: Người dùng click vào nút <strong>[Đăng nhập]</strong> tại trang
-			chủ của phần mềm, giao diện Đăng nhập được mở ra. <br> <br> <img
+			Bước 1: Người dùng click vào nút <strong>[Đăng nhập]</strong> tại
+			trang chủ của phần mềm, giao diện Đăng nhập được mở ra. <br> <br>
+			<img
 				src="${contextPath}/stcalendar/resources/images/hdsd/dangnhaptc.PNG"
 				alt="Hình ảnh không tồn tại" width="800px"><br> <br>
-			Bước 2: Người dùng đăng nhập với <strong>[Tên đăng nhập]</strong> là gmail đã
-			đăng ký và <strong>[Mật khẩu]</strong> là mật khẩu đã đặt. Click vào
-			<strong>[Đăng nhập]</strong> để sử dụng phần mềm. Chọn <strong>[Quên
+			Bước 2: Người dùng đăng nhập với <strong>[Tên đăng nhập]</strong> là
+			gmail đã đăng ký và <strong>[Mật khẩu]</strong> là mật khẩu đã đặt.
+			Click vào <strong>[Đăng nhập]</strong> để sử dụng phần mềm. Chọn <strong>[Quên
 				mật khẩu]</strong> trong trường hợp quên mật khẩu đăng nhập hoặc click <strong>[Đăng
 				ký]</strong> nếu người dùng chưa đăng ký.
 		</p>
@@ -67,7 +71,7 @@ onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 		<p style="font-size: 17px;">
 			Khi người dùng sử dụng các chức năng Thêm thời khóa biểu, thêm lịch
 			thi, Import file exel, ST Calendar sẽ yêu cầu người dùng cấp quyền
-			cho hệ thống truy cập và thay đổi được Calendar của người dùng. <br>Bước
+			cho phép phần mềm truy nhập vào Google Calendar trong tài khoản gmail của người dùng. <br>Bước
 			1: Tại trang chủ, người dùng click vào <strong>[Thời khóa
 				biểu]</strong>, <strong>[Thêm lịch thi]</strong> hoặc <strong>[Import
 				file exel]</strong> thì giao diện trang đăng nhập với Google được mở ra. Tại
@@ -193,14 +197,14 @@ onclick="openTab(event, 'dangky')">Đăng ký</a> <a class="tablinks"
 
 		evt.currentTarget.className += " active";
 	}
-	
-	function showTabMenu(){
-		  var x = document.getElementById("guide-tab");
-		  if (x.style.display === "none") {
-		    x.style.display = "block";
-		  } else {
-		    x.style.display = "none";
-		  }
-		  
+
+	function showTabMenu() {
+		var x = document.getElementById("guide-tab");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+
 	}
 </script>

@@ -20,8 +20,8 @@
 						<div class="modal-dialog modal-dialog-top" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Sửa
-										thông tin Gmail</h5>
+									<!-- <h5 class="modal-title" id="exampleModalLongTitle">Sửa
+										thông tin Gmail</h5> -->
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
@@ -126,10 +126,11 @@
 							<div class="content-intput">
 								<span class='label_content'>Gmail</span> <span
 									class='value_content'><sec:authentication
-										property="principal.email" /></span> <a class="edit_content"
+										property="principal.email" /></span>
+								<!-- <a class="edit_content"
 									role="button" href="#" data-toggle="modal"
 									onclick='showModalUpdateEmail(${user.getId()}, "${user.getEmail()}")'>Chỉnh
-									sửa</a>
+									sửa</a> -->
 							</div>
 							<div class="content-intput">
 								<span class='label_content'>Họ và tên đệm</span> <span

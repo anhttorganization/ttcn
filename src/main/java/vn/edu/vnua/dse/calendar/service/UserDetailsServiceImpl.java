@@ -37,7 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     
     public static String getRefreshToken() {
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	
 		if (principal instanceof CustomUserDetails) {
 			return ((CustomUserDetails) principal).getRefreshToken();
 		} else {
@@ -47,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     
     public static User getUser() {
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	
+    
 		if (principal instanceof CustomUserDetails) {
 			return ((CustomUserDetails) principal).getUser();
 		} else {
